@@ -1,4 +1,111 @@
+$darker: #2a233b;
+$medium: #271f34;
+$mainColor: #211a2d;
+$highlight: #c33d79;
+
 body {
-    background-color: pink;
+    background-color: $mainColor;
+    color: white;
+    a {
+        color: white;
+    }
+    margin: 0;
+    font-family: sans-serif;
+    // font-family: SF Pro Text;
 }
 
+button {
+    cursor: pointer;
+}
+
+.planetary {
+    --transition-time: 0.6s;
+
+    .page-content {
+        margin: 1rem;
+    }
+
+    a {
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    h1 {
+        a {
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    header {
+        background-color: $darker;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+
+        h1 {
+            font-size: 1.5rem;
+        }
+    }
+
+    .pl-block {
+        background-color: $medium;
+        padding: 1rem;
+        border-radius: 14px;
+        width: 100%;
+        max-width: 26rem;
+        margin: 0 auto;
+        margin-top: 1rem;
+    }
+
+    .cool-btn {
+        background: linear-gradient(
+            71.56deg,
+            #8474EA 19.94%,
+            #FF264E 108.46%
+        );
+
+        // background: linear-gradient(
+        //     to bottom left, 
+        //     #e7346b, #7c67ff
+        // );
+        display: block;
+        border-radius: 30px;
+        padding: 1rem;
+        text-align: center;
+        text-decoration: none;
+        max-width: 16rem;
+        margin: 0 auto;
+        transition: var(--transition-time) all;
+
+        &:hover {
+            filter: brightness(1.5) drop-shadow(2px 4px 6px black);
+            // filter: blur(1px) drop-shadow(2px 4px 6px black);
+        }
+    }
+
+    .hot-hashtags {
+        list-style: none;
+        padding: 0;
+
+        li {
+            margin-bottom: 0.5rem;
+            a {
+                margin-right: 1rem;
+                color: $highlight;
+            }
+        }
+    }
+
+    .form-controls {
+        text-align: right;
+    }
+
+    .content-view {
+        margin: 1rem;
+    }
+}

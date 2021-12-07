@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && npm run serve",
+    "start": "npm run build && concurrently --kill-others \"npm run watch-sass\" \"npm run serve\"",
     "copy": "mkdir -p public && cp src/*.html public",
     "build": "npm run copy && npm run build-sass && npm run build-js",
     "build-sass": "sass src/style/main.scss public/style.css",
@@ -26,6 +26,7 @@
   "devDependencies": {
     "browserify": "^17.0.0",
     "budo": "^11.6.4",
+    "concurrently": "^6.4.0",
     "envify": "^4.1.0",
     "esmify": "^2.1.1",
     "sass": "^1.44.0",

@@ -1,7 +1,6 @@
 import { html } from 'htm/preact'
 import { render } from 'preact'
 var Router = require('./router')
-console.log('wooo')
 var Loop = require('./loop')
 
 var router = Router()
@@ -21,7 +20,7 @@ state(function onChange (newState) {
     var route = match.action(match)
     var routeView = route ? route.view : null
 
-    // re-render the app whenever the state change
+    // re-render the app whenever the state changes
     render(html`<${loop} state=${newState}>
         <${routeView} ...${params} ...${newState} emit=${emit} />
     <//>`, document.getElementById('content'))
