@@ -15,7 +15,7 @@ function Router () {
         console.log('*feed id*', feedId)
 
         function getFeed () {
-            return fetch(PUB_URL + '/feed/' + feedId)
+            return fetch(PUB_URL + '/feed/' + encodeURIComponent(feedId))
                 .then(res => res.text())
         }
 
