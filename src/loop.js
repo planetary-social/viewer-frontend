@@ -10,7 +10,7 @@ module.exports = function Loop () {
     var bus = Bus({ memo: true })
     Subscribe(bus, state)
 
-    // this get called immediately
+    // this gets called immediately
     route(function onChange (path) {
         state.routePath.set(path)
     })

@@ -18,7 +18,17 @@ state(function onChange (newState) {
 
     var { params } = match
     var route = match.action(match)
-    var routeView = route ? route.view : null
+    var routeView = route.view
+    var { getContent } = route
+    if (getContent) {
+        getContent()
+            .then(res => {
+                console.log('res', res)
+            })
+            .catch(err => {
+                console.log('errr', err)
+            })
+    }
 
     // re-render the app whenever the state changes
     render(html`<${loop} state=${newState}>

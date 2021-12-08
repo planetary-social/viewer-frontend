@@ -10,7 +10,7 @@
     "build-sass": "sass src/style/main.scss public/style.css",
     "watch-sass": "sass --watch src/style/main.scss public/style.css",
     "build-js": "browserify -p esmify -t envify -t uglifyify --debug src/index.js > public/bundle.js",
-    "serve": "budo src/index.js:bundle.js --dir=public --live --open -- -p esmify --debug",
+    "serve": "budo src/index.js:bundle.js --cors --pushstate --dir=public --live --open -- -p esmify --debug",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
