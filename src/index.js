@@ -27,7 +27,7 @@ state(function onChange (newState) {
     // console.log('view', view)
 
     var shouldFetch = params.username !== state().content.username
-    console.log('should', shouldFetch, state().content.username)
+    // console.log('should', shouldFetch, state().content.username)
 
     if (getContent && shouldFetch) {
         getContent()
