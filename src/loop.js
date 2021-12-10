@@ -1,9 +1,9 @@
 var Bus = require('@nichoth/events')
 var observ = require('observ')
 var struct = require('observ-struct')
-// var evs = require('./EVENTS')
 import { html } from 'htm/preact'
 var route = require('route-event')()
+var evs = require('./EVENTS')
 
 module.exports = function Loop () {
     var state = State()
@@ -27,12 +27,21 @@ module.exports = function Loop () {
 
 function State () {
     return struct({
-        routePath: observ(null)
+        routePath: observ(null),
+        content: struct({
+            username: observ(null),
+            data: observ(null)
+        })
     })
 }
 
 function Subscribe (bus, state) {
-    bus.on('event example', function (ev) {
-        // state.foo.set('bar')
+    bus.on(evs.feed.fetch, ev => {
+        console.log('*ev*', ev)
+        var { username } = ev
+        state.content.set({
+            username: null,
+            data: null
+        })
     })
 }

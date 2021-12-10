@@ -2,6 +2,7 @@ import { html } from 'htm/preact'
 import { render } from 'preact'
 var Router = require('./router')
 var Loop = require('./loop')
+// var evs = require('./EVENTS')
 
 var router = Router()
 
@@ -18,12 +19,24 @@ state(function onChange (newState) {
 
     var { params } = match
     var route = match.action(match)
-    var routeView = route.view
-    var { getContent } = route
-    if (getContent) {
+    console.log('route', route)
+    var { view, getContent } = route
+
+    // var { getContent } = route
+    // console.log('get content', getContent)
+    // console.log('view', view)
+
+    var shouldFetch = params.username !== state().content.username
+    console.log('should', shouldFetch, state().content.username)
+
+    if (getContent && shouldFetch) {
         getContent()
             .then(res => {
-                console.log('res', res)
+                console.log('*res*', res)
+                state.content.set({
+                    username: params.username,
+                    data: res
+                })
             })
             .catch(err => {
                 console.log('errr', err)
@@ -32,6 +45,6 @@ state(function onChange (newState) {
 
     // re-render the app whenever the state changes
     render(html`<${loop} state=${newState}>
-        <${routeView} ...${params} ...${newState} emit=${emit} />
+        <${view} ...${params} ...${newState} emit=${emit} />
     <//>`, document.getElementById('content'))
 })
