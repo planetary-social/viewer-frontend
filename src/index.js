@@ -2,7 +2,6 @@ import { html } from 'htm/preact'
 import { render } from 'preact'
 var Router = require('./router')
 var Loop = require('./loop')
-// var evs = require('./EVENTS')
 
 var router = Router()
 
@@ -21,10 +20,6 @@ state(function onChange (newState) {
     var route = match.action(match)
     console.log('route', route)
     var { view, getContent } = route
-
-    // var { getContent } = route
-    // console.log('get content', getContent)
-    // console.log('view', view)
 
     var shouldFetch = params.username !== state().content.username
     // console.log('should', shouldFetch, state().content.username)
