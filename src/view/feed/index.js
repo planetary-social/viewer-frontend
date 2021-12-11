@@ -2,6 +2,7 @@ import { html } from 'htm/preact'
 // import { useEffect } from 'preact/hooks'
 var HeadPart = require('../head-part')
 var md = require('ssb-markdown')
+import Markdown from 'preact-markdown';
 // var evs = require('../../EVENTS')
 
 function Feed (props) {
@@ -19,9 +20,8 @@ function Feed (props) {
         <div class="feed feed-content">
             <ul>
                 ${props.content.data.map((post => {
-                    return html`<li dangerouslySetInnerHTML=${{
-                        __html: md.block(post.value.content.text)
-                    }}>
+                    return html`<li>
+                        <${Markdown} markdown=${post.value.content.text} />
                     </li>`
                 }))}
             </ul>
