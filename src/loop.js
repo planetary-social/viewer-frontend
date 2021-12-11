@@ -36,12 +36,12 @@ function State () {
 }
 
 function Subscribe (bus, state) {
-    bus.on(evs.feed.fetch, ev => {
-        console.log('*ev*', ev)
-        var { username } = ev
-        state.content.set({
-            username: null,
-            data: null
-        })
-    })
+    // bus.on(evs.feed.fetch, ev => {
+    //     console.log('*ev*', ev)
+    //     var { username } = ev
+    //     state.content.set({
+    //         username: null,
+    //         data: null
+    //     })
+    // })
 }
