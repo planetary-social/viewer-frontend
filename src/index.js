@@ -18,7 +18,6 @@ state(function onChange (newState) {
 
     var { params } = match
     var route = match.action(match)
-    console.log('route', route)
     var { view, getContent } = route
 
     var shouldFetch = params.username !== state().content.username

@@ -1,7 +1,7 @@
 var _router = require('ruta3')
 var Home = require('./view/home')
 var Feed = require('./view/feed')
-var PUB_URL = 'https://pub2.onrender.com'
+var { PUB_URL } = require('./CONSTANTS')
 
 function Router () {
     var router = _router()
@@ -12,8 +12,6 @@ function Router () {
 
     router.addRoute('/feed/:username', ({ params }) => {
         var { username } = params
-
-        // console.log('username', username)
 
         function getFeed () {
             return fetch(PUB_URL + '/feed/' + username)

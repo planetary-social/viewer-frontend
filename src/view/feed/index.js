@@ -1,18 +1,14 @@
 import { html } from 'htm/preact'
-// import { useEffect } from 'preact/hooks'
 var HeadPart = require('../head-part')
-var md = require('ssb-markdown')
 import Markdown from 'preact-markdown';
 // var evs = require('../../EVENTS')
+const remark = require('remark');
+const cidToUrl = require('remark-image-cid-to-url')
+// const linkifyRegex = require('remark-linkify-regex');
+const { PUB_URL } = require('../../CONSTANTS')
+import remarkParse from 'remark-parse'
 
 function Feed (props) {
-    // var { emit, username } = props
-    console.log('props here', props)
-
-    // useEffect(() => {
-    //     emit(evs.feed.fetch, { username })
-    // }, [username])
-
     if (!props.content.data) return null
 
     return html`
@@ -21,7 +17,16 @@ function Feed (props) {
             <ul>
                 ${props.content.data.map((post => {
                     return html`<li>
-                        <${Markdown} markdown=${post.value.content.text} />
+                        <${Markdown} markdown=${
+                            remark()
+                                .use(cidToUrl(blobId => {
+                                    return PUB_URL + '/' +
+                                        encodeURIComponent(blobId)
+                                }))
+                                .use(remarkParse, { commonmark: true })
+                                .processSync(post.value.content.text).contents
+                            }
+                        />
                     </li>`
                 }))}
             </ul>
