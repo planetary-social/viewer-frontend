@@ -3,7 +3,8 @@ var HeadPart = require('../head-part')
 import Markdown from 'preact-markdown';
 // var evs = require('../../EVENTS')
 const remark = require('remark');
-const cidToUrl = require('remark-image-cid-to-url')
+import cidToUrl from 'remark-image-cid-to-url/browser'
+// const cidToUrl = require('remark-image-cid-to-url')
 // const linkifyRegex = require('remark-linkify-regex');
 const { PUB_URL } = require('../../CONSTANTS')
 import remarkParse from 'remark-parse'
@@ -20,7 +21,7 @@ function Feed (props) {
                         <${Markdown} markdown=${
                             remark()
                                 .use(cidToUrl(blobId => {
-                                    return PUB_URL + '/' +
+                                    return PUB_URL + '/blob/' +
                                         encodeURIComponent(blobId)
                                 }))
                                 .use(remarkParse, { commonmark: true })
