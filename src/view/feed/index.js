@@ -1,11 +1,8 @@
 import { html } from 'htm/preact'
 var HeadPart = require('../head-part')
 import Markdown from 'preact-markdown';
-// var evs = require('../../EVENTS')
 const remark = require('remark');
 import cidToUrl from 'remark-image-cid-to-url/browser'
-// const cidToUrl = require('remark-image-cid-to-url')
-// const linkifyRegex = require('remark-linkify-regex');
 const { PUB_URL } = require('../../CONSTANTS')
 import remarkParse from 'remark-parse'
 
