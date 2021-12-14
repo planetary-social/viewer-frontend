@@ -1,8 +1,27 @@
 .feed {
     margin: 1rem;
 
+    .feed-header {
+        background: linear-gradient(
+            71.56deg,
+            #8474EA 19.94%,
+            #FF264E 108.46%
+        );
+    }
+
     ul {
         padding: 0;
         list-style: none;
+
+        .post {
+            background: linear-gradient(
+                180deg,
+                #322B45 -1.78%,
+                #2C243D 100%
+            );
+            border-radius: 20px;
+            padding: 1rem;
+            margin: 1rem;
+        }
     }
 }

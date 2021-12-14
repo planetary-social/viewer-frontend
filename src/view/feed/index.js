@@ -1,10 +1,10 @@
 import { html } from 'htm/preact'
-var HeadPart = require('../head-part')
 import Markdown from 'preact-markdown';
 const remark = require('remark');
 import cidToUrl from 'remark-image-cid-to-url/browser'
-const { PUB_URL } = require('../../CONSTANTS')
 import remarkParse from 'remark-parse'
+const { PUB_URL } = require('../../CONSTANTS')
+var HeadPart = require('../head-part')
 
 function Feed (props) {
     if (!props.content.data) return null
@@ -14,7 +14,7 @@ function Feed (props) {
         <div class="feed feed-content">
             <ul>
                 ${props.content.data.map((post => {
-                    return html`<li>
+                    return html`<li class="post">
                         <${Markdown} markdown=${
                             remark()
                                 .use(cidToUrl(blobId => {
@@ -30,6 +30,12 @@ function Feed (props) {
             </ul>
         </div>
     `
+}
+
+function FeedHeader ({ username }) {
+    return html`<div class="feed-header">
+
+    </div>`
 }
 
 module.exports = Feed
