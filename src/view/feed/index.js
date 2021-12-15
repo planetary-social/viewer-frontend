@@ -5,9 +5,13 @@ import cidToUrl from 'remark-image-cid-to-url/browser'
 import remarkParse from 'remark-parse'
 const { PUB_URL } = require('../../CONSTANTS')
 var HeadPart = require('../head-part')
+const linkifyRegex = require('remark-linkify-regex');
+
 
 function Feed (props) {
     if (!props.content.data) return null
+
+    const linkifyHashtags = linkifyRegex(/#[\w-]+/g)
 
     return html`
         <${HeadPart} />
@@ -17,6 +21,7 @@ function Feed (props) {
                     return html`<li class="post">
                         <${Markdown} markdown=${
                             remark()
+                                .use(linkifyHashtags)
                                 .use(cidToUrl(blobId => {
                                     return PUB_URL + '/blob/' +
                                         encodeURIComponent(blobId)
