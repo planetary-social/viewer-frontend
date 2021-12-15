@@ -31,7 +31,8 @@ function State () {
         content: struct({
             username: observ(null),
             data: observ(null)
-        })
+        }),
+        hashtag: observ(null)
     })
 }
 

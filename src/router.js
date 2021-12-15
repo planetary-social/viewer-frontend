@@ -3,11 +3,22 @@ var Home = require('./view/home')
 var Feed = require('./view/feed')
 var { PUB_URL } = require('./CONSTANTS')
 
-function Router () {
+function Router (state) {
     var router = _router()
 
     router.addRoute('/', () => {
         return { view: Home }
+    })
+
+    router.addRoute('/tag/:tagName', ({ params }) => {
+        var tagName = params
+
+        function getTagContent () {
+            return fetch(PUB_URL + '/tag/' + tagName)
+                .then(res => res.ok ? res.json() : res.text())
+        }
+
+        return { view: '', getContent: getTagContent }
     })
 
     router.addRoute('/feed/:username', ({ params }) => {
@@ -17,6 +28,12 @@ function Router () {
             return fetch(PUB_URL + '/feed/' + username)
                 .then(res => res.ok ? res.json() : res.text())
         }
+
+        // if (state().routePath !== '/feed/' + username) {
+        //     console.log('aaaaa', username)
+        //     getFeed()
+        //         .then(res => state.content.data.set(res))
+        // }
 
         return { view: Feed, getContent: getFeed }
     })
