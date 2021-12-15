@@ -15,9 +15,6 @@ state(function onChange (newState) {
         return null
     }
 
-    console.log('new state', newState)
-    console.log('old state', state())
-
     var { params } = match
     var route = match.action(match)
     var { view, getContent } = route
@@ -27,9 +24,6 @@ state(function onChange (newState) {
         ((params.username !== state().content.username) ||
         // must use single equal sign so that undefined = null here
         (getContent && params.tagName != state().hashtag))
-
-    console.log('should', shouldFetch)
-    console.log('get content', getContent)
 
     if (shouldFetch) {
         getContent()

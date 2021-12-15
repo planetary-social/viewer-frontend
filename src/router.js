@@ -29,12 +29,6 @@ function Router (state) {
                 .then(res => res.ok ? res.json() : res.text())
         }
 
-        // if (state().routePath !== '/feed/' + username) {
-        //     console.log('aaaaa', username)
-        //     getFeed()
-        //         .then(res => state.content.data.set(res))
-        // }
-
         return { view: Feed, getContent: getFeed }
     })
 
