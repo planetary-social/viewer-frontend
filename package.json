@@ -35,6 +35,7 @@
   "dependencies": {
     "@nichoth/events": "^1.1.2",
     "htm": "^3.1.0",
+    "normalize.css": "^8.0.1",
     "observ": "^0.2.0",
     "observ-struct": "^6.0.0",
     "preact": "^10.6.2",
