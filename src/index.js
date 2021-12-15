@@ -21,9 +21,9 @@ state(function onChange (newState) {
 
     // var shouldFetch = state().routePath !== newState.routePath
     var shouldFetch = getContent &&
-        ((params.username !== state().content.username) ||
         // must use single equal sign so that undefined = null here
-        (getContent && params.tagName != state().hashtag))
+        ((params.username != state().content.username) ||
+        (params.tagName != state().hashtag))
 
     if (shouldFetch) {
         getContent()
@@ -31,7 +31,8 @@ state(function onChange (newState) {
                 console.log('*res*', res)
                 state.content.set({
                     username: params.username,
-                    data: res
+                    data: res,
+                    hashtag: params.tagName
                 })
             })
             .catch(err => {
