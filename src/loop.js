@@ -30,8 +30,9 @@ function State () {
         routePath: observ(null),
         content: struct({
             username: observ(null),
-            data: observ(null)
-        })
+            data: observ(null),
+            hashtag: observ(null)
+        }),
     })
 }
 

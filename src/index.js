@@ -3,10 +3,9 @@ import { render } from 'preact'
 var Router = require('./router')
 var Loop = require('./loop')
 
-var router = Router()
-
 var { bus, state, loop } = Loop()
 var emit = bus.emit.bind(bus)
+var router = Router(state)
 
 state(function onChange (newState) {
     var match = router.match(newState.routePath)
@@ -20,16 +19,20 @@ state(function onChange (newState) {
     var route = match.action(match)
     var { view, getContent } = route
 
-    var shouldFetch = params.username !== state().content.username
-    // console.log('should', shouldFetch, state().content.username)
+    // var shouldFetch = state().routePath !== newState.routePath
+    var shouldFetch = getContent &&
+        // must use single equal sign so that undefined = null here
+        ((params.username != state().content.username) ||
+        (params.tagName != state().content.hashtag))
 
-    if (getContent && shouldFetch) {
+    if (shouldFetch) {
         getContent()
             .then(res => {
                 console.log('*res*', res)
                 state.content.set({
                     username: params.username,
-                    data: res
+                    data: res,
+                    hashtag: params.tagName
                 })
             })
             .catch(err => {

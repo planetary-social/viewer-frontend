@@ -8,11 +8,12 @@ $highlight: #c33d79;
 body {
     background-color: $mainColor;
     color: white;
+    margin: 0;
+    font-family: sans-serif;
+
     a {
         color: white;
     }
-    margin: 0;
-    font-family: sans-serif;
     // font-family: SF Pro Text;
 }
 
@@ -22,13 +23,6 @@ button {
 
 .planetary {
     --transition-time: 0.6s;
-
-    a {
-        text-decoration: none;
-        &:hover {
-            text-decoration: underline;
-        }
-    }
 
     h1 {
         a {
