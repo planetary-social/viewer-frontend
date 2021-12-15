@@ -5,19 +5,21 @@ import cidToUrl from 'remark-image-cid-to-url/browser'
 import remarkParse from 'remark-parse'
 const { PUB_URL } = require('../../CONSTANTS')
 var HeadPart = require('../head-part')
-const linkifyRegex = require('remark-linkify-regex');
+var linkifyRegex = require('@planetary-ssb/remark-linkify-regex');
 
 
 function Feed (props) {
     if (!props.content.data) return null
 
-    const linkifyHashtags = linkifyRegex(/#[\w-]+/g)
+    const linkifyHashtags = linkifyRegex(/#[\w-]+/g, node => {
+        return '/tag/' + node.substring(1)
+    })
 
     return html`
         <${HeadPart} />
         <div class="feed feed-content">
             <ul>
-                ${props.content.data.map((post => {
+                ${(props.content.data || []).map((post => {
                     return html`<li class="post">
                         <${Markdown} markdown=${
                             remark()

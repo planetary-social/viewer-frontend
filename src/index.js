@@ -23,7 +23,7 @@ state(function onChange (newState) {
     var shouldFetch = getContent &&
         // must use single equal sign so that undefined = null here
         ((params.username != state().content.username) ||
-        (params.tagName != state().hashtag))
+        (params.tagName != state().content.hashtag))
 
     if (shouldFetch) {
         getContent()

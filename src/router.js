@@ -2,6 +2,11 @@ var _router = require('ruta3')
 var Home = require('./view/home')
 var Feed = require('./view/feed')
 var { PUB_URL } = require('./CONSTANTS')
+import { html } from 'htm/preact'
+
+function Placeholder (props) {
+    return html`<div>placeholding</div>`
+}
 
 function Router (state) {
     var router = _router()
@@ -15,10 +20,13 @@ function Router (state) {
 
         function getTagContent () {
             return fetch(PUB_URL + '/tag/' + tagName)
-                .then(res => res.ok ? res.json() : res.text())
+                .then(res => {
+                    // res.text().then(t => console.log('tttt', t))
+                    return res.ok ? res.json() : res.text()
+                })
         }
 
-        return { view: '', getContent: getTagContent }
+        return { view: Placeholder, getContent: getTagContent }
     })
 
     router.addRoute('/feed/:username', ({ params }) => {

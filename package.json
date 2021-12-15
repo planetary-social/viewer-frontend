@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "@nichoth/events": "^1.1.2",
+    "@planetary-ssb/remark-linkify-regex": "^0.0.0",
     "htm": "^3.1.0",
     "normalize.css": "^8.0.1",
     "observ": "^0.2.0",
@@ -41,7 +42,7 @@
     "preact": "^10.6.2",
     "preact-markdown": "^2.0.0",
     "remark": "~9.0.0",
-    "remark-image-cid-to-url": "^0.0.5",
+    "remark-image-cid-to-url": "^0.0.6",
     "remark-images-to-ssb-serve-blobs": "2.1.0-2",
     "remark-linkify-regex": "1.0.0",
     "remark-parse": "^10.0.1",
