@@ -22,7 +22,7 @@ function Feed (props) {
                 ${(props.content.data || []).map((post => {
                     return html`<li class="post">
                         <header class="post_head">
-                            <div class="post_signature>
+                            <div class="post_signature">
                                 <a href="#" class="post_author has_stories">
                                     <img src="" class="post_author_avatar">
                                 </a>
