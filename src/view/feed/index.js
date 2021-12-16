@@ -19,12 +19,15 @@ function Feed (props) {
         <${HeadPart} />
         <div class="feed feed-content">
             <ul>
-                ${(props.content.data || []).map((post => {
+                ${(props.content.data || []).map(post => {
+
+                    console.log('post', post)
+
                     return html`<li class="post">
                         <header class="post_head">
                             <div class="post_signature">
                                 <a href="#" class="post_author has_stories">
-                                    <img src="" class="post_author_avatar">
+                                    <img src="/foo" class="post_author_avatar" />
                                 </a>
                                 <div class="post_meta">
                                     <a href="#" class="post_author_name pro_user">Pavel</a>
@@ -33,6 +36,7 @@ function Feed (props) {
                             </div>
                             <button class="post_options">...</button>
                         </header>
+
                         <${Markdown} markdown=${
                             remark()
                                 .use(linkifyHashtags)
@@ -44,15 +48,18 @@ function Feed (props) {
                                 .processSync(post.value.content.text).contents
                             }
                         />
+
                         <div class="post_reactions">
-                            <div class="post_comments_by"></div>
+                            <div class="post_comments_by">comment</div>
+
                             <div class="post_actions">
                                 <ul class="action_buttons">
-                                    <li class="action_button"><img src="" class="action_button_image"></li>
-                                    <li class="action_button"><img src="" class="action_button_image"></li>
-                                    <li class="action_button"><img src="" class="action_button_image"></li>
+                                    <li class="action_button"><img src="" class="action_button_image" /></li>
+                                    <li class="action_button"><img src="" class="action_button_image" /></li>
+                                    <li class="action_button"><img src="" class="action_button_image" /></li>
                                 </ul>
                             </div>
+
                             <ul class="post_comments">
                                 <li class="post_comment">
                                     <header class="comment_author">
@@ -62,12 +69,13 @@ function Feed (props) {
                                     <footer class="comment_timestamp">Tuesday at 5:16pm</footer>
                                 </li>
                             </ul>
+
                             <a href="#" class="comment_prompt">
-                                <span class="comment_signup">Sign up</span>&nbsp;to leave a comment</span>
+                                <span class="comment_signup">Sign up&nbsp;to leave a comment</span>
                             </a>
                         </div>
                     </li>`
-                }))}
+                })}
             </ul>
         </div>
     `
