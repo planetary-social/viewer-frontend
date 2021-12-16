@@ -1,0 +1,12 @@
+{
+    "extends": [
+        "planetary-ssb"
+    ],
+    "env": {
+        "browser": true
+    },
+    "parserOptions": {
+        "sourceType": "module",
+    }
+}
+
