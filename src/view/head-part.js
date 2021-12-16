@@ -6,8 +6,7 @@ function HeadPart () {
     return html`<header class="site-header">
         <h1><a href="/"><${Logo} /> Planetary</a></h1>
         <a href="/"><${AppStore} /></a>
-    </header>
-    `
+    </header>`
 }
 
 module.exports = HeadPart
