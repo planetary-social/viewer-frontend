@@ -3,7 +3,7 @@ var observ = require('observ')
 var struct = require('observ-struct')
 import { html } from 'htm/preact'
 var route = require('route-event')()
-var evs = require('./EVENTS')
+// var evs = require('./EVENTS')
 
 module.exports = function Loop () {
     var state = State()

@@ -2,6 +2,12 @@
 
 Frontend for an ssb viewer
 
+## lint
+
+```
+$ npm run lint
+```
+
 ------------------------------------------------------------------
 
 server id:

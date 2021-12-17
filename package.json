@@ -10,6 +10,8 @@
     "build-sass": "sass src/style/main.scss public/style.css",
     "watch-sass": "sass --watch src/style/main.scss public/style.css",
     "build-js": "browserify -p esmify -t envify -t uglifyify --debug src/index.js > public/bundle.js",
+    "lint": "eslint .",
+    "preversion": "npm run lint",
     "serve": "budo src/index.js:bundle.js --cors --pushstate --dir=public --live --open -- -p esmify --debug",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -28,6 +30,8 @@
     "budo": "^11.6.4",
     "concurrently": "^6.4.0",
     "envify": "^4.1.0",
+    "eslint": "^8.4.1",
+    "eslint-config-planetary-ssb": "^1.0.2",
     "esmify": "^2.1.1",
     "sass": "^1.44.0",
     "uglifyify": "^5.0.2"
