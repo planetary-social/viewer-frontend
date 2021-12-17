@@ -39,10 +39,10 @@ function Feed (props) {
     `
 }
 
-function FeedHeader ({ username }) {
-    return html`<div class="feed-header">
+// function FeedHeader ({ username }) {
+//     return html`<div class="feed-header">
 
-    </div>`
-}
+//     </div>`
+// }
 
 module.exports = Feed
