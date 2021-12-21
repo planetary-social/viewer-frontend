@@ -40,12 +40,12 @@ function Feed (props) {
                             <button class="post_options"></button>
                         </header>
 
-                        ${(post.value.content.mentions &&
-                            post.value.content.mentions.length) ?
+                        ${(post.value.content.mentions) ?
                             html`<div class="image-carousel">
-                                <img src=${PUB_URL + '/blob/' +
-                                    post.value.content.mentions[0].link}
-                                />
+                                ${post.value.content.mentions.map(blob => {
+                                    return html`<img src=${PUB_URL +
+                                        '/blob/' + blob.link} />`
+                                })}
                             </div>` :
                             null
                         }
