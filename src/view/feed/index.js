@@ -1,12 +1,13 @@
 import { html } from 'htm/preact'
-import Markdown from 'preact-markdown';
-const remark = require('remark');
+import Markdown from 'preact-markdown'
+const remark = require('remark')
 import cidToUrl from 'remark-image-cid-to-url/browser'
 import remarkParse from 'remark-parse'
 //import avatar from '../../img/post_avatar--pavel'
 const { PUB_URL } = require('../../CONSTANTS')
 var HeadPart = require('../head-part')
-var linkifyRegex = require('@planetary-ssb/remark-linkify-regex');
+var linkifyRegex = require('@planetary-ssb/remark-linkify-regex')
+
 
 
 
@@ -84,10 +85,10 @@ function Feed (props) {
     `
 }
 
-function FeedHeader ({ username }) {
-    return html`<div class="feed-header">
+// function FeedHeader ({ username }) {
+//     return html`<div class="feed-header">
 
-    </div>`
-}
+//     </div>`
+// }
 
 module.exports = Feed
