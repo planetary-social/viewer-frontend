@@ -40,6 +40,16 @@ function Feed (props) {
                             <button class="post_options"></button>
                         </header>
 
+                        ${(post.value.content.mentions &&
+                            post.value.content.mentions.length) ?
+                            html`<div class="image-carousel">
+                                <img src=${PUB_URL + '/blob/' +
+                                    post.value.content.mentions[0].link}
+                                />
+                            </div>` :
+                            null
+                        }
+
                         <${Markdown} markdown=${
                             remark()
                                 .use(linkifyHashtags)
