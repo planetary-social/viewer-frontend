@@ -1,0 +1,40 @@
+@use './variables' as v;
+
+.feed-header {
+    background: linear-gradient(
+        71.56deg,
+        #8474EA 19.94%,
+        #FF264E 108.46%
+    );
+    padding-top: 8rem;
+
+    .feed-header-2 {
+        background-color: black;
+
+        .header-content {
+            max-width: v.$pageMw;
+            margin: 0 auto;
+            position: relative;
+            bottom: 4rem;
+
+            h2 {
+                display: inline-block;
+            }
+        }
+
+        .avatar {
+            max-width: 8rem;
+            display: inline-block;
+            width: 8rem;
+            height: 8rem;
+
+            img {
+                width: 100%;
+                border-radius: 50%;
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}

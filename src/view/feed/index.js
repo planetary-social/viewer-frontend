@@ -7,6 +7,9 @@ const { PUB_URL } = require('../../CONSTANTS')
 var HeadPart = require('../head-part')
 var linkifyRegex = require('@planetary-ssb/remark-linkify-regex')
 var MockAvatar = require('./mock-avatar')
+var _ = {
+    find: require('lodash.find')
+}
 
 
 function Feed (props) {
@@ -93,10 +96,23 @@ function Feed (props) {
 }
 
 function FeedHeader (props) {
-    var { username } = props
+    var { username } = props.feed
     console.log('in feed head', props)
+
+    var profile = _.find(props.profiles, { username: username })
+    console.log('*profile in here*', profile)
+
     return html`<div class="feed-header">
-        feed head
+        <div class="feed-header-2">
+            <div class="header-content">
+                <div class="avatar">
+                    <img src="${PUB_URL + '/blob/' +
+                        encodeURIComponent(profile.image)}"
+                    />
+                </div>
+                <h2>${username}</h2>
+            </div>
+        </div>
     </div>`
 }
 

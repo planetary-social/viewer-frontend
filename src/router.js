@@ -56,7 +56,10 @@ function Router (state) {
                 fetch(PUB_URL + '/counts/' + username)
                     .then(res => {
                         return res.ok ? res.json() : res.text()
-                    })
+                    }),
+
+                fetch(PUB_URL + '/profile/' + username)
+                    .then(res => res.ok ? res.json() : res.text())
             ])
         }
 
@@ -69,11 +72,13 @@ function Router (state) {
 
         if (shouldFetch) {
             getFeed()
-                .then(([feed, counts]) => {
+                .then(([feed, counts, profile]) => {
                     // console.log('*feed*', feed)
                     // console.log('*counts*', counts)
+                    console.log('*profile*', profile)
                     var profilesData = {}
                     profilesData[counts.id] = counts
+                    profilesData[counts.id].image = profile.image
                     state.profiles.set(profilesData)
                     state.feed.set({
                         username: params.username,
