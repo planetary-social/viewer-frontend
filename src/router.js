@@ -48,21 +48,17 @@ function Router (state) {
             return Promise.all([
                 fetch(PUB_URL + '/feed/' + username)
                     .then(res => {
-                        console.log('feed', res)
                         return res.ok ? res.json() : res.text()
                     }),
 
                 fetch(PUB_URL + '/counts/' + username)
                     .then(res => {
-                        console.log('counts', res)
                         return res.ok ? res.json() : res.text()
                     })
             ])
         }
 
-        // to get the profile, check if we already have it;
-        // fetch it if not
-
+        // we are using single '=' here so that undefined = null
         var shouldFetch = ((username != state().content.username) ||
             (params.tagName != state().content.hashtag))
 
