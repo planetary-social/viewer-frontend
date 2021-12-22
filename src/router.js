@@ -40,24 +40,40 @@ function Router (state) {
         // it returns a view fn, and
         // fetches the data as a side effect
 
-        // to test it, call router.match('/string').action()
+        // to test it, call emit(evs.route.channge, '/string'), which calls
+        // router.match('/string').action()
         // then check the state, which is passed into the router
 
         function getFeed () {
-            return fetch(PUB_URL + '/feed/' + username)
-                .then(res => res.ok ? res.json() : res.text())
+            return Promise.all([
+                fetch(PUB_URL + '/feed/' + username)
+                    .then(res => {
+                        console.log('feed', res)
+                        return res.ok ? res.json() : res.text()
+                    }),
+
+                fetch(PUB_URL + '/counts/' + username)
+                    .then(res => {
+                        console.log('counts', res)
+                        return res.ok ? res.json() : res.text()
+                    })
+            ])
         }
+
+        // to get the profile, check if we already have it;
+        // fetch it if not
 
         var shouldFetch = ((username != state().content.username) ||
             (params.tagName != state().content.hashtag))
 
         if (shouldFetch) {
             getFeed()
-                .then(res => {
-                    console.log('*res*', res)
+                .then(([feed, counts]) => {
+                    console.log('*feed*', feed)
+                    console.log('*counts*', counts)
                     state.content.set({
                         username: params.username,
-                        data: res,
+                        data: feed,
                         hashtag: params.tagName
                     })
                 })
@@ -66,7 +82,7 @@ function Router (state) {
                 })
         }
 
-        return { view: Feed, getContent: getFeed }
+        return { view: Feed }
     })
 
     return router
