@@ -10,7 +10,7 @@ var MockAvatar = require('./mock-avatar')
 
 
 function Feed (props) {
-    if (!props.content.data) return null
+    if (!props.feed.data) return null
 
     const linkifyHashtags = linkifyRegex(/#[\w-]+/g, node => {
         return '/tag/' + node.substring(1)
@@ -18,9 +18,10 @@ function Feed (props) {
 
     return html`
         <${HeadPart} />
+        <${FeedHeader} ...${props} />
         <div class="feed feed-content">
             <ul>
-                ${(props.content.data || []).map(post => {
+                ${(props.feed.data || []).map(post => {
 
                     var { mentions } = post.value.content
 
@@ -91,10 +92,12 @@ function Feed (props) {
     `
 }
 
-// function FeedHeader ({ username }) {
-//     return html`<div class="feed-header">
-
-//     </div>`
-// }
+function FeedHeader (props) {
+    var { username } = props
+    console.log('in feed head', props)
+    return html`<div class="feed-header">
+        feed head
+    </div>`
+}
 
 module.exports = Feed

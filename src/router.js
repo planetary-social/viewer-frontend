@@ -51,6 +51,8 @@ function Router (state) {
                         return res.ok ? res.json() : res.text()
                     }),
 
+                // TODO -- should check if we have this already, only
+                // fetch if we don't
                 fetch(PUB_URL + '/counts/' + username)
                     .then(res => {
                         return res.ok ? res.json() : res.text()
@@ -59,16 +61,23 @@ function Router (state) {
         }
 
         // we are using single '=' here so that undefined = null
-        var shouldFetch = ((username != state().content.username) ||
-            (params.tagName != state().content.hashtag))
+        var shouldFetch = ((username != state().feed.username) ||
+            (params.tagName != state().feed.hashtag))
+
+        // console.log('in here', state())
+        // console.log('params', params)
 
         if (shouldFetch) {
             getFeed()
                 .then(([feed, counts]) => {
-                    console.log('*feed*', feed)
-                    console.log('*counts*', counts)
-                    state.content.set({
+                    // console.log('*feed*', feed)
+                    // console.log('*counts*', counts)
+                    var profilesData = {}
+                    profilesData[counts.id] = counts
+                    state.profiles.set(profilesData)
+                    state.feed.set({
                         username: params.username,
+                        id: counts.id,
                         data: feed,
                         hashtag: params.tagName
                     })
