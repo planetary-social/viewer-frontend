@@ -99,7 +99,7 @@ function FeedHeader (props) {
     var { username } = props.feed
     console.log('in feed head', props)
 
-    var profile = _.find(props.profiles, { username: username })
+    var profile = _.find(props.profiles, { username: props.username })
     console.log('*profile in here*', profile)
 
     return html`<div class="feed-header">
@@ -110,7 +110,11 @@ function FeedHeader (props) {
                         encodeURIComponent(profile.image)}"
                     />
                 </div>
-                <h2>${username}</h2>
+
+                <div class="user-info">
+                    <h2>${username}</h2>
+                    <div class="user-id">${profile.id}</div>
+                </div>
             </div>
         </div>
     </div>`

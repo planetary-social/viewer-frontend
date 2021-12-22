@@ -9,7 +9,7 @@
     padding-top: 8rem;
 
     .feed-header-2 {
-        background-color: black;
+        background-color: v.$mainColor;
 
         .header-content {
             max-width: v.$pageMw;
@@ -17,8 +17,16 @@
             position: relative;
             bottom: 4rem;
 
-            h2 {
+            .user-info {
                 display: inline-block;
+
+                h2 {
+                    margin: 0;
+                }
+
+                .user-id {
+                    color: v.$muted;
+                }
             }
         }
 
