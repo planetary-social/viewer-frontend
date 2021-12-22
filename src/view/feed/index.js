@@ -22,7 +22,7 @@ function Feed (props) {
             <ul>
                 ${(props.content.data || []).map(post => {
 
-                    // console.log('post', post)
+                    var { mentions } = post.value.content
 
                     return html`<li class="post">
                         <header class="post_head">
@@ -38,9 +38,9 @@ function Feed (props) {
                             <button class="post_options"></button>
                         </header>
 
-                        ${post.value.content.mentions ?
+                        ${mentions && mentions[0] ?
                             html`<div class="image-carousel">
-                                ${post.value.content.mentions.map(blob => {
+                                ${mentions.map(blob => {
                                     return html`<img src=${PUB_URL +
                                         '/blob/' + blob.link} />`
                                 })}
