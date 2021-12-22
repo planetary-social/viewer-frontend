@@ -64,7 +64,7 @@ function Feed (props) {
                             <div class="post_actions">
 								<a href="#" class="view-replies_link">View all replies</a>
                                 <ul class="action_buttons">
-                                    <li class="action_button"><img src="" class="action_button_image" />share</li>
+									<li class="action_button action_button--share"><a href="#">Share</a></li>
                                 </ul>
                             </div>
 
