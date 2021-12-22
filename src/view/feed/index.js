@@ -9,8 +9,6 @@ var linkifyRegex = require('@planetary-ssb/remark-linkify-regex')
 var MockAvatar = require('./mock-avatar')
 
 
-
-
 function Feed (props) {
     if (!props.content.data) return null
 
@@ -24,7 +22,7 @@ function Feed (props) {
             <ul>
                 ${(props.content.data || []).map(post => {
 
-                    console.log('post', post)
+                    // console.log('post', post)
 
                     return html`<li class="post">
                         <header class="post_head">

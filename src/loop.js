@@ -3,7 +3,7 @@ var observ = require('observ')
 var struct = require('observ-struct')
 import { html } from 'htm/preact'
 var route = require('route-event')()
-// var evs = require('./EVENTS')
+var evs = require('./EVENTS')
 
 module.exports = function Loop () {
     var state = State()
@@ -12,7 +12,7 @@ module.exports = function Loop () {
 
     // this gets called immediately
     route(function onChange (path) {
-        state.routePath.set(path)
+        bus.emit(evs.route.change, path)
     })
 
     function loop ({ children, state }) {
@@ -37,12 +37,8 @@ function State () {
 }
 
 function Subscribe (bus, state) {
-    // bus.on(evs.feed.fetch, ev => {
-    //     console.log('*ev*', ev)
-    //     var { username } = ev
-    //     state.content.set({
-    //         username: null,
-    //         data: null
-    //     })
-    // })
+    bus.on(evs.route.change, newRoute => {
+        if (newRoute === state().routePath) return
+        state.routePath.set(newRoute)
+    })
 }

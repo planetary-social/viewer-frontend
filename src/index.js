@@ -16,29 +16,7 @@ state(function onChange (newState) {
     }
 
     var { params } = match
-    var route = match.action(match)
-    var { view, getContent } = route
-
-    // var shouldFetch = state().routePath !== newState.routePath
-    var shouldFetch = getContent &&
-        // must use single equal sign so that undefined = null here
-        ((params.username != state().content.username) ||
-        (params.tagName != state().content.hashtag))
-
-    if (shouldFetch) {
-        getContent()
-            .then(res => {
-                console.log('*res*', res)
-                state.content.set({
-                    username: params.username,
-                    data: res,
-                    hashtag: params.tagName
-                })
-            })
-            .catch(err => {
-                console.log('errr', err)
-            })
-    }
+    var { view } = match.action(match)
 
     // re-render the app whenever the state changes
     render(html`<${loop} state=${newState}>
