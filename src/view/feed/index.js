@@ -7,10 +7,13 @@ const { PUB_URL } = require('../../CONSTANTS')
 var HeadPart = require('../head-part')
 var linkifyRegex = require('@planetary-ssb/remark-linkify-regex')
 var MockAvatar = require('./mock-avatar')
+var _ = {
+    find: require('lodash.find')
+}
 
 
 function Feed (props) {
-    if (!props.content.data) return null
+    if (!props.feed.data) return null
 
     const linkifyHashtags = linkifyRegex(/#[\w-]+/g, node => {
         return '/tag/' + node.substring(1)
@@ -18,11 +21,16 @@ function Feed (props) {
 
     return html`
         <${HeadPart} />
-        <div class="feed feed-content">
-            <ul>
-                ${(props.content.data || []).map(post => {
+        <${FeedHeader} ...${props} />
 
-                    // console.log('post', post)
+        <div class="feed-wrapper">
+
+            <${Sidebar} ...${props} />
+
+            <ul class="feed feed-content">
+                ${(props.feed.data || []).map(post => {
+
+                    var { mentions } = post.value.content
 
                     return html`<li class="post">
                         <header class="post_head">
@@ -38,9 +46,9 @@ function Feed (props) {
                             <button class="post_options"></button>
                         </header>
 
-                        ${post.value.content.mentions ?
+                        ${mentions && mentions[0] ?
                             html`<div class="image-carousel">
-                                ${post.value.content.mentions.map(blob => {
+                                ${mentions.map(blob => {
                                     return html`<img src=${PUB_URL +
                                         '/blob/' + blob.link} />`
                                 })}
@@ -91,10 +99,65 @@ function Feed (props) {
     `
 }
 
-// function FeedHeader ({ username }) {
-//     return html`<div class="feed-header">
+function FeedHeader (props) {
+    var { username } = props.feed
+    console.log('in feed head', props)
 
-//     </div>`
-// }
+    var profile = _.find(props.profiles, { username: props.username })
+
+    return html`<div class="feed-header">
+        <div class="feed-header-2">
+            <div class="header-content">
+                <div class="avatar">
+                    <img src="${PUB_URL + '/blob/' +
+                        encodeURIComponent(profile.image)}"
+                    />
+                </div>
+
+                <div class="user-info">
+                    <h2>${username}</h2>
+                    <div class="user-id">${profile.id}</div>
+                </div>
+            </div>
+        </div>
+    </div>`
+}
+
+function Sidebar (props) {
+    var profile = _.find(props.profiles, { username: props.username })
+    console.log('*sidebar*', profile)
+
+    return html`<div class="feed-sidebar">
+        <dl class="counts">
+            <div>
+                <dd>${profile.following}</dd>
+                <dt class="following">following</dt>
+            </div>
+            <div>
+                <dd>${profile.followers}</dd>
+                <dt class="followers">
+                    ${profile.followers === 1 ?  'follower' : 'followers'}
+                </dt>
+            </div>
+            <div>
+                <dd>${profile.posts}</dd>
+                <dt class="posts-count">
+                    ${profile.posts === 1 ? 'post' : 'posts'}
+                </dt>
+            </div>
+        </dl>
+
+        <div class="join-today">
+            <h3>Join Planetary today!</h3>
+            <p>
+                Planetary is a decentralized network for people who want to
+                come together and connect even when the internet goes out.
+                It's an app that doesn't keep your data in the cloud.
+            </p>
+
+            <button class="cool-btn">Create your account</button>
+        </div>
+    </div>`
+}
 
 module.exports = Feed

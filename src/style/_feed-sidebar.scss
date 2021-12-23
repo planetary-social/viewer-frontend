@@ -1,0 +1,61 @@
+@use './variables' as v;
+
+.feed-sidebar {
+    max-width: v.$pageMw;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    padding: 1rem;
+
+    h3 {
+        font-size: 1.5rem;
+    }
+
+    .counts {
+        display: flex;
+        justify-content: space-around;
+        font-family: 'Space Grotesk';
+
+        dd {
+            font-size: 3rem;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        dt {
+            color: v.$muted
+        }
+    }
+
+    .join-today {
+        @extend %block;
+        padding: 1rem;
+    }
+
+    .cool-btn {
+        border: none;
+        font-size: 1rem;
+        color: white;
+        width: 100%;
+        background: linear-gradient(71.56deg, #8474EA 19.94%, #FF264E 108.46%);
+        display: block;
+        border-radius: 30px;
+        padding: 1rem;
+        text-align: center;
+        text-decoration: none;
+        max-width: 18rem;
+        margin: 0 auto;
+        transition: var(--transition-time) all;
+        font-weight: bold;
+
+        // background: linear-gradient(
+        //     to bottom left, 
+        //     #e7346b, #7c67ff
+        // );
+
+        &:hover {
+            filter: brightness(1.5) drop-shadow(2px 4px 6px black);
+            // filter: blur(1px) drop-shadow(2px 4px 6px black);
+        }
+    }
+
+}

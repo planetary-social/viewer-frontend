@@ -17,7 +17,7 @@ module.exports = function Loop () {
     })
 
     function loop ({ children, state }) {
-        console.log('render', state)
+        console.log('*render*', state)
         return html`<div class="planetary">
             ${children}
         </div>`
@@ -30,7 +30,7 @@ function State () {
     return struct({
         routePath: observ(null),
         profiles: observ(null),
-        content: struct({
+        feed: struct({
             username: observ(null),
             data: observ(null),
             hashtag: observ(null)
