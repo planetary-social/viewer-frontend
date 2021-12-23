@@ -30,6 +30,8 @@ function Feed (props) {
             <ul class="feed feed-content">
                 ${(props.feed.data || []).map(post => {
 
+                    // TODO -- handle threads
+                    if (Array.isArray(post)) return null
                     var { mentions } = post.value.content
 
                     return html`<li class="post">
