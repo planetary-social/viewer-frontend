@@ -22,9 +22,11 @@ function Feed (props) {
     return html`
         <${HeadPart} />
         <${FeedHeader} ...${props} />
-        <${Sidebar} ...${props} />
 
         <div class="feed-wrapper">
+
+            <${Sidebar} ...${props} />
+
             <ul class="feed feed-content">
                 ${(props.feed.data || []).map(post => {
 
