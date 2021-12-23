@@ -1,6 +1,7 @@
 @use './variables' as v;
 @use './feed';
 @use './feed-header';
+@use './feed-sidebar';
 
 body {
     background-color: v.$mainColor;
@@ -8,7 +9,7 @@ body {
     margin: 0;
     font-family: -apple-system, system-ui, BlinkMacSystemFont;
 
-    h1, h2 {
+    h1, h2, h3 {
         font-family: 'Space Grotesk', sans-serif;
     }
 
@@ -26,6 +27,7 @@ button {
 
     h1 {
         a {
+            text-decoration: none;
             &:hover {
                 text-decoration: none;
             }
@@ -52,32 +54,6 @@ button {
         max-width: 26rem;
         margin: 0 auto;
         margin-top: 1rem;
-    }
-
-    .cool-btn {
-        background: linear-gradient(
-            71.56deg,
-            #8474EA 19.94%,
-            #FF264E 108.46%
-        );
-
-        // background: linear-gradient(
-        //     to bottom left, 
-        //     #e7346b, #7c67ff
-        // );
-        display: block;
-        border-radius: 30px;
-        padding: 1rem;
-        text-align: center;
-        text-decoration: none;
-        max-width: 16rem;
-        margin: 0 auto;
-        transition: var(--transition-time) all;
-
-        &:hover {
-            filter: brightness(1.5) drop-shadow(2px 4px 6px black);
-            // filter: blur(1px) drop-shadow(2px 4px 6px black);
-        }
     }
 
     .hot-hashtags {
