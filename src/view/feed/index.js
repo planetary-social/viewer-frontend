@@ -11,6 +11,9 @@ var _ = {
     find: require('lodash.find')
 }
 
+function isThread (post) {
+    return Array.isArray(post)
+}
 
 function Feed (props) {
     if (!props.feed.data) return null
@@ -28,13 +31,13 @@ function Feed (props) {
             <${Sidebar} ...${props} />
 
             <ul class="feed feed-content">
-                ${(props.feed.data || []).map(post => {
+                ${(props.feed.data || []).map(_post => {
 
                     // TODO -- handle threads
-                    if (Array.isArray(post)) return null
+                    var post = isThread(_post) ? _post[0] : _post
                     var { mentions } = post.value.content
 
-                    return html`<li class="post">
+                    return html`<li class="post ${isThread(_post) ? 'is-thread' : ''}">
                         <header class="post_head">
                             <div class="post_signature">
                                 <a href="#" class="post_author has_stories">
@@ -103,7 +106,6 @@ function Feed (props) {
 
 function FeedHeader (props) {
     var { username } = props.feed
-    console.log('in feed head', props)
 
     var profile = _.find(props.profiles, { username: props.username })
 

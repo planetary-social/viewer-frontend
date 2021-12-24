@@ -74,9 +74,9 @@ function Router (state) {
             getFeed()
                 .then(([feed, counts, profile]) => {
                     console.log('here', arguments)
-                    // console.log('*feed*', feed)
+                    console.log('*feed*', feed)
                     // console.log('*counts*', counts)
-                    console.log('*profile*', profile)
+                    // console.log('*profile*', profile)
                     var profilesData = {}
                     profilesData[counts.id] = counts
                     profilesData[counts.id].image = profile.image
