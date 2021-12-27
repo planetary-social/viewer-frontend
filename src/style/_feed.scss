@@ -22,6 +22,11 @@ ul.feed {
             inset 1px 0px 0px #39324f,
             inset -1px 0px 0px #39324f
         ;
+
+        &.is-thread {
+            border: 3px solid red;
+        }
+
         .text_link {
             text-decoration: none;
             color: #D64082;
