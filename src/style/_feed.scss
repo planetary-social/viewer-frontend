@@ -139,6 +139,7 @@ ul.feed {
             width: 100%;
             position: relative;
             padding-top: 100%;
+            margin-bottom: 1.5rem;
 
             img {
                 height: 100%;
@@ -203,6 +204,11 @@ ul.feed {
                     border-radius: 9.5px;
                     padding: 1.5rem;
                     margin-bottom: 1.5rem;
+                    transition: all .3s ease;
+
+                    &:hover {
+                        background-color: #382E4D;
+                    }
 
                     .comment_author {
                         background: none;
