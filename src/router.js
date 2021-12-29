@@ -8,6 +8,8 @@ if (process.env.NODE_ENV === 'test') {
     PUB_URL = 'http://localhost:8888'
 }
 
+console.log('**node env**', process.env.NODE_ENV)
+
 function Placeholder () {
     return html`<div>placeholding</div>`
 }
