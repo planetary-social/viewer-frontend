@@ -1,10 +1,14 @@
-var _router = require('ruta3')
-var Home = require('./view/home')
-var Feed = require('./view/feed')
-var { PUB_URL } = require('./CONSTANTS')
+const _router = require('ruta3')
 import { html } from 'htm/preact'
+const Home = require('./view/home')
+const Feed = require('./view/feed')
+var { PUB_URL } = require('./CONSTANTS')
 
-function Placeholder (props) {
+if (process.env.NODE_ENV === 'test') {
+    PUB_URL = 'http://localhost:8888'
+}
+
+function Placeholder () {
     return html`<div>placeholding</div>`
 }
 

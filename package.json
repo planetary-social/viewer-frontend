@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && concurrently --kill-others \"npm run watch-sass\" \"npm run serve\"",
+    "start": "npm run build && concurrently --kill-others \"NODE_ENV=test node node_modules/@planetary-ssb/pub/index.js\" \"npm run watch-sass\" \"npm run serve\"",
     "copy": "mkdir -p public && cp src/*.html public",
     "build": "npm run copy && npm run build-sass && npm run build-js",
     "build-sass": "sass src/style/main.scss public/style.css",
@@ -12,7 +12,7 @@
     "build-js": "browserify -p esmify -t envify -t uglifyify --debug src/index.js > public/bundle.js",
     "lint": "eslint .",
     "preversion": "npm run lint",
-    "serve": "budo src/index.js:bundle.js --cors --pushstate --dir=public --live --open -- -p esmify --debug",
+    "serve": "env $(cat .env | grep -v \"#\" | xargs) budo src/index.js:bundle.js --cors --pushstate --dir=public --live --open -- -t envify -p esmify --debug",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/planetary-social/viewer-frontend#readme",
   "devDependencies": {
+    "@planetary-ssb/pub": "^0.2.1",
     "browserify": "^17.0.0",
     "budo": "^11.6.4",
     "concurrently": "^6.4.0",
