@@ -3,7 +3,11 @@ import Markdown from 'preact-markdown'
 const remark = require('remark')
 import cidToUrl from 'remark-image-cid-to-url/browser'
 import remarkParse from 'remark-parse'
-const { PUB_URL } = require('../../CONSTANTS')
+var { PUB_URL } = require('../../CONSTANTS')
+console.log('envvvvv', process.env.NODE_ENV)
+if (process.env.NODE_ENV === 'test') {
+    PUB_URL = 'http://0.0.0.0:8888'
+}
 var HeadPart = require('../head-part')
 var linkifyRegex = require('@planetary-ssb/remark-linkify-regex')
 var MockAvatar = require('./mock-avatar')
