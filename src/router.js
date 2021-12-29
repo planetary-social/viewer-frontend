@@ -73,14 +73,10 @@ function Router (state) {
         var shouldFetch = ((username != state().feed.username) ||
             (params.tagName != state().feed.hashtag))
 
-        // console.log('in here', state())
-        // console.log('params', params)
-
         if (shouldFetch) {
             getFeed()
                 .then(([feed, counts, profile]) => {
-                    console.log('here', arguments)
-                    console.log('*feed*', feed)
+                    // console.log('*feed*', feed)
                     // console.log('*counts*', counts)
                     // console.log('*profile*', profile)
                     var profilesData = {}
