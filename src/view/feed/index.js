@@ -97,6 +97,7 @@ function Feed (props) {
                                 <span class="comment_signup text_link">Sign up</span> to leave a comment
                             </a>
                         </footer>
+                        <a href="#" class="replies-stack_link"></a>
                     </li>`
                 })}
             </ul>
