@@ -1,10 +1,16 @@
-var _router = require('ruta3')
-var Home = require('./view/home')
-var Feed = require('./view/feed')
-var { PUB_URL } = require('./CONSTANTS')
+const _router = require('ruta3')
 import { html } from 'htm/preact'
+const Home = require('./view/home')
+const Feed = require('./view/feed')
+var { PUB_URL } = require('./CONSTANTS')
 
-function Placeholder (props) {
+if (process.env.NODE_ENV === 'test') {
+    PUB_URL = 'http://localhost:8888'
+}
+
+console.log('**node env**', process.env.NODE_ENV)
+
+function Placeholder () {
     return html`<div>placeholding</div>`
 }
 
@@ -67,14 +73,10 @@ function Router (state) {
         var shouldFetch = ((username != state().feed.username) ||
             (params.tagName != state().feed.hashtag))
 
-        // console.log('in here', state())
-        // console.log('params', params)
-
         if (shouldFetch) {
             getFeed()
                 .then(([feed, counts, profile]) => {
-                    console.log('here', arguments)
-                    console.log('*feed*', feed)
+                    // console.log('*feed*', feed)
                     // console.log('*counts*', counts)
                     // console.log('*profile*', profile)
                     var profilesData = {}
