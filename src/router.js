@@ -52,25 +52,25 @@ function Router (state) {
 
         function getFeed () {
             return Promise.all([
-                fetch(PUB_URL + '/feed/' + username, {
-                    mode: 'no-cors'
-                })
+                fetch(PUB_URL + '/feed/' + username)
                     .then(res => {
+                        if (!res.ok) {
+                            console.log('response not ok')
+                            res.text().then(text => {
+                                console.log('not ok text', text)
+                            })
+                        }
                         return res.ok ? res.json() : res.text()
                     }),
 
                 // TODO -- should check if we have this already, only
                 // fetch if we don't
-                fetch(PUB_URL + '/counts/' + username, {
-                    mode: 'no-cors'
-                })
+                fetch(PUB_URL + '/counts/' + username)
                     .then(res => {
                         return res.ok ? res.json() : res.text()
                     }),
 
-                fetch(PUB_URL + '/profile/' + username, {
-                    mode: 'no-cors'
-                })
+                fetch(PUB_URL + '/profile/' + username)
                     .then(res => res.ok ? res.json() : res.text())
             ])
         }
@@ -82,9 +82,9 @@ function Router (state) {
         if (shouldFetch) {
             getFeed()
                 .then(([feed, counts, profile]) => {
-                    // console.log('*feed*', feed)
-                    // console.log('*counts*', counts)
-                    // console.log('*profile*', profile)
+                    console.log('*feed*', feed)
+                    console.log('*counts*', counts)
+                    console.log('*profile*', profile)
                     var profilesData = {}
                     profilesData[counts.id] = counts
                     profilesData[counts.id].image = profile.image
