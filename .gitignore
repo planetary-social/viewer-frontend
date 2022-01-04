@@ -92,4 +92,5 @@ node_modules
 bundle.js
 public/*.*
 .env
+!public/netlify.toml
 
