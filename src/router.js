@@ -55,6 +55,9 @@ function Router (state) {
                 fetch(PUB_URL + '/feed/' + username)
                     .then(res => {
                         return res.ok ? res.json() : res.text()
+                    })
+                    .catch(err => {
+                        console.log('aaaaaa', err)
                     }),
 
                 // TODO -- should check if we have this already, only
