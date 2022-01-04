@@ -52,22 +52,25 @@ function Router (state) {
 
         function getFeed () {
             return Promise.all([
-                fetch(PUB_URL + '/feed/' + username)
+                fetch(PUB_URL + '/feed/' + username, {
+                    mode: 'no-cors'
+                })
                     .then(res => {
                         return res.ok ? res.json() : res.text()
-                    })
-                    .catch(err => {
-                        console.log('aaaaaa', err)
                     }),
 
                 // TODO -- should check if we have this already, only
                 // fetch if we don't
-                fetch(PUB_URL + '/counts/' + username)
+                fetch(PUB_URL + '/counts/' + username, {
+                    mode: 'no-cors'
+                })
                     .then(res => {
                         return res.ok ? res.json() : res.text()
                     }),
 
-                fetch(PUB_URL + '/profile/' + username)
+                fetch(PUB_URL + '/profile/' + username, {
+                    mode: 'no-cors'
+                })
                     .then(res => res.ok ? res.json() : res.text())
             ])
         }
