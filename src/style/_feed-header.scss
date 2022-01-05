@@ -1,12 +1,29 @@
 @use './variables' as v;
 
 .feed-header {
-    background: linear-gradient(
-        71.56deg,
-        #8474EA 19.94%,
-        #FF264E 108.46%
-    );
+    background: linear-gradient(271deg, #8474ea, #ff264e);
+    background-size: 200% 200%;
+
+    -webkit-animation: HeaderAnimation 10s ease infinite;
+    -moz-animation: HeaderAnimation 10s ease infinite;
+    animation: HeaderAnimation 10s ease infinite;
     padding-top: 8rem;
+
+    @-webkit-keyframes HeaderAnimation {
+        0%{background-position:0% 54%}
+        50%{background-position:100% 47%}
+        100%{background-position:0% 54%}
+    }
+    @-moz-keyframes HeaderAnimation {
+        0%{background-position:0% 54%}
+        50%{background-position:100% 47%}
+        100%{background-position:0% 54%}
+    }
+    @keyframes HeaderAnimation {
+        0%{background-position:0% 54%}
+        50%{background-position:100% 47%}
+        100%{background-position:0% 54%}
+    }
 
     .feed-header-2 {
         background-color: v.$mainColor;
