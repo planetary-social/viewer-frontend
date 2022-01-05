@@ -14,6 +14,7 @@ var MockAvatar = require('./mock-avatar')
 var _ = {
     find: require('lodash.find')
 }
+var ref = require('ssb-ref')
 
 function isThread (post) {
     return Array.isArray(post)
@@ -58,10 +59,13 @@ function Feed (props) {
                         ${mentions && mentions[0] ?
                             html`<div class="image-carousel">
                                 ${mentions.map(blob => {
-                                    return html`<img
-                                        src=${PUB_URL + '/blob/' +
+                                    return ref.isBlob ?
+                                        html`<img src=${PUB_URL + '/blob/' +
                                             encodeURIComponent(blob.link)}
-                                    />`
+                                        />` :
+                                        html`<span class="ref">
+                                            ${blob}
+                                        </span>`
                                 })}
                             </div>` :
                             null
