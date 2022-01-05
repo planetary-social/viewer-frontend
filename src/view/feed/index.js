@@ -58,24 +58,29 @@ function Feed (props) {
                         ${mentions && mentions[0] ?
                             html`<div class="image-carousel">
                                 ${mentions.map(blob => {
-                                    return html`<img src=${PUB_URL +
-                                        '/blob/' + blob.link} />`
+                                    return html`<img
+                                        src=${PUB_URL + '/blob/' +
+                                            encodeURIComponent(blob.link)}
+                                    />`
                                 })}
                             </div>` :
                             null
                         }
 
-                        <${Markdown} markdown=${
-                            remark()
-                                .use(linkifyHashtags)
-                                .use(cidToUrl(blobId => {
-                                    return PUB_URL + '/blob/' +
-                                        encodeURIComponent(blobId)
-                                }))
-                                .use(remarkParse, { commonmark: true })
-                                .processSync(post.value.content.text).contents
-                            }
-                        />
+                        ${post.value.content.text ?
+                            html`<${Markdown} markdown=${
+                                remark()
+                                    .use(linkifyHashtags)
+                                    .use(cidToUrl(blobId => {
+                                        return PUB_URL + '/blob/' +
+                                            encodeURIComponent(blobId)
+                                    }))
+                                    .use(remarkParse, { commonmark: true })
+                                    .processSync(post.value.content.text).contents
+                                }
+                            />` :
+                            null
+                        }
 
                         <footer class="post_reactions">
                             <div class="post_actions">
