@@ -58,8 +58,10 @@ function Feed (props) {
                         ${mentions && mentions[0] ?
                             html`<div class="image-carousel">
                                 ${mentions.map(blob => {
-                                    return html`<img src=${PUB_URL +
-                                        '/blob/' + blob.link} />`
+                                    return html`<img
+                                        src=${PUB_URL + '/blob/' +
+                                            encodeURIComponent(blob.link)}
+                                    />`
                                 })}
                             </div>` :
                             null
