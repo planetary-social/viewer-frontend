@@ -3,9 +3,11 @@ var HeadPart = require('../head-part')
 
 function HomeView (props) {
     return html`
-        <${HeadPart} />
-        <div class="home page-content">
-            <p>ok wooo</p>
+        <div class="flex-layout">
+            <${HeadPart} />
+            <main class="layout-wrapper home page-content">
+                <p>ok wooo</p>
+            </main>
         </div>
     `
 }

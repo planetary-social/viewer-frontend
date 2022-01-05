@@ -77,6 +77,9 @@ ul.feed {
         }
 
         .post_head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             align-self: stretch;
             padding: 1.5rem;
             background: none;
@@ -280,7 +283,7 @@ ul.feed {
     
                     img {
                         border-radius: 0.6rem;
-                        width: 300px;
+                        width: 100%;
                         height: 300px;
                         object-fit: cover;
                         display: block;
