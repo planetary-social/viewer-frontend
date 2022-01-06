@@ -31,9 +31,6 @@ function Feed (props) {
         <${FeedHeader} ...${props} />
 
         <div class="feed-wrapper">
-
-            <${Sidebar} ...${props} />
-
             <ul class="feed feed-content">
                 ${(props.feed.data || []).map(_post => {
 
@@ -107,6 +104,7 @@ function Feed (props) {
                     </li>`
                 })}
             </ul>
+            <${Sidebar} ...${props} />
         </div>
     `
 }
@@ -129,6 +127,24 @@ function FeedHeader (props) {
                     <h2>${username}</h2>
                     <div class="user-id">${profile.id}</div>
                 </div>
+                <dl class="counts">
+                    <div>
+                        <dd>${profile.following}</dd>
+                        <dt class="following">following</dt>
+                    </div>
+                    <div>
+                        <dd>${profile.followers}</dd>
+                        <dt class="followers">
+                            ${profile.followers === 1 ?  'follower' : 'followers'}
+                        </dt>
+                    </div>
+                    <div>
+                        <dd>${profile.posts}</dd>
+                        <dt class="posts-count">
+                            ${profile.posts === 1 ? 'post' : 'posts'}
+                        </dt>
+                    </div>
+                </dl>
             </div>
         </div>
     </div>`
@@ -139,34 +155,22 @@ function Sidebar (props) {
     console.log('*sidebar*', profile)
 
     return html`<div class="feed-sidebar">
-        <dl class="counts">
-            <div>
-                <dd>${profile.following}</dd>
-                <dt class="following">following</dt>
-            </div>
-            <div>
-                <dd>${profile.followers}</dd>
-                <dt class="followers">
-                    ${profile.followers === 1 ?  'follower' : 'followers'}
-                </dt>
-            </div>
-            <div>
-                <dd>${profile.posts}</dd>
-                <dt class="posts-count">
-                    ${profile.posts === 1 ? 'post' : 'posts'}
-                </dt>
-            </div>
-        </dl>
-
         <div class="join-today">
             <h3>Join Planetary today!</h3>
-            <p>
-                Planetary is a decentralized network for people who want to
-                come together and connect even when the internet goes out.
-                It's an app that doesn't keep your data in the cloud.
-            </p>
+            <p>Planetary is a decentralized network for people who want to come together and connect even when the internet goes out.</p>
+            <p>It's an app that doesn't keep your data in the cloud.</p>
 
             <button class="cool-btn">Create your account</button>
+        </div>
+        <div class="whats-hot">
+            <h3>What's hot on Planetary</h3>
+            <ul>
+                <li><a href="#">#CyberPunkRevolution <span class="counter-highlight">(1768)</span></a></li>
+                <li><a href="#">#BlackLivesMatter <span class="counter-highlight">(745)</span></a></li>
+                <li><a href="#">#FreeBritneyNow <span class="counter-highlight">(692)</span></a></li>
+                <li><a href="#">#LaserEyesTill100K <span class="counter-highlight">(581)</span></a></li>
+                <li><a href="#">#KeepHongKongFree <span class="counter-highlight">(437)</span></a></li>
+            </ul>
         </div>
     </div>`
 }

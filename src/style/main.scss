@@ -4,6 +4,15 @@
 @use './feed-sidebar';
 @use './_responsive';
 
+html {
+    box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
 body {
     background-color: v.$mainColor;
     color: white;
@@ -68,6 +77,20 @@ button {
 
 .planetary {
     --transition-time: 0.6s;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+
+    .feed-wrapper {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        max-width: 990px;
+        align-content: center;
+        align-self: center;
+        align-items: flex-start;
+    }
 
     h1 {
         a {
