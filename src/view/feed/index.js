@@ -41,6 +41,9 @@ function Feed (props) {
                     // TODO -- handle threads
                     var post = isThread(_post) ? _post[0] : _post
                     var { mentions } = post.value.content
+                    var hasImages = !!(mentions.filter(m => {
+                        return ref.isBlob(m.link)
+                    })[0])
 
                     return html`<li class="post ${isThread(_post) ? 'is-thread' : ''}">
                         <header class="post_head">
@@ -56,9 +59,10 @@ function Feed (props) {
                             <button class="post_options"></button>
                         </header>
 
-                        ${mentions && mentions[0] ?
+                        ${mentions && mentions[0] && hasImages ?
                             html`<div class="image-carousel">
                                 ${mentions.map(blob => {
+                                    console.log('**blob**', blob)
                                     return ref.isBlob(blob.link) ?
                                         html`<img src=${PUB_URL + '/blob/' +
                                             encodeURIComponent(blob.link)}
@@ -121,8 +125,6 @@ function FeedHeader (props) {
     var { username } = props.feed
 
     var profile = _.find(props.profiles, { username: props.username })
-
-    // console.log('**profile**', profile)
 
     return html`<div class="feed-header">
         <div class="feed-header-2">
