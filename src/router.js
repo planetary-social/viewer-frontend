@@ -82,13 +82,11 @@ function Router (state) {
         if (shouldFetch) {
             getFeed()
                 .then(([feed, counts, profile]) => {
-                    console.log('*feed*', feed)
-                    console.log('*counts*', counts)
-                    console.log('*profile*', profile)
                     var profilesData = {}
                     profilesData[counts.id] = counts
                     profilesData[counts.id].image = profile.image
                     state.profiles.set(profilesData)
+
                     state.feed.set({
                         username: params.username,
                         id: counts.id,
@@ -96,9 +94,9 @@ function Router (state) {
                         hashtag: params.tagName
                     })
                 })
-                .catch(err => {
-                    console.log('errr', err)
-                })
+                // .catch(err => {
+                //     console.log('errr', err)
+                // })
         }
 
         return { view: Feed }

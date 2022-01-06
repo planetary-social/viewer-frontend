@@ -59,12 +59,12 @@ function Feed (props) {
                         ${mentions && mentions[0] ?
                             html`<div class="image-carousel">
                                 ${mentions.map(blob => {
-                                    return ref.isBlob ?
+                                    return ref.isBlob(blob.link) ?
                                         html`<img src=${PUB_URL + '/blob/' +
                                             encodeURIComponent(blob.link)}
                                         />` :
                                         html`<span class="ref">
-                                            ${blob}
+                                            ${blob.link}
                                         </span>`
                                 })}
                             </div>` :
@@ -122,6 +122,8 @@ function FeedHeader (props) {
 
     var profile = _.find(props.profiles, { username: props.username })
 
+    // console.log('**profile**', profile)
+
     return html`<div class="feed-header">
         <div class="feed-header-2">
             <div class="header-content">
@@ -142,7 +144,6 @@ function FeedHeader (props) {
 
 function Sidebar (props) {
     var profile = _.find(props.profiles, { username: props.username })
-    console.log('*sidebar*', profile)
 
     return html`<div class="feed-sidebar">
         <dl class="counts">
