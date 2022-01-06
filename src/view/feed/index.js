@@ -41,7 +41,7 @@ function Feed (props) {
                     // TODO -- handle threads
                     var post = isThread(_post) ? _post[0] : _post
                     var { mentions } = post.value.content
-                    var hasImages = !!(mentions.filter(m => {
+                    var hasImages = !!((mentions || []).filter(m => {
                         return ref.isBlob(m.link)
                     })[0])
 
