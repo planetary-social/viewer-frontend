@@ -14,6 +14,7 @@ var MockAvatar = require('./mock-avatar')
 var _ = {
     find: require('lodash.find')
 }
+var ref = require('ssb-ref')
 
 function isThread (post) {
     return Array.isArray(post)
@@ -37,6 +38,9 @@ function Feed (props) {
                     // TODO -- handle threads
                     var post = isThread(_post) ? _post[0] : _post
                     var { mentions } = post.value.content
+                    var hasImages = !!((mentions || []).filter(m => {
+                        return ref.isBlob(m.link)
+                    })[0])
 
                     return html`<li class="post ${isThread(_post) ? 'is-thread' : ''}">
                         <header class="post_head">
@@ -52,18 +56,21 @@ function Feed (props) {
                             <button class="post_options"></button>
                         </header>
 
-                        ${mentions && mentions[0] ?
+                        ${mentions && mentions[0] && hasImages ?
                             html`<div class="image-carousel">
                                 ${mentions.map(blob => {
-                                    return html`<img src=${PUB_URL +
-                                        '/blob/' + blob.link} />`
+                                    return ref.isBlob(blob.link) ?
+                                        html`<img src=${PUB_URL + '/blob/' +
+                                            encodeURIComponent(blob.link)}
+                                        />` :
+                                        null
                                 })}
                             </div>` :
                             null
                         }
 
-                        <div class="markdown_block">
-                            <${Markdown} markdown=${
+                        ${post.value.content.text ?
+                            html`<${Markdown} markdown=${
                                 remark()
                                     .use(linkifyHashtags)
                                     .use(cidToUrl(blobId => {
@@ -73,8 +80,9 @@ function Feed (props) {
                                     .use(remarkParse, { commonmark: true })
                                     .processSync(post.value.content.text).contents
                                 }
-                            />
-                        </div>
+                            />` :
+                            null
+                        }
 
                         <footer class="post_reactions">
                             <div class="post_actions">
@@ -152,7 +160,6 @@ function FeedHeader (props) {
 
 function Sidebar (props) {
     var profile = _.find(props.profiles, { username: props.username })
-    console.log('*sidebar*', profile)
 
     return html`<div class="feed-sidebar">
         <div class="join-today">
