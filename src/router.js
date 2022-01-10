@@ -56,11 +56,13 @@ function Router (state) {
                     .then(res => {
                         if (!res.ok) {
                             console.log('response not ok')
-                            res.text().then(text => {
+                            return res.text().then(text => {
                                 console.log('not ok text', text)
+                                return text
                             })
                         }
-                        return res.ok ? res.json() : res.text()
+
+                        return res.json()
                     }),
 
                 // TODO -- should check if we have this already, only
