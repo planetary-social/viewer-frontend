@@ -123,37 +123,38 @@ function FeedHeader (props) {
     var profile = _.find(props.profiles, { username: props.username })
 
     return html`<div class="feed-header">
-        <div class="feed-header-2">
-            <div class="header-content">
+        <div class="feed-header-banner">
+        </div>
+        <div class="feed-header-content">
+            <div class="user-info">
                 <div class="avatar">
                     <img src="${PUB_URL + '/blob/' +
                         encodeURIComponent(profile.image)}"
                     />
                 </div>
-
-                <div class="user-info">
+                <div class="user-info-card">
                     <h2>${username}</h2>
                     <div class="user-id">${profile.id}</div>
                 </div>
-                <dl class="counts">
-                    <div>
-                        <dd>${profile.following}</dd>
-                        <dt class="following">following</dt>
-                    </div>
-                    <div>
-                        <dd>${profile.followers}</dd>
-                        <dt class="followers">
-                            ${profile.followers === 1 ?  'follower' : 'followers'}
-                        </dt>
-                    </div>
-                    <div>
-                        <dd>${profile.posts}</dd>
-                        <dt class="posts-count">
-                            ${profile.posts === 1 ? 'post' : 'posts'}
-                        </dt>
-                    </div>
-                </dl>
             </div>
+            <dl class="user-stats">
+                <div class="user-stats-unit">
+                    <dd>${profile.following}</dd>
+                    <dt class="following">following</dt>
+                </div>
+                <div class="user-stats-unit">
+                    <dd>${profile.followers}</dd>
+                    <dt class="followers">
+                        ${profile.followers === 1 ?  'follower' : 'followers'}
+                    </dt>
+                </div>
+                <div class="user-stats-unit">
+                    <dd>${profile.posts}</dd>
+                    <dt class="posts-count">
+                        ${profile.posts === 1 ? 'post' : 'posts'}
+                    </dt>
+                </div>
+            </dl>
         </div>
     </div>`
 }
