@@ -2,7 +2,6 @@ var Bus = require('@nichoth/events')
 var observ = require('observ')
 var struct = require('observ-struct')
 import { html } from 'htm/preact'
-import Observable from 'observ'
 var route = require('route-event')()
 var evs = require('./EVENTS')
 
@@ -30,6 +29,9 @@ function State () {
     return struct({
         routePath: observ(null),
         profiles: observ(null),
+        default: struct({
+            data: observ(null)
+        }),
         feed: struct({
             username: observ(null),
             data: observ(null),

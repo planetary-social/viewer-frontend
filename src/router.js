@@ -18,6 +18,19 @@ function Router (state) {
     var router = _router()
 
     router.addRoute('/', () => {
+        function fetchDefault () {
+            return fetch(PUB_URL + '/default')
+                .then(res => res.json())
+        }
+
+        if (!state.default().data) {
+            fetchDefault()
+                .then(res => {
+                    console.log('fetched defualt', res)
+                    state.default.data.set(res)
+                })
+        }
+
         return { view: Home }
     })
 
@@ -39,9 +52,6 @@ function Router (state) {
 
         // can set state in here, b/c this is just a static route matching
         // file. Don't need any browser APIs
-
-        // that way we can automate tests by just doing
-        // emit(evs.route.change, '/foo/bar')
 
         // it returns a view fn, and
         // fetches the data as a side effect
@@ -96,9 +106,6 @@ function Router (state) {
                         hashtag: params.tagName
                     })
                 })
-                // .catch(err => {
-                //     console.log('errr', err)
-                // })
         }
 
         return { view: Feed }
