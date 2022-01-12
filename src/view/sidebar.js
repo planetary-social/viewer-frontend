@@ -7,24 +7,27 @@ function Sidebar (props) {
     var profile = _.find(props.profiles, { username: props.username })
 
     return html`<div class="feed-sidebar">
-        <dl class="counts">
-            <div>
-                <dd>${profile.following}</dd>
-                <dt class="following">following</dt>
-            </div>
-            <div>
-                <dd>${profile.followers}</dd>
-                <dt class="followers">
-                    ${profile.followers === 1 ?  'follower' : 'followers'}
-                </dt>
-            </div>
-            <div>
-                <dd>${profile.posts}</dd>
-                <dt class="posts-count">
-                    ${profile.posts === 1 ? 'post' : 'posts'}
-                </dt>
-            </div>
-        </dl>
+        ${profile ?
+            html`<dl class="counts">
+                <div>
+                    <dd>${profile.following}</dd>
+                    <dt class="following">following</dt>
+                </div>
+                <div>
+                    <dd>${profile.followers}</dd>
+                    <dt class="followers">
+                        ${profile.followers === 1 ?  'follower' : 'followers'}
+                    </dt>
+                </div>
+                <div>
+                    <dd>${profile.posts}</dd>
+                    <dt class="posts-count">
+                        ${profile.posts === 1 ? 'post' : 'posts'}
+                    </dt>
+                </div>
+            </dl>` :
+            null
+        }
 
         <div class="join-today">
             <h3>Join Planetary today!</h3>
