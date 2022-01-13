@@ -2,19 +2,24 @@
 
 ul.feed {
     max-width: v.$pageMw;
-    margin: 0 auto;
     padding: 0;
     list-style: none;
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
     align-items: center;
+    margin: 0 2rem 0 0;
 
     .post {
         @extend %block;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
         margin-bottom: 2.5rem;
+        width: 100%;
         filter: drop-shadow(0px 10px 30px rgba(0, 0, 0, 0.15));
-        font-size: 15px;
+        font-size: 0.9rem;
         text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
         box-shadow:
             inset 0px -1px 0px rgba(0, 0, 0, 0.43),
@@ -24,7 +29,43 @@ ul.feed {
         ;
 
         &.is-thread {
-            border: 3px solid red;
+            margin-bottom: 4rem;
+
+            .replies-stack_link {
+                background-color: #241E33;
+                box-shadow: inset 0px -1px 0px rgb(0 0 0 / 43%);
+                display: flex;
+                position: absolute;
+                bottom: -17px;
+                left: 1.5rem;
+                right: 1.5rem;
+                height: 17px;
+                border-radius: 0 0 17px 17px;
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    bottom: -17px;
+                    left: 1.5rem;
+                    right: 1.5rem;
+                    height: 17px;
+                    background-color: #1D1829;
+                    box-shadow: inset 0px -1px 0px rgb(0 0 0 / 43%);
+                    border-radius: 0 0 17px 17px;
+                }
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    bottom: -34px;
+                    left: 3rem;
+                    right: 3rem;
+                    height: 17px;
+                    background-color: #181321;
+                    box-shadow: inset 0px -1px 0px rgb(0 0 0 / 43%);
+                    border-radius: 0 0 17px 17px;
+                }
+            }
         }
 
         .text_link {
@@ -37,6 +78,10 @@ ul.feed {
         }
 
         .post_head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            align-self: stretch;
             padding: 1.5rem;
             background: none;
 
@@ -93,6 +138,22 @@ ul.feed {
             }
         }
 
+        .image-carousel {
+            align-self: stretch;
+            width: 100%;
+            position: relative;
+            padding-top: 100%;
+            margin-bottom: 1.5rem;
+
+            img {
+                height: 100%;
+                object-fit: cover;
+                width: 100%;
+                position: absolute;
+                top: 0;
+            }
+        }
+
         .post_reactions {
             padding: 1.5rem;
             border-top: 1px solid #211C2E;
@@ -118,10 +179,13 @@ ul.feed {
                 .action_buttons {
                     display: flex;
                     flex-direction: row;
+                    padding: 0;
 
                     .action_button {
                         margin-left: 1rem;
-                        padding-right: 28px;
+                        list-style: none;
+                        
+                        a {padding-right: 28px;}
 
                         &.action_button--share {
                             background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjEiIGhlaWdodD0iMTUiIHZpZXdCb3g9IjAgMCAyMSAxNSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE1LjAyNTkgMC40NzY3MDJDMTQuODYzMSAwLjI5NTQyOCAxNC42MDU0IDAuMjMzMjg1IDE0LjM3NzkgMC4zMjA0MzVDMTQuMTUwNCAwLjQwNzU4NCAxNC4wMDAxIDAuNjI1OTg2IDE0LjAwMDEgMC44Njk2MzRWMi45Mjk1OEMxNC4wMDA0IDMuMDA3NjggMTMuOTY5NSAzLjA4MjY3IDEzLjkxNDMgMy4xMzc5QzEzLjg1OTEgMy4xOTMxMiAxMy43ODQxIDMuMjI0MDEgMTMuNzA2IDMuMjIzNjlINy4zODg0OEMzLjU3MzE5IDMuMjI0OTggMC40Nzg3OTEgNi4zMTQxMiAwLjQ3MTAwOCAxMC4xMjk0QzAuNDY1NDQ1IDExLjQ0MDYgMC44NDE5NDkgMTIuNzI1MSAxLjU1NDUxIDEzLjgyNThDMS42NzgwOSAxNC4wMTk0IDEuOTAzMDggMTQuMTIzNCAyLjEzMDY0IDE0LjA5MjFDMi4zNTgyMSAxNC4wNjA3IDIuNTQ2NyAxMy44OTk3IDIuNjEzMzEgMTMuNjc5OUMzLjI1ODI3IDExLjY2MjUgNS4xMjkzNCAxMC4yOTAyIDcuMjQ3MzEgMTAuMjgxMkgxMy43MDZDMTMuNzg0MiAxMC4yODEyIDEzLjg1OTIgMTAuMzEyMyAxMy45MTQ0IDEwLjM2NzdDMTMuOTY5NSAxMC40MjMxIDE0LjAwMDQgMTAuNDk4MiAxNC4wMDAxIDEwLjU3NjVWMTIuNjM1MkMxMy45OTk2IDEyLjg3OTEgMTQuMTQ5NyAxMy4wOTc5IDE0LjM3NzQgMTMuMTg1NEMxNC42MDUgMTMuMjcyOCAxNC44NjMgMTMuMjEwOCAxNS4wMjU5IDEzLjAyOTNMMjAuMzE5OSA3LjE0NzEzQzIwLjUyMTMgNi45MjM0MiAyMC41MjEzIDYuNTgzOCAyMC4zMTk5IDYuMzYwMDlMMTUuMDI1OSAwLjQ3NjcwMloiIGZpbGw9IiM2QzYwODUiLz4KPC9zdmc+Cg==");
@@ -133,14 +197,22 @@ ul.feed {
             }
 
             .post_comments {
+                padding: 0;
+
                 .post_comment {
+                    list-style: none;
                     background: #342b47;
                     box-shadow:
                         0px 10px 20px rgba(0, 0, 0, 0.05),
                         inset 0px 1px 0px rgba(57, 50, 79, 0.7);
-                    border-radius: 9.5px;
+                    border-radius: 0.6rem;
                     padding: 1.5rem;
                     margin-bottom: 1.5rem;
+                    transition: all .3s ease;
+
+                    &:hover {
+                        background-color: #382E4D;
+                    }
 
                     .comment_author {
                         background: none;
@@ -168,7 +240,7 @@ ul.feed {
             .comment_prompt {
                 display: block;
                 background-color: #221B2E;
-                border-radius: 9.5px;
+                border-radius: 0.6rem;
                 padding: 0.5rem 1rem;
                 text-decoration: none;
                 color: #6C6085;
@@ -184,28 +256,49 @@ ul.feed {
             }
         }
 
-        .markup {
+        .replies-stack_link {display: none;}
+
+        .markdown_block {
+            align-self: stretch;
             padding: 0 1.5rem 1.5rem;
 
-            & > p {
-                margin: 0;
+            .markup {
+                background-color: rgba(0, 0, 0, 0.25);
+                border-radius: 0.6rem;
+                padding: 2.5rem 1.5rem 1.5rem;
 
-                img {
-                    border-radius: 9.5px;
-                    max-height: 600px;
-                    width: 100%;
-                    object-fit: cover;
+                &::before {
+                    content: "Markdown";
                     display: block;
-                    margin: 1.5rem auto;
-                    box-shadow: 0px 10px 20px rgb(0 0 0 / 5%);
+                    padding-bottom: 0.5rem;
+                    border-bottom: 1px solid #6C6085;
+                    color: #6C6085;
+                    font-size: 0.8rem;
+                    position: relative;
+                    top: -1rem;
                 }
-
-                a {
-                    text-decoration: none;
-                    color: #D64082;
-
-                    &:hover {
-                        text-decoration: underline;
+    
+                & > p {
+                    margin: 0;
+                    text-align: left;
+    
+                    img {
+                        border-radius: 0.6rem;
+                        width: 100%;
+                        height: 300px;
+                        object-fit: cover;
+                        display: block;
+                        margin: 1.5rem 0;
+                        box-shadow: 0px 10px 20px rgb(0 0 0 / 5%);
+                    }
+    
+                    a {
+                        text-decoration: none;
+                        color: #D64082;
+    
+                        &:hover {
+                            text-decoration: underline;
+                        }
                     }
                 }
             }
