@@ -1,31 +1,19 @@
 import { html } from 'htm/preact'
-import Markdown from 'preact-markdown'
-const remark = require('remark')
-import cidToUrl from 'remark-image-cid-to-url/browser'
-import remarkParse from 'remark-parse'
+var _ = {
+    find: require('lodash.find')
+}
 var { PUB_URL } = require('../../CONSTANTS')
-console.log('envvvvv', process.env.NODE_ENV)
 if (process.env.NODE_ENV === 'test') {
     PUB_URL = 'http://0.0.0.0:8888'
 }
 var HeadPart = require('../head-part')
-var linkifyRegex = require('@planetary-ssb/remark-linkify-regex')
-var MockAvatar = require('./mock-avatar')
-var _ = {
-    find: require('lodash.find')
-}
-var ref = require('ssb-ref')
+var MsgList = require('../msg-list')
+var Sidebar = require('../sidebar')
 
-function isThread (post) {
-    return Array.isArray(post)
-}
+console.log('envvvvv', process.env.NODE_ENV)
 
 function Feed (props) {
     if (!props.feed.data) return null
-
-    const linkifyHashtags = linkifyRegex(/#[\w-]+/g, node => {
-        return '/tag/' + node.substring(1)
-    })
 
     return html`
         <${HeadPart} />
@@ -117,10 +105,14 @@ function Feed (props) {
     `
 }
 
+module.exports = Feed
+
+
 function FeedHeader (props) {
     var { username } = props.feed
 
     var profile = _.find(props.profiles, { username: props.username })
+    if (!profile) return null
 
     return html`<div class="feed-header">
         <div class="feed-header-banner">

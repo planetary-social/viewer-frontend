@@ -18,3 +18,12 @@ cp .env.example .env
 ```
 $ npm run lint
 ```
+
+--------------------------------------------------
+
+In router.js
+```
+if (process.env.NODE_ENV === 'test') {
+    PUB_URL = 'http://localhost:8888'
+}
+```
