@@ -84,6 +84,8 @@ ul.feed {
             align-self: stretch;
             padding: 1.5rem;
             background: none;
+            border-bottom: 1px solid #211C2E;
+            box-shadow: 0px 1px 0px #3d3454;
 
             .post_signature {
                 display: flex;
@@ -258,47 +260,28 @@ ul.feed {
 
         .replies-stack_link {display: none;}
 
-        .markdown_block {
+        .markup {
             align-self: stretch;
-            padding: 0 1.5rem 1.5rem;
+            padding: 1.5rem;
+            overflow: hidden;
 
-            .markup {
-                background-color: rgba(0, 0, 0, 0.25);
-                border-radius: 0.6rem;
-                padding: 2.5rem 1.5rem 1.5rem;
+            p {
+                margin: 0;
+                text-align: left;
 
-                &::before {
-                    content: "Markdown";
+                img {
+                    border-radius: 0.6rem;
+                    width: 100%;
                     display: block;
-                    padding-bottom: 0.5rem;
-                    border-bottom: 1px solid #6C6085;
-                    color: #6C6085;
-                    font-size: 0.8rem;
-                    position: relative;
-                    top: -1rem;
+                    box-shadow: 0px 10px 20px rgb(0 0 0 / 5%);
                 }
-    
-                & > p {
-                    margin: 0;
-                    text-align: left;
-    
-                    img {
-                        border-radius: 0.6rem;
-                        width: 100%;
-                        height: 300px;
-                        object-fit: cover;
-                        display: block;
-                        margin: 1.5rem 0;
-                        box-shadow: 0px 10px 20px rgb(0 0 0 / 5%);
-                    }
-    
-                    a {
-                        text-decoration: none;
-                        color: #D64082;
-    
-                        &:hover {
-                            text-decoration: underline;
-                        }
+
+                a {
+                    text-decoration: none;
+                    color: #D64082;
+
+                    &:hover {
+                        text-decoration: underline;
                     }
                 }
             }

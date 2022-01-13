@@ -9,68 +9,125 @@
 
 /* Phones */
 @media screen and (max-width: 479px) {
-    .user-id {
-        max-width: 200px;
-        overflow: hidden;
-    }
 
-    ul.feed {
-        padding: 1rem;
+    .planetary {
 
-        .post {
-            border-radius: 1rem;
-            margin-bottom: 1rem;
-
-            .post_head {padding: 1rem;}
-
-            .image-carousel {margin-bottom: 1rem;}
-
-            .markdown_block {
-                padding: 0 1rem 1rem;
-
-                .markup {padding: 2rem 1rem 1rem;}
+        .feed-header {
+            .feed-header-banner {
+                height: 80px;
             }
 
-            .post_reactions {
-                padding: 1rem;
+            .feed-header-content {
+                flex-direction: column;
+                padding: 0 1rem;
+                margin: -2.5rem 0 0;
 
-                .post_actions {
-                    margin-bottom: 1rem;
-                }
+                .user-info {
+                    margin-right: 0;
 
-                .post_comments .post_comment {
-                    padding: 1rem;
-                    margin-bottom: 1rem;
-                }
-            }
-
-            &.is-thread {
-                margin-bottom: 3.1rem;
-
-                .replies-stack_link {
-                    height: 0.9rem;
-                    bottom: -0.9rem;
-                    left: 1rem;
-                    right: 1rem;
-                    border-radius: 0 0 0.7rem 0.7rem;
-    
-                    &::before {
-                        height: 0.8rem;
-                        bottom: -0.8rem;
-                        left: 1.1rem;
-                        right: 1.1rem;
-                        border-radius: 0 0 0.6rem 0.6rem;
+                    .avatar {
+                        width: 110px;
+                        height: 110px;
                     }
-    
-                    &::after {
-                        height: 0.7rem;
-                        bottom: -1.5rem;
-                        left: 2.1rem;
-                        right: 2.1rem;
-                        border-radius: 0 0 0.5rem 0.5rem;
+
+                    .user-info-card {
+                        flex-grow: 1;
+                        padding-top: 3.1rem;
+                        padding-left: 1rem;
+
+                        h2 {
+                            font-size: 2rem;
+                            margin-bottom: 0.2rem;
+                        }
+
+                        .user-id {
+                            width: 90%;
+                            overflow: hidden;
+                            font-size: 0.8rem;
+
+                        }
+                    }
+                }
+
+                .user-stats {
+                    width: 100%;
+                    padding-top: 0;
+
+                    .user-stats-unit {
+                        dd {font-size: 2rem;}
+
+                        dt {font-size: 0.8rem;}
+                    }
+                }
+            }
+        }
+
+        .feed-wrapper {
+            flex-direction: column;
+            align-items: unset;
+            align-self: unset;
+
+            .feed {
+                padding: 1rem;
+                margin: 0 0 2rem;
+        
+                .post {
+                    border-radius: 1rem;
+                    margin-bottom: 1rem;
+        
+                    .post_head {padding: 1rem;}
+        
+                    .image-carousel {margin-bottom: 1rem;}
+        
+                    .markdown_block {
+                        padding: 0 1rem 1rem;
+        
+                        .markup {padding: 2rem 1rem 1rem;}
+                    }
+        
+                    .post_reactions {
+                        padding: 1rem;
+        
+                        .post_actions {
+                            margin-bottom: 1rem;
+                        }
+        
+                        .post_comments .post_comment {
+                            padding: 1rem;
+                            margin-bottom: 1rem;
+                        }
+                    }
+        
+                    &.is-thread {
+                        margin-bottom: 3.1rem;
+        
+                        .replies-stack_link {
+                            height: 0.9rem;
+                            bottom: -0.9rem;
+                            left: 1rem;
+                            right: 1rem;
+                            border-radius: 0 0 0.7rem 0.7rem;
+            
+                            &::before {
+                                height: 0.8rem;
+                                bottom: -0.8rem;
+                                left: 1.1rem;
+                                right: 1.1rem;
+                                border-radius: 0 0 0.6rem 0.6rem;
+                            }
+            
+                            &::after {
+                                height: 0.7rem;
+                                bottom: -1.5rem;
+                                left: 2.1rem;
+                                right: 2.1rem;
+                                border-radius: 0 0 0.5rem 0.5rem;
+                            }
+                        }
                     }
                 }
             }
         }
     }
+
 }
