@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/planetary-social/viewer-frontend#readme",
   "devDependencies": {
-    "@planetary-ssb/pub": "^0.2.11",
+    "@planetary-ssb/pub": "^0.2.12",
     "browserify": "^17.0.0",
     "budo": "^11.6.4",
     "concurrently": "^6.4.0",

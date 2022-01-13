@@ -3,6 +3,7 @@
 @use './feed-header';
 @use './feed-sidebar';
 @use './_responsive';
+@use './home';
 
 html {
     box-sizing: border-box;
