@@ -24,9 +24,11 @@ function MsgList (props) {
 
     return html`<ul class="feed feed-content">
         ${(msgs || []).map(_post => {
+            console.log('post', _post)
 
             // TODO -- handle threads
             var post = isThread(_post) ? _post[0] : _post
+            post = post.root ? post.root : post
             var { mentions } = post.value.content
             var hasImages = !!((mentions || []).filter(m => {
                 return ref.isBlob(m.link)
