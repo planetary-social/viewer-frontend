@@ -32,6 +32,8 @@ function MsgList (props) {
                 return ref.isBlob(m.link)
             })[0])
 
+            // console.log('post', post.value.content.text)
+
             return html`<li class="post ${isThread(_post) ? 'is-thread' : ''}">
                 <header class="post_head">
                     <div class="post_signature">
