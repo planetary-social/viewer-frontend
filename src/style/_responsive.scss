@@ -68,11 +68,11 @@
         }
 
         .feed-wrapper {
-            flex-direction: column;
+            flex-direction: column-reverse;
             align-items: unset;
             align-self: unset;
 
-            .feed {
+            .feed-content {
                 padding: 1rem;
                 margin: 0 0 2rem;
         
@@ -131,6 +131,11 @@
                         }
                     }
                 }
+            }
+
+            .feed-sidebar {
+                max-width: none;
+                margin: 1rem;
             }
         }
     }
