@@ -1,13 +1,18 @@
 import { html } from 'htm/preact'
 var HeadPart = require('../head-part')
+var MsgList = require('../msg-list')
+var Sidebar = require('../sidebar')
 
 function HomeView (props) {
+    console.log('props in home', props)
+
+    if (!props.default.data) return null
+
     return html`
-        <div class="flex-layout">
-            <${HeadPart} />
-            <main class="layout-wrapper home page-content">
-                <p>ok wooo</p>
-            </main>
+        <${HeadPart} />
+        <div class="home page-content">
+            <${Sidebar} />
+            <${MsgList} msgs=${props.default.data} />
         </div>
     `
 }
