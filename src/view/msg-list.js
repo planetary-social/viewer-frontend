@@ -78,7 +78,6 @@ function MsgList (props) {
 
                 <footer class="post_reactions">
                     <div class="post_actions">
-                        <a href="#" class="view-replies_link">View all replies</a>
                         <ul class="action_buttons">
                             <li class="action_button action_button--share">
                                 <a href="#">Share</a>
