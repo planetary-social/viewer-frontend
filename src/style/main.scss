@@ -1,9 +1,10 @@
 @use './variables' as v;
 @use './layout';
 @use './feed';
+@use './_markdown';
 @use './feed-header';
 @use './feed-sidebar';
-@use './_responsive';
+@use './responsive';
 @use './home';
 
 html {
