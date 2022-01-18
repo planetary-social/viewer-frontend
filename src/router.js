@@ -35,12 +35,29 @@ function Router (state) {
     })
 
     router.addRoute('/tag/:tagName', ({ params }) => {
-        var tagName = params
+        var { tagName } = params
 
         function getTagContent () {
             return fetch(PUB_URL + '/tag/' + tagName)
                 .then(res => {
                     return res.ok ? res.json() : res.text()
+                })
+                .then(res => {
+                    console.log('tag response', res)
+                    return res
+                })
+        }
+
+        console.log('state.hashtag', state.hashtag().tag)
+        console.log('tagname', tagName)
+
+        if (state.hashtag().tag !== tagName) {
+            getTagContent()
+                .then(res => {
+                    state.hashtag.set({
+                        tag: tagName,
+                        feed: res
+                    })
                 })
         }
 
