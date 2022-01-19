@@ -71,6 +71,7 @@
             flex-direction: column-reverse;
             align-items: unset;
             align-self: unset;
+            margin-top: 1rem;
 
             .feed-content {
                 padding: 1rem;
@@ -136,6 +137,8 @@
             .feed-sidebar {
                 max-width: none;
                 margin: 1rem;
+                position: relative;
+                top: auto;
             }
         }
     }

@@ -1,6 +1,8 @@
 @use './variables' as v;
 
 .feed-sidebar {
+    position: sticky;
+    top: calc(70px + 2.5rem);
     max-width: 300px;
     @extend %block;
     filter: drop-shadow(0px 10px 30px rgba(0, 0, 0, 0.15));
