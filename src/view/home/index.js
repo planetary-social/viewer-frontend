@@ -10,9 +10,10 @@ function HomeView (props) {
 
     return html`
         <${HeadPart} />
-        <div class="home page-content">
-            <${Sidebar} />
+
+        <div class="feed-wrapper">
             <${MsgList} msgs=${props.default.data} />
+            <${Sidebar} />
         </div>
     `
 }
