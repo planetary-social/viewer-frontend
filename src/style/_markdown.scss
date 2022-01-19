@@ -1,0 +1,85 @@
+.markup {
+    align-self: stretch;
+    padding: 1.5rem;
+    overflow: hidden;
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: sans-serif;
+        font-weight: 400;
+    }
+
+    h1 {font-size: 1.7rem;}
+
+    h2 {font-size: 1.5rem;}
+
+    h3 {font-size: 1.3rem;}
+
+    h4 {font-size: 1.2rem;}
+
+    p {
+        line-height: 1.4rem;
+        margin: 0;
+        text-align: left;
+        color: #c0bdc5;
+
+        img {
+            margin: 1.5rem 0;
+            border-radius: 0.6rem;
+            width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: #D64082;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    pre {
+        background-color: #221B2E;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        word-break: break-word; 
+        border-radius: 0.3rem;
+        white-space: pre-wrap;
+
+        code {
+            color: #8e7eaf;
+            line-height: 1.4rem;
+        }
+    }
+
+    ol, ul {
+        padding-left: 1.5rem;
+        margin: 1rem 0;
+
+        li {
+            margin: 1rem 0;
+            color: #c0bdc5;
+
+            strong {color: white;}
+        }
+    }
+
+    blockquote {
+        margin: 0;
+        padding: 3.5rem 1.5rem 1.5rem;
+        border-radius: 0.3rem;
+        background-color: #b59ae121;
+        position: relative;
+
+        &::before {
+            content: '“';
+            color: #D64082;
+            font-family: serif;
+            font-size: 3rem;
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+        }
+    }
+}
