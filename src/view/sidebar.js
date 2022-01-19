@@ -1,11 +1,6 @@
 import { html } from 'htm/preact'
-var _ = {
-    find: require('lodash.find')
-}
 
-function Sidebar (props) {
-    var profile = _.find(props.profiles, { username: props.username })
-
+function Sidebar () {
     return html`<div class="feed-sidebar">
         <div class="join-today">
             <h3>Join Planetary today!</h3>

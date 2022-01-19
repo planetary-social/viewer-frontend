@@ -35,7 +35,10 @@ function State () {
         feed: struct({
             username: observ(null),
             data: observ(null),
-            hashtag: observ(null)
+        }),
+        hashtag: struct({
+            tag: observ(null),
+            feed: observ(null)
         })
     })
 }
