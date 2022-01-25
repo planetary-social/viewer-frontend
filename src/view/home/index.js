@@ -9,6 +9,12 @@ function HomeView (props) {
     return html`
         <${HeadPart} />
 
+        <div class="header-promo">
+            <h1 class="promo-heading">Planetary is building a<br />social media commons</h1>
+            <p class="promo-subheading">We make open source for a decentralized social web.<br />Come change social media with us.</p>
+            <p class="promo-subheading">Learn more at <a href="https://planetary.social">planetary.social</a></p>
+        </div>
+
         <div class="feed-wrapper">
             <${MsgList} msgs=${props.default.data}
                 users=${props.users} ...${props}
