@@ -23,7 +23,7 @@ const linkifyHashtags = linkifyRegex(/#[\w-]+/g, node => {
 })
 
 function MsgList (props) {
-    var { msgs, profiles } = props
+    var { msgs, profiles, username } = props
 
     return html`<ul class="feed feed-content">
         ${(msgs || []).map(_post => {
@@ -36,7 +36,7 @@ function MsgList (props) {
             })[0])
 
             var profile = (profiles || {})[post.value.author]
-            var authorName = (profile || {}).name
+            var authorName = (profile || {}).name || username
 
             console.log('post', post)
 
