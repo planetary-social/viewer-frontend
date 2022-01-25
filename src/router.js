@@ -3,6 +3,7 @@ import { html } from 'htm/preact'
 const Home = require('./view/home')
 const Feed = require('./view/feed')
 var { PUB_URL } = require('./CONSTANTS')
+const xtend = require('xtend')
 
 if (process.env.NODE_ENV === 'test') {
     PUB_URL = 'http://localhost:8888'
@@ -17,17 +18,55 @@ function Placeholder () {
 function Router (state) {
     var router = _router()
 
+    var fetching = false
     router.addRoute('/', () => {
         function fetchDefault () {
+            var posts
+            fetching = true
+
             return fetch(PUB_URL + '/default')
                 .then(res => res.json())
+                // get the profiles for everyone in the response
+                .then(res => {
+                    posts = res
+                    // need a deduplicated list of user-IDs
+                    var getThese = res
+                        .map(msg => msg.value.author)
+                        // check if we already have it
+                        .filter(author => {
+                            return !((state.profiles() || {})[author])
+                        })
+                        // dedup
+                        .filter((id, i, arr) => arr.indexOf(id) === i)
+
+                    console.log('get these', getThese)
+
+                    return fetch(PUB_URL + '/get-profiles', {
+                        method: 'POST',
+                        mode: 'cors',
+                        body: JSON.stringify({ ids: getThese })
+                    })
+                        .then(res => res.json())
+                        .then(res => {
+                            var byId = res.reduce((acc, val, i) => {
+                                acc[getThese[i]] = val
+                                return acc
+                            }, {})
+                            return byId
+                        })
+                })
+                .then(profiles => {
+                    return { profiles, posts }
+                    fetching = false
+                })
         }
 
-        if (!state.default().data) {
+        if (!state.default().data && !fetching) {
             fetchDefault()
-                .then(res => {
-                    console.log('fetched defualt', res)
-                    state.default.data.set(res)
+                .then(({ profiles, posts }) => {
+                    state.profiles.set(xtend((state.profiles() || {}),
+                        profiles))
+                    state.default.data.set(posts)
                 })
         }
 

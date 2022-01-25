@@ -33,14 +33,14 @@ function MsgList (props) {
                 return ref.isBlob(m.link)
             })[0])
 
-            var profile = (profiles || {})[post.value.author] || null
-            var authorName = (profile || {}).username
+            var profile = (profiles || {})[post.value.author]
+            var authorName = (profile || {}).name
 
             return html`<li class="post ${isThread(_post) ? 'is-thread' : ''}">
                 <header class="post_head">
                     <div class="post_signature">
                         <a href="#" class="post_author has_stories">
-                            <${Blob} blob=${({ link: profile.image })} />
+                            <${Blob} blob=${({ link: ((profile || {}).image) })} />
                         </a>
                         <div class="post_meta">
                             <a href="#" class="post_author_name pro_user">
