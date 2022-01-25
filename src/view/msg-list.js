@@ -50,7 +50,9 @@ function MsgList (props) {
                         </a>
 
                         <div class="post_meta">
-                            <a href="#" class="post_author_name pro_user">
+                            <a href="/feed/${authorName}"
+                                class="post_author_name pro_user"
+                            >
                                 ${authorName}
                             </a>
                             <span class="post_timestamp">
