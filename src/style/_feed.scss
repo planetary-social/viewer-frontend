@@ -142,22 +142,6 @@ ul.feed {
             }
         }
 
-        .image-carousel {
-            align-self: stretch;
-            width: 100%;
-            position: relative;
-            padding-top: 100%;
-            margin-bottom: 1.5rem;
-
-            img {
-                height: 100%;
-                object-fit: cover;
-                width: 100%;
-                position: absolute;
-                top: 0;
-            }
-        }
-
         .post_reactions {
             padding: 1.5rem;
             border-top: 1px solid #211C2E;

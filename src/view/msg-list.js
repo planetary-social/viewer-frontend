@@ -52,19 +52,6 @@ function MsgList (props) {
                     <button class="post_options"></button>
                 </header>
 
-                ${mentions && mentions[0] && hasImages ?
-                    html`<div class="image-carousel">
-                        ${mentions.map(blob => {
-                            return ref.isBlob(blob.link) ?
-                                html`<img src=${PUB_URL + '/blob/' +
-                                    encodeURIComponent(blob.link)}
-                                />` :
-                                null
-                        })}
-                    </div>` :
-                    null
-                }
-
                 ${post.value.content.text ?
                     html`<${Markdown} markdown=${
                         remark()
