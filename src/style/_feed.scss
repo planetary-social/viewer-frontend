@@ -91,36 +91,43 @@ ul.feed {
                 display: flex;
                 letter-spacing: 0.5px;
 
-              .post_author {
-                  border-radius: 35px;
-                  margin-right: 0.7rem;
+                .post_author {
+                    border-radius: 35px;
+                    margin-right: 0.7rem;
 
-                  img {
-                      background-color: white;
-                      width: 35px;
-                      height: 35px;
-                      border-radius: 35px;
-                  }
-              }
+                    img {
+                        background-color: white;
+                        width: 35px;
+                        height: 35px;
+                        border-radius: 35px;
+                    }
+                }
 
-              .post_meta {
-                  display: flex;
-                  flex-direction: column;
+                .post_meta {
+                    display: flex;
+                    flex-direction: column;
 
-                  .post_author_name {
-                      text-decoration: none;
-                      font-weight: 500;
+                    .post_author_name {
+                        text-decoration: none;
+                        font-weight: 500;
 
-                      &:hover {
-                          text-decoration: underline;
-                      }
-                  }
+                        button.copy {
+                            margin-left: 1em;
+                            border: none;
+                            background: none;
+                            color: white;
+                        }
+                    }
 
-                  .post_timestamp {
-                      font-weight: normal;
-                      color: #6C6085;
-                  }
-              }
+                    a.post_author_name:hover {
+                        text-decoration: underline;
+                    }
+
+                    .post_timestamp {
+                        font-weight: normal;
+                        color: #6C6085;
+                    }
+                }
             }
 
             .post_options {

@@ -36,9 +36,16 @@ function MsgList (props) {
             })[0])
 
             var profile = (profiles || {})[post.value.author]
+            console.log('pr', profile)
             var authorName = (profile || {}).name || username
+            console.log('an', authorName)
 
             console.log('post', post)
+
+            function copy (ev) {
+                ev.preventDefault()
+                console.log('copy')
+            }
 
             return html`<li class="post ${isThread(_post) ? 'is-thread' : ''}">
                 <header class="post_head">
@@ -50,11 +57,21 @@ function MsgList (props) {
                         </a>
 
                         <div class="post_meta">
-                            <a href="/feed/${authorName}"
-                                class="post_author_name pro_user"
-                            >
-                                ${authorName}
-                            </a>
+                            <span class="post_author_name pro_user">
+                                <a href="/feed/${authorName}"
+                                    class="post_author_name pro_user"
+                                >
+                                    ${authorName}
+                                </a>
+
+                                <button title="copy user ID" onclick=${copy}
+                                    class="copy"
+                                >
+                                    <i class="far fa-copy"></i>
+                                </button>
+                            </span>
+
+
                             <span class="post_timestamp">
                                 ${moment(post.value.timestamp)
                                     .format("dddd, MMMM Do YYYY, h:mm:ss a")
