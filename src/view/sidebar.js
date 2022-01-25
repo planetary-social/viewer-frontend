@@ -10,7 +10,11 @@ function Sidebar () {
                 It's an app that doesn't keep your data in the cloud.
             </p>
 
-            <button class="cool-btn">Create your account</button>
+            <a href="https://apps.apple.com/us/app/planetary-social/id1481617318"
+                class="cool-btn"
+            >
+                Create your account
+            </a>
         </div>
         <div class="whats-hot">
             <h3>What's hot on Planetary</h3>
