@@ -10,6 +10,7 @@ if (process.env.NODE_ENV === 'test') {
 var ref = require('ssb-ref')
 var MockAvatar = require('./mock-avatar')
 var linkifyRegex = require('@planetary-ssb/remark-linkify-regex')
+var Blob = require('./blob')
 
 function isThread (post) {
     return Array.isArray(post)
@@ -39,7 +40,7 @@ function MsgList (props) {
                 <header class="post_head">
                     <div class="post_signature">
                         <a href="#" class="post_author has_stories">
-                            <${MockAvatar} />
+                            <${Blob} blob=${({ link: profile.image })} />
                         </a>
                         <div class="post_meta">
                             <a href="#" class="post_author_name pro_user">
