@@ -12,7 +12,7 @@ function HomeView (props) {
         <${HeadPart} />
 
         <div class="feed-wrapper">
-            <${MsgList} msgs=${props.default.data} />
+            <${MsgList} msgs=${props.default.data} users=${props.users} />
             <${Sidebar} />
         </div>
     `

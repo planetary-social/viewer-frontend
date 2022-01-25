@@ -20,7 +20,7 @@ const linkifyHashtags = linkifyRegex(/#[\w-]+/g, node => {
 })
 
 function MsgList (props) {
-    var { msgs } = props
+    var { msgs, profiles } = props
 
     return html`<ul class="feed feed-content">
         ${(msgs || []).map(_post => {
@@ -32,7 +32,8 @@ function MsgList (props) {
                 return ref.isBlob(m.link)
             })[0])
 
-            // console.log('post', post.value.content.text)
+            var profile = (profiles || {})[post.value.author] || null
+            var authorName = (profile || {}).username
 
             return html`<li class="post ${isThread(_post) ? 'is-thread' : ''}">
                 <header class="post_head">
@@ -41,7 +42,9 @@ function MsgList (props) {
                             <${MockAvatar} />
                         </a>
                         <div class="post_meta">
-                            <a href="#" class="post_author_name pro_user">Pavel</a>
+                            <a href="#" class="post_author_name pro_user">
+                                ${authorName}
+                            </a>
                             <span class="post_timestamp">Monday at 6:32pm</span>
                         </div>
                     </div>
