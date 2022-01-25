@@ -18,7 +18,9 @@ function Feed (props) {
         <${FeedHeader} ...${props} />
 
         <div class="feed-wrapper">
-            <${MsgList} msgs=${props.feed.data} profiles=${props.profiles} />
+            <${MsgList} msgs=${props.feed.data} profiles=${props.profiles}
+                username=${props.username}
+            />
             <${Sidebar} ...${props} />
         </div>
     `
