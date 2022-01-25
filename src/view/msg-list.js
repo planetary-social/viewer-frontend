@@ -1,5 +1,6 @@
 import { html } from 'htm/preact'
 import Markdown from 'preact-markdown'
+const moment = require('moment');
 const remark = require('remark')
 import cidToUrl from 'remark-image-cid-to-url/browser'
 import remarkParse from 'remark-parse'
@@ -8,9 +9,10 @@ if (process.env.NODE_ENV === 'test') {
     PUB_URL = 'http://0.0.0.0:8888'
 }
 var ref = require('ssb-ref')
-var MockAvatar = require('./mock-avatar')
+// var MockAvatar = require('./mock-avatar')
 var linkifyRegex = require('@planetary-ssb/remark-linkify-regex')
 var Blob = require('./blob')
+// import dateTime from 'date-time';
 
 function isThread (post) {
     return Array.isArray(post)
@@ -36,17 +38,26 @@ function MsgList (props) {
             var profile = (profiles || {})[post.value.author]
             var authorName = (profile || {}).name
 
+            console.log('post', post)
+
             return html`<li class="post ${isThread(_post) ? 'is-thread' : ''}">
                 <header class="post_head">
                     <div class="post_signature">
                         <a href="#" class="post_author has_stories">
-                            <${Blob} blob=${({ link: ((profile || {}).image) })} />
+                            <${Blob}
+                                blob=${({ link: ((profile || {}).image) })}
+                            />
                         </a>
+
                         <div class="post_meta">
                             <a href="#" class="post_author_name pro_user">
                                 ${authorName}
                             </a>
-                            <span class="post_timestamp">Monday at 6:32pm</span>
+                            <span class="post_timestamp">
+                                ${moment(post.value.timestamp)
+                                    .format("dddd, MMMM Do YYYY, h:mm:ss a")
+                                }
+                            </span>
                         </div>
                     </div>
                     <button class="post_options"></button>
