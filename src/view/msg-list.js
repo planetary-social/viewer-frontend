@@ -23,12 +23,12 @@ const linkifyHashtags = linkifyRegex(/#[\w-]+/g, node => {
 })
 
 function CopyButton (props) {
-    const { value, copied } = props
+    const { value, copied, onCopy } = props
 
     function copy (ev) {
         ev.preventDefault()
         console.log('copy', value)
-        props.onCopy(value)
+        onCopy(value)
     }
 
     return html`<span>
@@ -48,6 +48,7 @@ function MsgList (props) {
 
     function copyListener (userId) {
         setCopied(userId)
+        navigator.clipboard.writeText(userId)
     }
 
     return html`<ul class="feed feed-content">
@@ -62,8 +63,6 @@ function MsgList (props) {
 
             var profile = (profiles || {})[post.value.author]
             var authorName = (profile || {}).name || username
-
-            console.log('post', post)
 
             return html`<li class="post ${isThread(_post) ? 'is-thread' : ''}">
                 <header class="post_head">
