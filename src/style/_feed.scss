@@ -90,6 +90,7 @@ ul.feed {
             .post_signature {
                 display: flex;
                 letter-spacing: 0.5px;
+                align-items: center;
 
                 .post_author {
                     border-radius: 35px;
@@ -103,34 +104,37 @@ ul.feed {
                     }
                 }
 
-                .post_meta {
-                    display: flex;
-                    flex-direction: column;
+                .post_author_name {
+                    text-decoration: none;
+                    font-weight: 500;
 
-                    .post_author_name {
+                    a {
                         text-decoration: none;
-                        font-weight: 500;
-
-                        button.copy {
-                            margin: 0 1em;
-                            border: none;
-                            background: none;
-                            color: white;
-
-                            &.has-copied {
-                                opacity: 0.4;
-                            }
+                        &:hover {
+                            text-decoration: underline;
                         }
                     }
 
-                    a.post_author_name:hover {
-                        text-decoration: underline;
-                    }
+                    button.copy {
+                        margin: 0 1em;
+                        border: none;
+                        background: none;
+                        color: white;
 
-                    .post_timestamp {
-                        font-weight: normal;
-                        color: #6C6085;
+                        &.has-copied {
+                            opacity: 0.4;
+                        }
                     }
+                }
+            }
+
+            .post_meta {
+                display: flex;
+                flex-direction: column;
+
+                .post_timestamp {
+                    font-weight: normal;
+                    color: #6C6085;
                 }
             }
 
@@ -147,6 +151,7 @@ ul.feed {
 
                 &:hover {
                     background-color: #272136;
+                    // border: 1px solid white;
                 }
             }
         }
