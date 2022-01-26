@@ -1,4 +1,5 @@
 import { html } from 'htm/preact'
+import { useState } from 'preact/hooks';
 import Markdown from 'preact-markdown'
 const moment = require('moment');
 const remark = require('remark')
@@ -12,7 +13,6 @@ var ref = require('ssb-ref')
 // var MockAvatar = require('./mock-avatar')
 var linkifyRegex = require('@planetary-ssb/remark-linkify-regex')
 var Blob = require('./blob')
-// import dateTime from 'date-time';
 
 function isThread (post) {
     return Array.isArray(post)
@@ -22,8 +22,32 @@ const linkifyHashtags = linkifyRegex(/#[\w-]+/g, node => {
     return '/tag/' + node.substring(1)
 })
 
+function CopyButton (props) {
+    const { value, copied } = props
+
+    function copy (ev) {
+        ev.preventDefault()
+        console.log('copy', value)
+        props.onCopy(value)
+    }
+
+    return html`<span>
+        <button title="copy user ID" onclick=${copy}
+            class="copy${copied === value ? ' has-copied' : ''}"
+        >
+            <i class="far fa-copy"></i>
+        </button>
+    </span>`
+}
+
 function MsgList (props) {
     var { msgs, profiles, username } = props
+
+    var [copied, setCopied] = useState(null)
+
+    function copyListener (userId) {
+        setCopied(userId)
+    }
 
     return html`<ul class="feed feed-content">
         ${(msgs || []).map(_post => {
@@ -36,16 +60,9 @@ function MsgList (props) {
             })[0])
 
             var profile = (profiles || {})[post.value.author]
-            console.log('pr', profile)
             var authorName = (profile || {}).name || username
-            console.log('an', authorName)
 
             console.log('post', post)
-
-            function copy (ev) {
-                ev.preventDefault()
-                console.log('copy')
-            }
 
             return html`<li class="post ${isThread(_post) ? 'is-thread' : ''}">
                 <header class="post_head">
@@ -57,6 +74,12 @@ function MsgList (props) {
                         </a>
 
                         <div class="post_meta">
+                            ${
+                                post.value.author === copied ?
+                                    html`<span>copied!</span>` :
+                                    null
+                            }
+
                             <span class="post_author_name pro_user">
                                 <a href="/feed/${authorName}"
                                     class="post_author_name pro_user"
@@ -64,13 +87,11 @@ function MsgList (props) {
                                     ${authorName}
                                 </a>
 
-                                <button title="copy user ID" onclick=${copy}
-                                    class="copy"
-                                >
-                                    <i class="far fa-copy"></i>
-                                </button>
+                                <${CopyButton} value=${post.value.author}
+                                    copied=${copied}
+                                    onCopy=${copyListener}
+                                />
                             </span>
-
 
                             <span class="post_timestamp">
                                 ${moment(post.value.timestamp)

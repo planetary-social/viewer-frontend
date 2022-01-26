@@ -116,6 +116,10 @@ ul.feed {
                             border: none;
                             background: none;
                             color: white;
+
+                            &.has-copied {
+                                opacity: 0.4;
+                            }
                         }
                     }
 
