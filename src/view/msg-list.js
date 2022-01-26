@@ -34,8 +34,9 @@ function CopyButton (props) {
     return html`<span>
         <button title="copy user ID" onclick=${copy}
             class="copy${copied === value ? ' has-copied' : ''}"
+            aria-label="Copy to clipboard"
         >
-            <i class="far fa-copy"></i>
+            <i aria-hidden="true" class="far fa-copy"></i>
         </button>
     </span>`
 }
