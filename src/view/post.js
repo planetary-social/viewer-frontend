@@ -7,7 +7,6 @@ import remarkParse from 'remark-parse'
 var ref = require('ssb-ref')
 var linkifyRegex = require('@planetary-ssb/remark-linkify-regex')
 var Blob = require('./blob')
-// var MockAvatar = require('./mock-avatar')
 var { PUB_URL } = require('../CONSTANTS')
 if (process.env.NODE_ENV === 'test') {
     PUB_URL = 'http://0.0.0.0:8888'
