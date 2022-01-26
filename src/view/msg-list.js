@@ -74,12 +74,6 @@ function MsgList (props) {
                         </a>
 
                         <div class="post_meta">
-                            ${
-                                post.value.author === copied ?
-                                    html`<span>copied!</span>` :
-                                    null
-                            }
-
                             <span class="post_author_name pro_user">
                                 <a href="/feed/${authorName}"
                                     class="post_author_name pro_user"
@@ -91,6 +85,13 @@ function MsgList (props) {
                                     copied=${copied}
                                     onCopy=${copyListener}
                                 />
+
+                                ${
+                                    post.value.author === copied ?
+                                        html`<span>copied!</span>` :
+                                        null
+                                }
+
                             </span>
 
                             <span class="post_timestamp">
