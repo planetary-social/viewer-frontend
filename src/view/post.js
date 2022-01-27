@@ -1,4 +1,5 @@
 import { html } from 'htm/preact'
+import { useState } from 'preact/hooks';
 import Markdown from 'preact-markdown'
 const moment = require('moment');
 const remark = require('remark')
@@ -8,9 +9,6 @@ var ref = require('ssb-ref')
 var linkifyRegex = require('@planetary-ssb/remark-linkify-regex')
 var Blob = require('./blob')
 var { PUB_URL } = require('../CONSTANTS')
-if (process.env.NODE_ENV === 'test') {
-    PUB_URL = 'http://0.0.0.0:8888'
-}
 
 function isThread (post) {
     return Array.isArray(post)
@@ -30,7 +28,7 @@ function CopyButton (props) {
     }
 
     return html` <button title="copy user ID" onclick=${copy}
-        class="copy${copied === value ? ' has-copied' : ''}"
+        class="icon-btn copy${copied === value ? ' has-copied' : ''}"
         aria-label="Copy to clipboard"
     >
         <i aria-hidden="true" class="far fa-copy"></i>
@@ -46,12 +44,57 @@ function Post (props) {
         return ref.isBlob(m.link)
     })[0])
 
+    var [options, setOptions] = useState(false)
+
     var { profiles, username, onCopy, copied } = props
 
     var profile = (profiles || {})[post.value.author]
     var authorName = (profile || {}).name || username
 
+    function openOptions (ev) {
+        ev.preventDefault()
+        console.log('options')
+        setOptions(true)
+    }
+
+    function closeModal (ev) {
+        ev.preventDefault()
+        setOptions(false)
+    }
+
     return html`<li class="post ${isThread(_post) ? 'is-thread' : ''}">
+
+        ${options ?
+            html`<div class="modal-options">
+                <div class="modal-head">
+                    <button class="icon-btn" onclick=${closeModal}>
+                        <i class="far fa-window-close"></i>
+                    </button>
+                </div>
+                <ul>
+                    <li>
+                        <button class="opt-btn">
+                            <i class="fas fa-percent"></i>
+                            Copy message ID
+                        </button>
+                    </li>
+                    <li>
+                        <button class="opt-btn">
+                            <i class="fas fa-book"></i>
+                            Copy message text
+                        </button>
+                    </li>
+                    <li>
+                        <button class="opt-btn">
+                            <i class="fas fa-link"></i>
+                            Copy link to message
+                        </button>
+                    </li>
+                </ul>
+            </div>` :
+            null
+        }
+        
         <header class="post_head">
             <div class="post_signature">
                 <a href="#" class="post_author has_stories">
@@ -85,7 +128,7 @@ function Post (props) {
                 </span>
             </div>
 
-            <button class="post_options"></button>
+            <button class="post_options" onclick=${openOptions}></button>
         </header>
 
         ${mentions && mentions[0] && hasImages ?

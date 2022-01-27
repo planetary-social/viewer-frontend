@@ -6,6 +6,8 @@
 @use './feed-sidebar';
 @use './responsive';
 @use './home';
+@use './modal';
+@use './z-index';
 
 html {
     box-sizing: border-box;
@@ -33,4 +35,14 @@ body {
 
 button {
     cursor: pointer;
+
+    &.icon-btn, &.opt-btn {
+        border: none;
+        background: none;
+        color: white;
+
+        &:hover {
+            opacity: 0.6;
+        }
+    }
 }
