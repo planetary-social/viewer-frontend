@@ -8,6 +8,7 @@ import remarkParse from 'remark-parse'
 var ref = require('ssb-ref')
 var linkifyRegex = require('@planetary-ssb/remark-linkify-regex')
 var Blob = require('./blob')
+var PostMenu = require('./post-menu')
 var { PUB_URL } = require('../CONSTANTS')
 
 function isThread (post) {
@@ -65,36 +66,10 @@ function Post (props) {
     return html`<li class="post ${isThread(_post) ? 'is-thread' : ''}">
 
         ${options ?
-            html`<div class="modal-options">
-                <div class="modal-head">
-                    <button class="icon-btn" onclick=${closeModal}>
-                        <i class="far fa-window-close"></i>
-                    </button>
-                </div>
-                <ul>
-                    <li>
-                        <button class="opt-btn">
-                            <i class="fas fa-percent"></i>
-                            Copy message ID
-                        </button>
-                    </li>
-                    <li>
-                        <button class="opt-btn">
-                            <i class="fas fa-book"></i>
-                            Copy message text
-                        </button>
-                    </li>
-                    <li>
-                        <button class="opt-btn">
-                            <i class="fas fa-link"></i>
-                            Copy link to message
-                        </button>
-                    </li>
-                </ul>
-            </div>` :
+            html`<${PostMenu} onCloseModal=${closeModal} msg=${post} />` :
             null
         }
-        
+
         <header class="post_head">
             <div class="post_signature">
                 <a href="#" class="post_author has_stories">
