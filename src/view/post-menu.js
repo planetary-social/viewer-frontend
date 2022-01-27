@@ -9,17 +9,21 @@ function PostMenu ({ msg, onCloseModal }) {
     function copy (key, ev) {
         ev.preventDefault()
         if (key === 'link') {
-            console.log('link')
+            var { host, protocol } = window.location
+            var msgLink = protocol + '//' + host + '/' +
+                encodeURIComponent(msg.key)
+            navigator.clipboard.writeText(msgLink)
+                .catch(err => console.log('err', err))
+
             return onCloseModal()
         }
+
         var val = _.get(msg, key)
         navigator.clipboard.writeText(val)
-            .then(() => {
-                console.log('copied', val)
-            })
             .catch(err => {
                 console.log('oh no', err)
             })
+
         onCloseModal()
     }
 
