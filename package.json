@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build && concurrently --kill-others \"NODE_ENV=test node node_modules/@planetary-ssb/pub/index.js\" \"npm run watch-sass\" \"npm run serve\"",
-    "copy": "mkdir -p public && cp src/*.html public",
+    "copy": "mkdir -p public && cp src/*.html public && mkdir -p public/img && cp src/img/* public/img",
     "build": "npm run copy && npm run build-sass && npm run build-js",
     "build-sass": "sass src/style/main.scss public/style.css",
     "watch-sass": "sass --watch src/style/main.scss public/style.css",
