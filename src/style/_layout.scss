@@ -50,6 +50,8 @@
 
     .header-wrapper {
         margin-top: 3rem;
+        display: flex;
+        justify-content: center;
 
         .header-promo {
             position: relative;

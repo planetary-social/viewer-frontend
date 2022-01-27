@@ -90,39 +90,52 @@ ul.feed {
             .post_signature {
                 display: flex;
                 letter-spacing: 0.5px;
+                align-items: center;
 
-              .post_author {
-                    width: 35px;
-                    height: 35px;
-                    overflow: hidden;
-                    border-radius: 50%;
+                .post_author {
+                    border-radius: 35px;
                     margin-right: 0.7rem;
 
-                  img {
-                    background-color: #2b243b;
-                    width: 35px;
-                    height: 35px;
-                  }
-              }
+                    img {
+                        background-color: white;
+                        width: 35px;
+                        height: 35px;
+                        border-radius: 35px;
+                    }
+                }
 
-              .post_meta {
-                  display: flex;
-                  flex-direction: column;
+                .post_author_name {
+                    text-decoration: none;
+                    font-weight: 500;
 
-                  .post_author_name {
-                      text-decoration: none;
-                      font-weight: 500;
+                    a {
+                        text-decoration: none;
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
 
-                      &:hover {
-                          text-decoration: underline;
-                      }
-                  }
+                    button.copy {
+                        margin: 0 1em;
+                        border: none;
+                        background: none;
+                        color: white;
 
-                  .post_timestamp {
-                      font-weight: normal;
-                      color: #6C6085;
-                  }
-              }
+                        &.has-copied {
+                            opacity: 0.4;
+                        }
+                    }
+                }
+            }
+
+            .post_meta {
+                display: flex;
+                flex-direction: column;
+
+                .post_timestamp {
+                    font-weight: normal;
+                    color: #6C6085;
+                }
             }
 
             .post_options {
@@ -138,6 +151,7 @@ ul.feed {
 
                 &:hover {
                     background-color: #272136;
+                    // border: 1px solid white;
                 }
             }
         }
