@@ -59,7 +59,7 @@ function Post (props) {
     }
 
     function closeModal (ev) {
-        ev.preventDefault()
+        if (ev) ev.preventDefault()
         setOptions(false)
     }
 
