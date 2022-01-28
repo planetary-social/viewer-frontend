@@ -76,31 +76,32 @@ function Post (props) {
                     <${Blob} blob=${({ link: ((profile || {}).image) })} />
                 </a>
 
-                <span class="post_author_name pro_user">
-                    <a href="/feed/${authorName}" class="post_author_name pro_user">
-                        ${authorName}
-                    </a>
+                <div class="post-signature-wrap">
+                    <span class="post_author_name pro_user">
+                        <a href="/feed/${authorName}" class="post_author_name pro_user">
+                            ${authorName}
+                        </a>
 
-                    <${CopyButton} value=${post.value.author}
-                        copied=${copied}
-                        onCopy=${onCopy}
-                    />
+                        <${CopyButton} value=${post.value.author}
+                            copied=${copied}
+                            onCopy=${onCopy}
+                        />
 
-                    ${
-                        post.value.author === copied ?
-                            html`<span>copied!</span>` :
-                            null
-                    }
-                </span>
+                        ${
+                            post.value.author === copied ?
+                                html`<span class="user-id-copied"><b>✓</b> user id copied!</span>` :
+                                null
+                        }
+                    </span>
 
-            </div>
-
-            <div class="post_meta">
-                <span class="post_timestamp">
-                    ${moment(post.value.timestamp)
-                        .format("dddd, MMMM Do YYYY, h:mm:ss a")
-                    }
-                </span>
+                    <div class="post_meta">
+                        <span class="post_timestamp">
+                            ${moment(post.value.timestamp)
+                                .format("dddd, MMMM Do YYYY, h:mm:ss a")
+                            }
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <button class="post_options" onclick=${openOptions}></button>
@@ -156,7 +157,7 @@ function Post (props) {
             </ul>
 
             <a href="#" class="comment_prompt">
-                <span class="comment_signup text_link">Sign up</span>
+                <span class="comment_signup text_link">Sign up </span>
                 to leave a comment
             </a>
         </footer>
