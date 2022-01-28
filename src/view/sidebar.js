@@ -16,16 +16,6 @@ function Sidebar () {
                 Create your account
             </a>
         </div>
-        <div class="whats-hot">
-            <h3>What's hot on Planetary</h3>
-            <ul>
-                <li><a href="#">#CyberPunkRevolution <span class="counter-highlight">(1768)</span></a></li>
-                <li><a href="#">#BlackLivesMatter <span class="counter-highlight">(745)</span></a></li>
-                <li><a href="#">#FreeBritneyNow <span class="counter-highlight">(692)</span></a></li>
-                <li><a href="#">#LaserEyesTill100K <span class="counter-highlight">(581)</span></a></li>
-                <li><a href="#">#KeepHongKongFree <span class="counter-highlight">(437)</span></a></li>
-            </ul>
-        </div>
     </div>`
 }
 

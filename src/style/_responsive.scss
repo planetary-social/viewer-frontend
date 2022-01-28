@@ -67,15 +67,41 @@
             }
         }
 
+        .header-wrapper {
+            margin-top: 1rem;
+            padding: 0 1rem;
+
+            .header-promo {
+                padding: 1.5rem;
+
+                .promo-heading {
+                    font-size: 1.6rem;
+
+                    br {display: none;}
+                }
+
+                .promo-subheading {
+                    font-size: 0.9rem;
+                    line-height: 1.1rem;
+                    font-weight: 300;
+                    font-family: sans-serif;
+
+                    br {display: none;}
+                }
+
+                img {display: none;}
+            }
+        }
+
         .feed-wrapper {
-            flex-direction: column-reverse;
+            flex-direction: column;
             align-items: unset;
             align-self: unset;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
 
             .feed-content {
-                padding: 1rem;
-                margin: 0 0 2rem;
+                padding: 1rem 1rem 0;
+                margin: 0;
         
                 .post {
                     border-radius: 1rem;
@@ -136,7 +162,7 @@
 
             .feed-sidebar {
                 max-width: none;
-                margin: 1rem;
+                margin: 0 1rem 1rem;
                 position: relative;
                 top: auto;
             }

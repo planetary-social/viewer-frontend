@@ -93,34 +93,65 @@ ul.feed {
                 align-items: center;
 
                 .post_author {
+                    width: 35px;
+                    height: 35px;
+                    overflow: hidden;
                     border-radius: 35px;
                     margin-right: 0.7rem;
 
                     img {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
                         background-color: white;
-                        width: 35px;
-                        height: 35px;
                         border-radius: 35px;
+                        object-fit: cover;
                     }
                 }
 
                 .post_author_name {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
                     text-decoration: none;
                     font-weight: 500;
+                    font-size: 1rem;
 
                     a {
+                        margin-right: 0.5rem;
                         text-decoration: none;
                         &:hover {
                             text-decoration: underline;
                         }
                     }
 
-                    button.copy {
-                        margin: 0 1em;
+                    button.copy, .user-id-copied {
+                        margin: 0;
+                        padding: 3px 6px;
+                        border-radius: 6px;
+                        background-color: #2b243b;
+                        color: #6C6085;
+
+                        &.icon-btn, &.opt-btn {
+                            border: none;
+
+                            &:hover {
+                                color: #e9346a;
+                                cursor: pointer;
+                            }
+                        }
 
                         &.has-copied {
-                            opacity: 0.4;
+                            display: none;
                         }
+                    }
+
+                    .user-id-copied {
+                        font-size: 0.8rem;
+                        font-weight: 400;
+                        color: white;
+
+                        b {color: #e9346a;}
                     }
                 }
             }
@@ -153,22 +184,6 @@ ul.feed {
             }
         }
 
-        .image-carousel {
-            align-self: stretch;
-            width: 100%;
-            position: relative;
-            padding-top: 100%;
-            margin-bottom: 1.5rem;
-
-            img {
-                height: 100%;
-                object-fit: cover;
-                width: 100%;
-                position: absolute;
-                top: 0;
-            }
-        }
-
         .post_reactions {
             padding: 1.5rem;
             border-top: 1px solid #211C2E;
@@ -176,7 +191,7 @@ ul.feed {
 
             .post_actions {
                 display: flex;
-                flex-direction: row;
+                flex-direction: row-reverse;
                 align-content: center;
                 justify-content: space-between;
                 margin-bottom: 1.5rem;

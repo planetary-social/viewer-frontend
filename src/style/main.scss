@@ -32,17 +32,3 @@ body {
         color: white;
     }
 }
-
-button {
-    cursor: pointer;
-
-    &.icon-btn, &.opt-btn {
-        border: none;
-        background: none;
-        color: white;
-
-        &:hover {
-            opacity: 0.6;
-        }
-    }
-}
