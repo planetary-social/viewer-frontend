@@ -1,0 +1,48 @@
+.modal-options {
+    width: 100%;
+    position: fixed;
+    border: 1px solid white;
+    top: 0;
+    left: 0px;
+    height: 100%;
+    background-color: #000000b5;
+    text-align: center;
+    // display: flex;
+    justify-content: center;
+
+    button {
+        font-size: 1.5rem;
+    }
+
+    .modal-head {
+        text-align: right;
+        padding-top: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 1em;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+
+        li {
+            margin-bottom: 1em;
+            padding-left: 1em;
+            border-bottom: 1px solid;
+            padding-bottom: 0.5em;
+        }
+
+        button {
+            width: 100%;
+            text-align: left;
+            i {
+                margin-right: 1em;
+            }
+            font-size: 1rem;
+        }
+    }
+}
