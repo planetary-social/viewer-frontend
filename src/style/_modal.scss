@@ -12,6 +12,13 @@
 
     button {
         font-size: 1.5rem;
+        background-color: transparent;
+        color: white;
+        border: none;
+
+        &:hover {
+            color: #e9346a;
+        }
     }
 
     .modal-head {
@@ -39,6 +46,10 @@
         button {
             width: 100%;
             text-align: left;
+            background-color: transparent;
+            color: white;
+            border: none;
+
             i {
                 margin-right: 1em;
             }
