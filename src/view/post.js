@@ -6,7 +6,7 @@ const remark = require('remark')
 import cidToUrl from 'remark-image-cid-to-url/browser'
 import remarkParse from 'remark-parse'
 var ref = require('ssb-ref')
-var linkifyRegex = require('@planetary-ssb/remark-linkify-regex')
+// var linkifyRegex = require('@planetary-ssb/remark-linkify-regex')
 var Blob = require('./blob')
 var PostMenu = require('./post-menu')
 var { PUB_URL } = require('../CONSTANTS')
@@ -15,9 +15,9 @@ function isThread (post) {
     return Array.isArray(post)
 }
 
-const linkifyHashtags = linkifyRegex(/#[\w-]+/g, node => {
-    return '/tag/' + node.substring(1)
-})
+// const linkifyHashtags = linkifyRegex(/#[\w-]+/g, node => {
+//     return '/tag/' + node.substring(1)
+// })
 
 function CopyButton (props) {
     const { value, copied, onCopy } = props
@@ -125,7 +125,7 @@ function Post (props) {
         ${post.value.content.text ?
             html`<${Markdown} markdown=${
                 remark()
-                    .use(linkifyHashtags)
+                    // .use(linkifyHashtags)
                     .use(cidToUrl(blobId => {
                         return (PUB_URL + '/blob/' +
                             encodeURIComponent(blobId))
