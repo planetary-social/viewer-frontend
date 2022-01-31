@@ -4,8 +4,6 @@ const _ = {
 }
 
 function PostMenu ({ msg, onCloseModal }) {
-    console.log('msg', msg)
-
     function copy (key, ev) {
         ev.preventDefault()
         if (key === 'link') {
