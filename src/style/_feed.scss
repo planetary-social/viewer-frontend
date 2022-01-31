@@ -30,6 +30,7 @@ ul.feed {
 
         &.is-thread {
             margin-bottom: 4rem;
+            border: 3px solid red;
 
             .replies-stack_link {
                 background-color: #241E33;

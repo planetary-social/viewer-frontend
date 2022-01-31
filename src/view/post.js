@@ -39,11 +39,16 @@ function CopyButton (props) {
 
 function Post (props) {
     const _post = props.post
+
+    // here we convert between arrays and posts
+
     const post = isThread(_post) ? _post[0] : _post
     var { mentions } = post.value.content
     var hasImages = !!((mentions || []).filter(m => {
         return ref.isBlob(m.link)
     })[0])
+
+    // console.log('*post*', post)
 
     var [options, setOptions] = useState(false)
 

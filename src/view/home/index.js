@@ -6,6 +6,8 @@ var Sidebar = require('../sidebar')
 function HomeView (props) {
     if (!props.default.data) return null
 
+    console.log('props', props)
+
     return html`
         <${HeadPart} />
         <div class="header-wrapper">
