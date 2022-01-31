@@ -181,23 +181,25 @@ function Reply ({ msgs, profiles }) {
             </li>`
         })}
 
-        <li class="post_comment">
-            <header class="comment_author">
-                <a href="#" class="comment_author_name pro_user">Maven</a>
-            </header>
-
-            <main class="comment_body">
-                <p class="comment_text">
-                    Hey! That's me by the
-                    <a href="#" class="text_link">DJ booth</a> :P Can't
-                    believe we had such a fun night dancing our minds to the
-                    best industrial techno in Europe 🎆
-                </p>
-            </main>
-
-            <footer class="comment_timestamp">Tuesday at 5:16pm</footer>
-        </li>
     </ul>`
 }
 
 module.exports = Post
+
+
+        // <li class="post_comment">
+        //     <header class="comment_author">
+        //         <a href="#" class="comment_author_name pro_user">Maven</a>
+        //     </header>
+
+        //     <main class="comment_body">
+        //         <p class="comment_text">
+        //             Hey! That's me by the
+        //             <a href="#" class="text_link">DJ booth</a> :P Can't
+        //             believe we had such a fun night dancing our minds to the
+        //             best industrial techno in Europe 🎆
+        //         </p>
+        //     </main>
+
+        //     <footer class="comment_timestamp">Tuesday at 5:16pm</footer>
+        // </li>
