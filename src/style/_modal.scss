@@ -1,59 +1,69 @@
 .modal-options {
-    width: 100%;
-    position: fixed;
-    border: 1px solid white;
-    top: 0;
-    left: 0px;
-    height: 100%;
-    background-color: #000000b5;
+    position: absolute;
+    top: 2.5rem;
+    right: 1.9rem;
+    background: transparent;
     text-align: center;
     // display: flex;
     justify-content: center;
 
-    button {
-        font-size: 1.5rem;
-        background-color: transparent;
-        color: white;
+    .options-close {
+        position: absolute;
+        top: -0.6rem;
+        right: -0.5rem;
+        cursor: pointer;
+        width: 28px;
+        height: 28px;
+        background-color: #6C6085;
         border: none;
+        border-radius: 28px;
+        box-shadow:
+            inset 0px 1px 0px rgba(32, 25, 44, 0.3),
+            inset 0px 4px 20px rgba(0, 0, 0, 0.05);
 
         &:hover {
-            color: #e9346a;
+            background-color: #7a6c97;
         }
-    }
 
-    .modal-head {
-        text-align: right;
-        padding-top: 0.5rem;
-        padding-right: 0.5rem;
+        i {
+            font-size: 1.1rem;
+            color: white;
+            margin-top: 0.2rem;
+        }
     }
 
     ul {
+        background-color: #221B2E;
         list-style: none;
         padding: 0;
-        margin-top: 1em;
         text-align: left;
         display: flex;
         flex-direction: column;
-        gap: 1em;
+        border-radius: 14px;
+        box-shadow: 0px 8px 15px #221b2ec0;
 
         li {
-            margin-bottom: 1em;
-            padding-left: 1em;
-            border-bottom: 1px solid;
-            padding-bottom: 0.5em;
-        }
+            padding: 0;
 
-        button {
-            width: 100%;
-            text-align: left;
-            background-color: transparent;
-            color: white;
-            border: none;
+            button {
+                background: none;
+                padding: 1rem 1.2rem 1rem 1rem;
+                font-size: 0.9rem;
+                border: none;
+                color: white;
+                width: 100%;
+                text-align: left;
 
-            i {
-                margin-right: 1em;
+                i {
+                    margin-right: 0.7em;
+                    font-size: 0.8rem;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    color: #e9346a;
+                }
             }
-            font-size: 1rem;
         }
     }
 }

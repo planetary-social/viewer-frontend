@@ -26,13 +26,11 @@ function PostMenu ({ msg, onCloseModal }) {
     }
 
     return html`<div class="modal-options">
-        <div class="modal-head">
-            <button class="icon-btn" onclick=${onCloseModal}
-                aria-label="Close window"
-            >
-                <i aria-hidden="true" class="far fa-window-close"></i>
-            </button>
-        </div>
+        <button class="icon-btn options-close" onclick=${onCloseModal}
+            aria-label="Close window"
+        >
+            <i aria-hidden="true" class="fas fa-times"></i>
+        </button>
 
         <ul>
             <li>
