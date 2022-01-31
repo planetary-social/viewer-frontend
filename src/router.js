@@ -28,9 +28,18 @@ function Router (state) {
                 .then(res => res.json())
                 // get the profiles for everyone in the response
                 .then(res => {
-                    posts = res
+                    posts = res.map(thread => {
+                        return thread.messages.length === 1 ?
+                            thread.messages[0] :
+                            thread.messages
+                    })
+
                     // need a deduplicated list of user-IDs
                     var getThese = res
+                        // .map(msgs => msgs.length > 1 ? msgs : msgs[0])
+                        .reduce((acc, thread) => {
+                            return acc.concat(thread.messages)
+                        }, [])
                         .map(msg => msg.value.author)
                         // check if we already have it
                         .filter(author => {
@@ -38,8 +47,6 @@ function Router (state) {
                         })
                         // dedup
                         .filter((id, i, arr) => arr.indexOf(id) === i)
-
-                    console.log('get these', getThese)
 
                     return fetch(PUB_URL + '/get-profiles', {
                         method: 'POST',
