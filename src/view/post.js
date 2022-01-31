@@ -48,8 +48,6 @@ function Post (props) {
         return ref.isBlob(m.link)
     })[0])
 
-    // console.log('*post*', post)
-
     var [options, setOptions] = useState(false)
 
     var { profiles, username, onCopy, copied } = props
@@ -149,17 +147,10 @@ function Post (props) {
                 </ul>
             </div>
 
-            <ul class="post_comments">
-                <li class="post_comment">
-                    <header class="comment_author">
-                        <a href="#" class="comment_author_name pro_user">Maven</a>
-                    </header>
-                    <main class="comment_body">
-                        <p class="comment_text">Hey! That's me by the <a href="#" class="text_link">DJ booth</a> :P Can't believe we had such a fun night dancing our minds to the best industrial techno in Europe 🎆</p>
-                    </main>
-                    <footer class="comment_timestamp">Tuesday at 5:16pm</footer>
-                </li>
-            </ul>
+            ${isThread(_post) ?
+                html`<${Reply} msg=${_post} />` :
+                null
+            }
 
             <a href="#" class="comment_prompt">
                 <span class="comment_signup text_link">Sign up </span>
@@ -167,6 +158,20 @@ function Post (props) {
             </a>
         </footer>
     </li>`
+}
+
+function Reply (msg) {
+    return html`<ul class="post_comments">
+        <li class="post_comment">
+            <header class="comment_author">
+                <a href="#" class="comment_author_name pro_user">Maven</a>
+            </header>
+            <main class="comment_body">
+                <p class="comment_text">Hey! That's me by the <a href="#" class="text_link">DJ booth</a> :P Can't believe we had such a fun night dancing our minds to the best industrial techno in Europe 🎆</p>
+            </main>
+            <footer class="comment_timestamp">Tuesday at 5:16pm</footer>
+        </li>
+    </ul>`
 }
 
 module.exports = Post
