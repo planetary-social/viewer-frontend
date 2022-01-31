@@ -39,6 +39,9 @@ function CopyButton (props) {
 
 function Post (props) {
     const _post = props.post
+
+    // here we convert between arrays and posts
+
     const post = isThread(_post) ? _post[0] : _post
     var { mentions } = post.value.content
     var hasImages = !!((mentions || []).filter(m => {
@@ -144,17 +147,10 @@ function Post (props) {
                 </ul>
             </div>
 
-            <ul class="post_comments">
-                <li class="post_comment">
-                    <header class="comment_author">
-                        <a href="#" class="comment_author_name pro_user">Maven</a>
-                    </header>
-                    <main class="comment_body">
-                        <p class="comment_text">Hey! That's me by the <a href="#" class="text_link">DJ booth</a> :P Can't believe we had such a fun night dancing our minds to the best industrial techno in Europe 🎆</p>
-                    </main>
-                    <footer class="comment_timestamp">Tuesday at 5:16pm</footer>
-                </li>
-            </ul>
+            ${isThread(_post) ?
+                html`<${Reply} msgs=${_post} profiles=${profiles} />` :
+                null
+            }
 
             <a href="#" class="comment_prompt">
                 <span class="comment_signup text_link">Sign up </span>
@@ -162,6 +158,46 @@ function Post (props) {
             </a>
         </footer>
     </li>`
+}
+
+function Reply ({ msgs, profiles }) {
+    console.log('reply msgs', msgs, profiles)
+    // const threadStart = msgs.slice(0,1)
+    const replies = msgs.slice(1)
+
+    // TODO -- parse the reply as markdown
+    return html`<ul class="post_comments">
+        ${replies.map(reply => {
+            return html`<li class="post_comment">
+                <header class="comment_author">
+                    ${profiles[reply.value.author].name}
+                </header>
+
+                <main class="comment_body">
+                    <p class="comment_text">
+                        ${reply.value.content.text}
+                    </p>
+                </main>
+            </li>`
+        })}
+
+        <li class="post_comment">
+            <header class="comment_author">
+                <a href="#" class="comment_author_name pro_user">Maven</a>
+            </header>
+
+            <main class="comment_body">
+                <p class="comment_text">
+                    Hey! That's me by the
+                    <a href="#" class="text_link">DJ booth</a> :P Can't
+                    believe we had such a fun night dancing our minds to the
+                    best industrial techno in Europe 🎆
+                </p>
+            </main>
+
+            <footer class="comment_timestamp">Tuesday at 5:16pm</footer>
+        </li>
+    </ul>`
 }
 
 module.exports = Post
