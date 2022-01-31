@@ -50,15 +50,6 @@ function Post (props) {
 
     var [options, setOptions] = useState(false)
 
-    // Similar to componentDidMount and componentDidUpdate:
-    // useEffect(() => {
-    //     // Update the document title using the browser API
-    //     document.addEventListener('click', (ev) => {
-    //         console.log('click', ev)
-    //         if (options) setOptions(false)
-    //     })
-    // }, []);
-
     var { profiles, username, onCopy, copied } = props
 
     var profile = (profiles || {})[post.value.author]
