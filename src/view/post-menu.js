@@ -1,4 +1,5 @@
 import { html } from 'htm/preact'
+import { useEffect } from 'preact/hooks';
 const _ = {
     get: require('lodash.get')
 }
@@ -24,6 +25,17 @@ function PostMenu ({ msg, onCloseModal }) {
 
         onCloseModal()
     }
+
+    // Similar to componentDidMount and componentDidUpdate:
+    useEffect(() => {
+        function onClick (ev) {
+            onCloseModal()
+        }
+
+        document.addEventListener('click', onClick)
+
+        return () => document.removeEventListener('click', onClick)
+    }, []);
 
     return html`<div class="modal-options">
         <button class="icon-btn options-close" onclick=${onCloseModal}

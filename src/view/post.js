@@ -50,6 +50,15 @@ function Post (props) {
 
     var [options, setOptions] = useState(false)
 
+    // Similar to componentDidMount and componentDidUpdate:
+    // useEffect(() => {
+    //     // Update the document title using the browser API
+    //     document.addEventListener('click', (ev) => {
+    //         console.log('click', ev)
+    //         if (options) setOptions(false)
+    //     })
+    // }, []);
+
     var { profiles, username, onCopy, copied } = props
 
     var profile = (profiles || {})[post.value.author]
@@ -57,13 +66,12 @@ function Post (props) {
 
     function openOptions (ev) {
         ev.preventDefault()
-        console.log('options')
         setOptions(true)
     }
 
     function closeModal (ev) {
         if (ev) ev.preventDefault()
-        setOptions(false)
+        if (options) setOptions(false)
     }
 
     return html`<li class="post ${isThread(_post) ? 'is-thread' : ''}">
@@ -161,7 +169,7 @@ function Post (props) {
 }
 
 function Reply ({ msgs, profiles }) {
-    console.log('reply msgs', msgs, profiles)
+    // console.log('reply msgs', msgs, profiles)
     // const threadStart = msgs.slice(0,1)
     const replies = msgs.slice(1)
 

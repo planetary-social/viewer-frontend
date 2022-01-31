@@ -9,8 +9,6 @@ const Post = require('./post')
 function MsgList (props) {
     var { msgs, profiles, username } = props
 
-    console.log('*msgs*', msgs)
-
     var [copied, setCopied] = useState(null)
 
     function copyListener (userId) {
