@@ -65,6 +65,8 @@ function Post (props) {
         if (options) setOptions(false)
     }
 
+    var mentionedBlobs = (mentions || []).map(blob => blob.link)
+
     return html`<li class="post ${isThread(_post) ? 'is-thread' : ''}">
 
         ${options ?
@@ -110,6 +112,8 @@ function Post (props) {
         </header>
 
         ${mentions && mentions[0] && hasImages ?
+            // check if the blob is a duplicate with something
+            // in the md
             html`<div class="image-carousel">
                 ${mentions.map(blob => {
                     return ref.isBlob(blob.link) ?
@@ -127,6 +131,10 @@ function Post (props) {
                 remark()
                     // .use(linkifyHashtags)
                     .use(cidToUrl(blobId => {
+                        if (mentionedBlobs.includes(blobId)) {
+                            return null
+                        }
+
                         return (PUB_URL + '/blob/' +
                             encodeURIComponent(blobId))
                     }))
