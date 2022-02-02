@@ -1,5 +1,6 @@
 {
   "name": "@planetary-ssb/viewer-frontend",
+  "type": "module",
   "description": "Frontend for an ssb viewer",
   "version": "0.0.0",
   "main": "index.js",
@@ -13,7 +14,7 @@
     "lint": "eslint .",
     "preversion": "npm run lint",
     "serve": "env $(cat .env | grep -v \"#\" | xargs) budo src/index.js:bundle.js --cors --pushstate --dir=public --live --open -- -t envify -p esmify --debug",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "browserify -p esmify test/*.js | tape-run | tap-spec"
   },
   "repository": {
     "type": "git",
@@ -26,7 +27,7 @@
   },
   "homepage": "https://github.com/planetary-social/viewer-frontend#readme",
   "devDependencies": {
-    "@planetary-ssb/pub": "^0.2.32",
+    "@planetary-ssb/pub": "^0.2.33",
     "browserify": "^17.0.0",
     "budo": "^11.6.4",
     "concurrently": "^6.4.0",
@@ -34,7 +35,11 @@
     "eslint": "^8.4.1",
     "eslint-config-planetary-ssb": "^1.0.2",
     "esmify": "^2.1.1",
+    "preact-render-to-string": "^5.1.19",
     "sass": "^1.44.0",
+    "tap-spec": "^5.0.0",
+    "tape": "^5.5.0",
+    "tape-run": "^9.0.0",
     "uglifyify": "^5.0.2"
   },
   "dependencies": {
@@ -50,8 +55,7 @@
     "preact": "^10.6.2",
     "preact-markdown": "^2.0.0",
     "remark": "~9.0.0",
-    "remark-image-cid-to-url": "^0.0.7",
-    "remark-images-to-ssb-serve-blobs": "2.1.0-2",
+    "remark-image-cid-to-url": "^0.0.8",
     "remark-linkify-regex": "1.0.0",
     "remark-parse": "^10.0.1",
     "route-event": "^3.1.0",
