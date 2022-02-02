@@ -29,6 +29,13 @@ ul.feed {
             inset -1px 0px 0px #39324f
         ;
 
+        .image-carousel {
+            img {
+                max-height: 100%;
+                max-width: 100%;
+            }
+        }
+
         &.is-thread {
             margin-bottom: 4rem;
 
