@@ -163,8 +163,10 @@ function Post (props) {
                 null
             }
 
-            <a href="#" class="comment_prompt">
-                <span class="comment_signup text_link">Sign up </span>
+            <a href="https://apps.apple.com/us/app/planetary-app/id1481617318"
+                class="comment_prompt"
+            >
+                <span class="comment_signup text_link">Sign up</span>
                 to leave a comment
             </a>
         </footer>
