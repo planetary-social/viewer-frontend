@@ -5,15 +5,15 @@ import render from 'preact-render-to-string'
 
 test('should not render the same image twice', t => {
     var testMsg = {
-        "key": "%fake-key",
-        "value": {
-            "previous": null,
-            "sequence": 1,
-            "author": "@lV5MISER9oGaZJ7OLhlsUNVWHu982USYgMEWfIs6le0=.ed25519",
-            "timestamp": 1643758418278,
-            "hash": "sha256",
-            "content": {
-                "type": "post",
+        'key': '%fake-key',
+        'value': {
+            'previous': null,
+            'sequence': 1,
+            'author': '@lV5MISER9oGaZJ7OLhlsUNVWHu982USYgMEWfIs6le0=.ed25519',
+            'timestamp': 1643758418278,
+            'hash': 'sha256',
+            'content': {
+                'type': 'post',
                 text: 'a post with the same image inline and attached ' +
                     // eslint-disable-next-line
                     '![a blob](&Ho1XhW2dp4bNJLZrYkurZPxlUhqrknD/Uu/nDp+KnMg=.sha256)',
@@ -25,9 +25,9 @@ test('should not render the same image twice', t => {
                     type: 'image/jpeg' // optional, but recommended
                 }]
             },
-            "signature": "123"
+            'signature': '123'
         },
-        "timestamp": 1643758418286
+        'timestamp': 1643758418286
     }
 
     var postEl = render(html`<${Post} post=${testMsg} />`)

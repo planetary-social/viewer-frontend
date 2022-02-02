@@ -19,6 +19,7 @@ function Router (state) {
     var router = _router()
 
     var fetching = false
+
     router.addRoute('/', () => {
         function fetchDefault () {
             var posts
@@ -66,8 +67,8 @@ function Router (state) {
                         })
                 })
                 .then(profiles => {
-                    return { profiles, posts }
                     fetching = false
+                    return { profiles, posts }
                 })
         }
 

@@ -1,7 +1,7 @@
 import { html } from 'htm/preact'
-import { useState } from 'preact/hooks';
+import { useState } from 'preact/hooks'
 import Markdown from 'preact-markdown'
-const moment = require('moment');
+const moment = require('moment')
 const remark = require('remark')
 import cidToUrl from 'remark-image-cid-to-url/browser'
 import remarkParse from 'remark-parse'
@@ -82,7 +82,9 @@ function Post (props) {
 
                 <div class="post-signature-wrap">
                     <span class="post_author_name pro_user">
-                        <a href="/feed/${authorName}" class="post_author_name pro_user">
+                        <a href="/feed/${authorName}"
+                            class="post_author_name pro_user"
+                        >
                             ${authorName}
                         </a>
 
@@ -93,7 +95,9 @@ function Post (props) {
 
                         ${
                             post.value.author === copied ?
-                                html`<span class="user-id-copied"><b>✓</b> user id copied!</span>` :
+                                html`<span class="user-id-copied"><b>✓</b>
+                                    user id copied!</span>
+                                ` :
                                 null
                         }
                     </span>
@@ -101,7 +105,7 @@ function Post (props) {
                     <div class="post_meta">
                         <span class="post_timestamp">
                             ${moment(post.value.timestamp)
-                                .format("dddd, MMMM Do YYYY, h:mm:ss a")
+                                .format('dddd, MMMM Do YYYY, h:mm:ss a')
                             }
                         </span>
                     </div>
@@ -194,19 +198,19 @@ function Reply ({ msgs, profiles }) {
 module.exports = Post
 
 
-        // <li class="post_comment">
-        //     <header class="comment_author">
-        //         <a href="#" class="comment_author_name pro_user">Maven</a>
-        //     </header>
+// <li class="post_comment">
+//     <header class="comment_author">
+//         <a href="#" class="comment_author_name pro_user">Maven</a>
+//     </header>
 
-        //     <main class="comment_body">
-        //         <p class="comment_text">
-        //             Hey! That's me by the
-        //             <a href="#" class="text_link">DJ booth</a> :P Can't
-        //             believe we had such a fun night dancing our minds to the
-        //             best industrial techno in Europe 🎆
-        //         </p>
-        //     </main>
+//     <main class="comment_body">
+//         <p class="comment_text">
+//             Hey! That's me by the
+//             <a href="#" class="text_link">DJ booth</a> :P Can't
+//             believe we had such a fun night dancing our minds to the
+//             best industrial techno in Europe 🎆
+//         </p>
+//     </main>
 
-        //     <footer class="comment_timestamp">Tuesday at 5:16pm</footer>
-        // </li>
+//     <footer class="comment_timestamp">Tuesday at 5:16pm</footer>
+// </li>

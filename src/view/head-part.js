@@ -7,7 +7,9 @@ function HeadPart () {
         <nav class="layout-nav">
             <div class="center-wrapper">
                 <a href="/"><${Logo} /></a>
-                <a href="/"><${AppStore} /></a>
+                <a href="https://apps.apple.com/us/app/planetary-app/id1481617318">
+                    <${AppStore} />
+                </a>
             </div>
         </nav>
     `

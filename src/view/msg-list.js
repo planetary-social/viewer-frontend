@@ -1,9 +1,5 @@
 import { html } from 'htm/preact'
-import { useState } from 'preact/hooks';
-var { PUB_URL } = require('../CONSTANTS')
-if (process.env.NODE_ENV === 'test') {
-    PUB_URL = 'http://0.0.0.0:8888'
-}
+import { useState } from 'preact/hooks'
 const Post = require('./post')
 
 function MsgList (props) {
