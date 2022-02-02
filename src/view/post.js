@@ -177,7 +177,7 @@ function Reply ({ msgs, profiles }) {
         ${replies.map(reply => {
             return html`<li class="post_comment">
                 <header class="comment_author">
-                    ${profiles[reply.value.author].name}
+                    ${(profiles[reply.value.author] || {}).name}
                 </header>
 
                 <main class="comment_body">
