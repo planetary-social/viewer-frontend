@@ -142,10 +142,9 @@ function Router (state) {
             })
 
         return {
-            view: function (props) {
-                // console.log('props', props)
+            view: function () {
                 return html`<div>
-                    aaaaaa
+                    user profile goes here
                 </div>`
             }
         }
