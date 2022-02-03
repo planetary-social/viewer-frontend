@@ -83,7 +83,7 @@ function Router (state) {
         return { view: Home }
     })
 
-    router.addRoute('/%:msgId', ({ params }) => {
+    router.addRoute('/msg/%:msgId', ({ params }) => {
         var { msgId } = params
         var msgId = '%' + msgId.replace('-dot-', '.')
         console.log('msgId', msgId)
@@ -123,8 +123,32 @@ function Router (state) {
 
     router.addRoute('/@:userId', ({ params }) => {
         var { userId } = params
-        userId = '@' + userId.replace('-dot-', '.')
+        userId = '@' + userId
         console.log('user id', userId)
+        var _userId = userId.replace('-dot-', '.')
+        // console.log('encoded user id', encodeURIComponent(_userId))
+        console.log('fetching', encodeURIComponent(_userId))
+        fetch(PUB_URL + '/feed-by-id/' + encodeURIComponent(_userId))
+            .then(res => {
+                if (!res.ok) {
+                    return res.text().then(txt => {
+                        console.log('errrrr', txt)
+                    })
+                }
+                return res.json()
+            })
+            .then(res => {
+                console.log('res', res)
+            })
+
+        return {
+            view: function (props) {
+                // console.log('props', props)
+                return html`<div>
+                    aaaaaa
+                </div>`
+            }
+        }
     })
 
 
