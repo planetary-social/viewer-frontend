@@ -4,6 +4,7 @@ const Home = require('./view/home')
 const Feed = require('./view/feed')
 var { PUB_URL } = require('./CONSTANTS')
 const xtend = require('xtend')
+const SingleMessage = require('./view/single-message')
 
 if (process.env.NODE_ENV === 'test') {
     PUB_URL = 'http://localhost:8888'
@@ -83,6 +84,13 @@ function Router (state) {
         }
 
         return { view: Home }
+    })
+
+    router.addRoute('/%:msgId', ({ params }) => {
+        var { msgId } = params
+        var msgId = '%' + msgId.replace('-dot-', '.')
+        console.log('msgId', msgId)
+        return { view: SingleMessage }
     })
 
     router.addRoute('/tag/:tagName', ({ params }) => {
