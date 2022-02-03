@@ -83,7 +83,7 @@ function Router (state) {
         return { view: Home }
     })
 
-    router.addRoute('/%:msgId', ({ params }) => {
+    router.addRoute('/msg/%:msgId', ({ params }) => {
         var { msgId } = params
         var msgId = '%' + msgId.replace('-dot-', '.')
         console.log('msgId', msgId)
@@ -120,18 +120,40 @@ function Router (state) {
         return { view: Placeholder, getContent: getTagContent }
     })
 
+
+    router.addRoute('/@:userId', ({ params }) => {
+        var { userId } = params
+        userId = '@' + userId
+        // console.log('user id', userId)
+        var _userId = userId.replace('-dot-', '.')
+        // console.log('encoded user id', encodeURIComponent(_userId))
+        // console.log('fetching', encodeURIComponent(_userId))
+        fetch(PUB_URL + '/feed-by-id/' + encodeURIComponent(_userId))
+            .then(res => {
+                if (!res.ok) {
+                    return res.text().then(txt => {
+                        console.log('errrrr', txt)
+                    })
+                }
+                return res.json()
+            })
+            .then(res => {
+                console.log('res', res)
+            })
+
+        return {
+            view: function (props) {
+                // console.log('props', props)
+                return html`<div>
+                    aaaaaa
+                </div>`
+            }
+        }
+    })
+
+
     router.addRoute('/feed/:username', ({ params }) => {
         var { username } = params
-
-        // can set state in here, b/c this is just a static route matching
-        // file. Don't need any browser APIs
-
-        // it returns a view fn, and
-        // fetches the data as a side effect
-
-        // to test it, call emit(evs.route.channge, '/string'), which calls
-        // router.match('/string').action()
-        // then check the state, which is passed into the router
 
         function getFeed () {
             return Promise.all([
