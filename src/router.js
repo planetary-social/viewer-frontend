@@ -124,10 +124,10 @@ function Router (state) {
     router.addRoute('/@:userId', ({ params }) => {
         var { userId } = params
         userId = '@' + userId
-        console.log('user id', userId)
+        // console.log('user id', userId)
         var _userId = userId.replace('-dot-', '.')
         // console.log('encoded user id', encodeURIComponent(_userId))
-        console.log('fetching', encodeURIComponent(_userId))
+        // console.log('fetching', encodeURIComponent(_userId))
         fetch(PUB_URL + '/feed-by-id/' + encodeURIComponent(_userId))
             .then(res => {
                 if (!res.ok) {
