@@ -83,6 +83,10 @@ function Router (state) {
         return { view: Home }
     })
 
+    router.addRoute('/@:userId', ({ params }) => {
+        console.log('user id')
+    })
+
     router.addRoute('/%:msgId', ({ params }) => {
         var { msgId } = params
         var msgId = '%' + msgId.replace('-dot-', '.')
