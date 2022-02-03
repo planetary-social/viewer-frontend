@@ -6,8 +6,6 @@ const _ = {
 
 function PostMenu ({ msg, onCloseModal }) {
     
-    // var { author } = msg.value
-
     function copy (key, ev) {
         ev.preventDefault()
         if (key === 'link') {
@@ -15,6 +13,16 @@ function PostMenu ({ msg, onCloseModal }) {
             var msgLink = protocol + '//' + host + '/' +
                 (encodeURIComponent(msg.key).replace('.', '-dot-'))
             navigator.clipboard.writeText(msgLink)
+                .catch(err => console.log('err', err))
+
+            return onCloseModal()
+        }
+
+        if (key === 'authorLink') {
+            var { host, protocol } = window.location
+            var authorLink = protocol + '//' + host + '/' +
+                (msg.value.author.replace('.', '-dot-'))
+            navigator.clipboard.writeText(authorLink)
                 .catch(err => console.log('err', err))
 
             return onCloseModal()
@@ -57,6 +65,7 @@ function PostMenu ({ msg, onCloseModal }) {
                     Copy message ID
                 </button>
             </li>
+
             <li>
                 <button class="opt-btn" aria-label="Copy message text"
                     onclick=${copy.bind(null, 'value.content.text')}
@@ -65,6 +74,7 @@ function PostMenu ({ msg, onCloseModal }) {
                     Copy message text
                 </button>
             </li>
+
             <li>
                 <button class="opt-btn" aria-label="Copy author id"
                     onclick=${copy.bind(null, 'value.author')}
@@ -73,6 +83,16 @@ function PostMenu ({ msg, onCloseModal }) {
                     Copy author ID
                 </button>
             </li>
+
+            <li>
+                <button class="opt-btn" aria-label="Copy link to author"
+                    onclick=${copy.bind(null, 'authorLink')}
+                >
+                    <i aria-hidden="true" class="fas fa-at"></i>
+                    Copy link to author
+                </button>
+            </li>
+
             <li>
                 <button class="opt-btn" aria-label="Copy link to message"
                     onclick=${copy.bind(null, 'link')}

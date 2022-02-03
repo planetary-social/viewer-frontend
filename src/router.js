@@ -83,10 +83,6 @@ function Router (state) {
         return { view: Home }
     })
 
-    router.addRoute('/@:userId', ({ params }) => {
-        console.log('user id')
-    })
-
     router.addRoute('/%:msgId', ({ params }) => {
         var { msgId } = params
         var msgId = '%' + msgId.replace('-dot-', '.')
@@ -124,18 +120,16 @@ function Router (state) {
         return { view: Placeholder, getContent: getTagContent }
     })
 
+
+    router.addRoute('/@:userId', ({ params }) => {
+        var { userId } = params
+        userId = '@' + userId.replace('-dot-', '.')
+        console.log('user id', userId)
+    })
+
+
     router.addRoute('/feed/:username', ({ params }) => {
         var { username } = params
-
-        // can set state in here, b/c this is just a static route matching
-        // file. Don't need any browser APIs
-
-        // it returns a view fn, and
-        // fetches the data as a side effect
-
-        // to test it, call emit(evs.route.channge, '/string'), which calls
-        // router.match('/string').action()
-        // then check the state, which is passed into the router
 
         function getFeed () {
             return Promise.all([
