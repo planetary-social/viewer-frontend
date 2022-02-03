@@ -5,7 +5,6 @@ const _ = {
 }
 
 function PostMenu ({ msg, onCloseModal }) {
-    console.log('in post menu', msg)
     
     // var { author } = msg.value
 
