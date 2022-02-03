@@ -10,8 +10,6 @@ var router = Router(state)
 state(function onChange (newState) {
     var match = router.match(newState.routePath)
 
-    console.log('route', newState.routePath)
-
     if (!match) {
         console.log('not match')
         // @TODO -- should show 404

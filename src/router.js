@@ -30,14 +30,11 @@ function Router (state) {
                 .then(res => res.json())
                 // get the profiles for everyone in the response
                 .then(res => {
-                    console.log('*res*', res)
                     posts = res.map(thread => {
                         return thread.messages.length === 1 ?
                             thread.messages[0] :
                             thread.messages
                     })
-
-                    console.log('**posts**', posts)
 
                     // need a deduplicated list of user-IDs
                     var getThese = res
