@@ -5,6 +5,10 @@ const _ = {
 }
 
 function PostMenu ({ msg, onCloseModal }) {
+    console.log('in post menu', msg)
+    
+    // var { author } = msg.value
+
     function copy (key, ev) {
         ev.preventDefault()
         if (key === 'link') {
@@ -27,6 +31,7 @@ function PostMenu ({ msg, onCloseModal }) {
     }
 
     // Similar to componentDidMount and componentDidUpdate:
+    // here we listen for any clicks that are ouside of the modal window
     useEffect(() => {
         function onClick (ev) {
             onCloseModal()
@@ -59,6 +64,14 @@ function PostMenu ({ msg, onCloseModal }) {
                 >
                     <i aria-hidden="true" class="fas fa-book"></i>
                     Copy message text
+                </button>
+            </li>
+            <li>
+                <button class="opt-btn" aria-label="Copy author id"
+                    onclick=${copy.bind(null, 'value.author')}
+                >
+                    <i aria-hidden="true" class="fas fa-portrait"></i>
+                    Copy author ID
                 </button>
             </li>
             <li>
