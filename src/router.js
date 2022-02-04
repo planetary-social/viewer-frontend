@@ -167,7 +167,8 @@ function Router (state) {
         if (shouldFetch) {
             getFeed()
                 .then(([feed, counts, profile]) => {
-                    console.log('counts', counts)
+                    console.log('counts, profile', counts, profile)
+                    const username = profile.name
                     var profilesData = {}
                     profilesData[counts.userId] = counts
                     profilesData[counts.userId].image = profile.image
@@ -175,7 +176,7 @@ function Router (state) {
                     state.profiles.set(profilesData)
 
                     state.feed.set({
-                        // username: params.username,
+                        username: username,
                         id: _userId,
                         data: feed,
                         // hashtag: params.tagName

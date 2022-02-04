@@ -19,7 +19,7 @@ function Feed (props) {
 
         <div class="feed-wrapper">
             <${MsgList} msgs=${props.feed.data} profiles=${props.profiles}
-                username=${props.username}
+                username=${(props.feed || {}).username}
             />
             <${Sidebar} ...${props} />
         </div>
@@ -30,7 +30,7 @@ module.exports = Feed
 
 
 function FeedHeader (props) {
-    var { username } = props.feed
+    const { username } = props.feed
 
     console.log('props in feed header', props)
 
@@ -49,7 +49,7 @@ function FeedHeader (props) {
                 </div>
                 <div class="user-info-card">
                     <h2>${username}</h2>
-                    <div class="user-id">${profile.id}</div>
+                    <div class="user-id">${profile.userId}</div>
                 </div>
             </div>
             <dl class="user-stats">
