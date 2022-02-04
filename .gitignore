@@ -93,4 +93,5 @@ bundle.js
 public/*.*
 .env
 !public/netlify.toml
+public/apple-app-site-association
 
