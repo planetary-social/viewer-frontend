@@ -82,7 +82,7 @@ function Post (props) {
 
                 <div class="post-signature-wrap">
                     <span class="post_author_name pro_user">
-                        <a href="/feed/${authorName}"
+                        <a href="/${post.value.author.replace('.', '-dot-')}"
                             class="post_author_name pro_user"
                         >
                             ${authorName}

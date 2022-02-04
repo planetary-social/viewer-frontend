@@ -127,7 +127,6 @@ function Router (state) {
         // console.log('user id', userId)
         var _userId = userId.replace('-dot-', '.')
         console.log('_user id', _userId)
-        // console.log('encoded user id', encodeURIComponent(_userId))
         console.log('fetching', encodeURIComponent(_userId))
         fetch(PUB_URL + '/feed-by-id/' + encodeURIComponent(_userId))
             .then(res => {
