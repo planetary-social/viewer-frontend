@@ -30,11 +30,15 @@ module.exports = Feed
 
 
 function FeedHeader (props) {
-    const { username } = props.feed
 
     console.log('props in feed header', props)
 
-    const profile = props.profiles[props.feed.id]
+    var profile = props.profiles[props.feed.id]
+    profile = profile || ({ counts: {} })
+    const username = (profile || {}).name
+
+    console.log('profile', profile)
+
     if (!profile) return null
 
     return html`<div class="feed-header">
@@ -49,24 +53,27 @@ function FeedHeader (props) {
                 </div>
                 <div class="user-info-card">
                     <h2>${username}</h2>
-                    <div class="user-id">${profile.userId}</div>
+                    <div class="user-id">${props.feed.id}</div>
                 </div>
             </div>
             <dl class="user-stats">
                 <div class="user-stats-unit">
-                    <dd>${profile.following}</dd>
+                    <dd>${profile.counts.following}</dd>
                     <dt class="following">following</dt>
                 </div>
                 <div class="user-stats-unit">
-                    <dd>${profile.followers}</dd>
+                    <dd>${profile.counts.followers}</dd>
                     <dt class="followers">
-                        ${profile.followers === 1 ?  'follower' : 'followers'}
+                        ${profile.counts.followers === 1 ?
+                            'follower' :
+                            'followers'
+                        }
                     </dt>
                 </div>
                 <div class="user-stats-unit">
-                    <dd>${profile.posts}</dd>
+                    <dd>${profile.counts.posts}</dd>
                     <dt class="posts-count">
-                        ${profile.posts === 1 ? 'post' : 'posts'}
+                        ${profile.counts.posts === 1 ? 'post' : 'posts'}
                     </dt>
                 </div>
             </dl>

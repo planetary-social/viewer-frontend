@@ -126,8 +126,9 @@ function Router (state) {
         userId = '@' + userId
         // console.log('user id', userId)
         var _userId = userId.replace('-dot-', '.')
-        console.log('_user id', _userId)
-        console.log('fetching', encodeURIComponent(_userId))
+        // console.log('fetching', encodeURIComponent(_userId))
+
+        console.log('________userId', _userId)
 
         const countsUrl = (PUB_URL + '/counts-by-id/' +
             encodeURIComponent(_userId))
@@ -169,11 +170,21 @@ function Router (state) {
                 .then(([feed, counts, profile]) => {
                     console.log('counts, profile', counts, profile)
                     const username = profile.name
-                    var profilesData = {}
-                    profilesData[counts.userId] = counts
-                    profilesData[counts.userId].image = profile.image
+                    const userId = _userId
+                    console.log('userid', userId)
+                    const profilesData = state().profiles
+                    // var profilesData = xtend(state().profiles, {})
+                    // var userProfileData = { counts: counts }
+                    var newData = {}
+                    newData[userId] = xtend(
+                        ((profilesData || {})[userId]) || {},
+                        { counts: counts }
+                    )
 
-                    state.profiles.set(profilesData)
+                    console.log('profile', profile)
+                    console.log('new data', newData)
+
+                    state.profiles.set(xtend(profilesData || {}, newData))
 
                     state.feed.set({
                         username: username,
