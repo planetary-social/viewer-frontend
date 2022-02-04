@@ -128,26 +128,88 @@ function Router (state) {
         var _userId = userId.replace('-dot-', '.')
         console.log('_user id', _userId)
         console.log('fetching', encodeURIComponent(_userId))
-        fetch(PUB_URL + '/feed-by-id/' + encodeURIComponent(_userId))
-            .then(res => {
-                if (!res.ok) {
-                    return res.text().then(txt => {
-                        console.log('errrrr', txt)
-                    })
-                }
-                return res.json()
-            })
-            .then(res => {
-                console.log('res', res)
-            })
 
-        return {
-            view: function () {
-                return html`<div>
-                    user profile goes here
-                </div>`
-            }
+        const countsUrl = (PUB_URL + '/counts-by-id/' +
+            encodeURIComponent(_userId))
+        const profileUrl = (PUB_URL + '/profile-by-id/' +
+            encodeURIComponent(_userId))
+
+        function getFeed () {
+            return Promise.all([
+                // fetch(PUB_URL + '/feed/' + username)
+                fetch(PUB_URL + '/feed-by-id/' + encodeURIComponent(_userId))
+                    .then(res => {
+                        if (!res.ok) {
+                            console.log('response not ok')
+                            return res.text().then(text => {
+                                console.log('not ok text', text)
+                                return text
+                            })
+                        }
+
+                        return res.json()
+                    }),
+
+                // TODO -- should check if we have this already, only
+                // fetch if we don't
+                fetch(countsUrl)
+                    .then(res => {
+                        return res.ok ? res.json() : res.text()
+                    }),
+
+                fetch(profileUrl)
+                    .then(res => res.ok ? res.json() : res.text())
+            ])
         }
+
+        var shouldFetch = (_userId != state().feed.id)
+
+        if (shouldFetch) {
+            getFeed()
+                .then(([feed, counts, profile]) => {
+                    console.log('counts', counts)
+                    var profilesData = {}
+                    profilesData[counts.userId] = counts
+                    profilesData[counts.userId].image = profile.image
+
+                    state.profiles.set(profilesData)
+
+                    state.feed.set({
+                        // username: params.username,
+                        id: _userId,
+                        data: feed,
+                        // hashtag: params.tagName
+                    })
+                })
+        }
+
+
+        return { view: Feed }
+
+
+
+
+
+        // fetch(PUB_URL + '/feed-by-id/' + encodeURIComponent(_userId))
+        //     .then(res => {
+        //         if (!res.ok) {
+        //             return res.text().then(txt => {
+        //                 console.log('errrrr', txt)
+        //             })
+        //         }
+        //         return res.json()
+        //     })
+        //     .then(res => {
+        //         console.log('res', res)
+        //     })
+
+        // return {
+        //     view: function () {
+        //         return html`<div>
+        //             user profile goes here
+        //         </div>`
+        //     }
+        // }
     })
 
 

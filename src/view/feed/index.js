@@ -32,9 +32,9 @@ module.exports = Feed
 function FeedHeader (props) {
     var { username } = props.feed
 
-    console.log('props', props)
+    console.log('props in feed header', props)
 
-    var profile = _.find(props.profiles, { username: props.username })
+    const profile = props.profiles[props.feed.id]
     if (!profile) return null
 
     return html`<div class="feed-header">
