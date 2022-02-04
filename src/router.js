@@ -168,21 +168,14 @@ function Router (state) {
         if (shouldFetch) {
             getFeed()
                 .then(([feed, counts, profile]) => {
-                    console.log('counts, profile', counts, profile)
                     const username = profile.name
                     const userId = _userId
-                    console.log('userid', userId)
                     const profilesData = state().profiles
-                    // var profilesData = xtend(state().profiles, {})
-                    // var userProfileData = { counts: counts }
                     var newData = {}
                     newData[userId] = xtend(
                         ((profilesData || {})[userId]) || {},
                         { counts: counts }
                     )
-
-                    console.log('profile', profile)
-                    console.log('new data', newData)
 
                     state.profiles.set(xtend(profilesData || {}, newData))
 

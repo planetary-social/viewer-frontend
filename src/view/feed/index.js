@@ -30,14 +30,9 @@ module.exports = Feed
 
 
 function FeedHeader (props) {
-
-    console.log('props in feed header', props)
-
     var profile = props.profiles[props.feed.id]
     profile = profile || ({ counts: {} })
     const username = (profile || {}).name
-
-    console.log('profile', profile)
 
     if (!profile) return null
 
