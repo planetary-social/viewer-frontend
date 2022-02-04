@@ -190,31 +190,6 @@ function Router (state) {
 
 
         return { view: Feed }
-
-
-
-
-
-        // fetch(PUB_URL + '/feed-by-id/' + encodeURIComponent(_userId))
-        //     .then(res => {
-        //         if (!res.ok) {
-        //             return res.text().then(txt => {
-        //                 console.log('errrrr', txt)
-        //             })
-        //         }
-        //         return res.json()
-        //     })
-        //     .then(res => {
-        //         console.log('res', res)
-        //     })
-
-        // return {
-        //     view: function () {
-        //         return html`<div>
-        //             user profile goes here
-        //         </div>`
-        //     }
-        // }
     })
 
 
