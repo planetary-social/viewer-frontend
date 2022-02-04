@@ -162,16 +162,16 @@ function Post (props) {
                 html`<${Reply} msgs=${_post} profiles=${profiles} />` :
                 null
             }
-
-            <a href="https://apps.apple.com/us/app/planetary-app/id1481617318"
-                class="comment_prompt"
-            >
-                <span class="comment_signup text_link">Sign up</span>
-                to leave a comment
-            </a>
         </footer>
     </li>`
 }
+
+            // <a href="https://apps.apple.com/us/app/planetary-app/id1481617318"
+            //     class="comment_prompt"
+            // >
+            //     <span class="comment_signup text_link">Sign up</span>
+            //     to leave a comment
+            // </a>
 
 function Reply ({ msgs, profiles }) {
     // console.log('reply msgs', msgs, profiles)
