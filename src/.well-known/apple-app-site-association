@@ -3,10 +3,10 @@
       "apps":[],
       "details":[
          {
-         "appID":"GZCZBKH7MY.com.planetary.ios",
-         "paths":[
-            "*"
-         ]
+            "appID":"GZCZBKH7MY.com.planetary.ios",
+            "paths":[
+               "*"
+            ]
          }
       ]
    }
