@@ -128,7 +128,7 @@ function Router (state) {
         var _userId = userId.replace('-dot-', '.')
         // console.log('fetching', encodeURIComponent(_userId))
 
-        console.log('________userId', _userId)
+        // console.log('________userId', _userId)
 
         const countsUrl = (PUB_URL + '/counts-by-id/' +
             encodeURIComponent(_userId))
@@ -174,6 +174,7 @@ function Router (state) {
                     var newData = {}
                     newData[userId] = xtend(
                         ((profilesData || {})[userId]) || {},
+                        profile,
                         { counts: counts }
                     )
 
