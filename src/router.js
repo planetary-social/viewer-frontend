@@ -124,11 +124,7 @@ function Router (state) {
     router.addRoute('/@*', ({ splats }) => {
         var userId = splats.join('')
         userId = '@' + userId
-        // console.log('user id', userId)
         var _userId = userId.replace('-dot-', '.')
-        // console.log('fetching', encodeURIComponent(_userId))
-
-        // console.log('________userId', _userId)
 
         const countsUrl = (PUB_URL + '/counts-by-id/' +
             encodeURIComponent(_userId))
@@ -137,7 +133,6 @@ function Router (state) {
 
         function getFeed () {
             return Promise.all([
-                // fetch(PUB_URL + '/feed/' + username)
                 fetch(PUB_URL + '/feed-by-id/' + encodeURIComponent(_userId))
                     .then(res => {
                         if (!res.ok) {
