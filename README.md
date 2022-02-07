@@ -13,6 +13,24 @@ cp .env.example .env
 ```
 2. `npm start`
 
+### test with local DB
+
+```bash
+npm start
+```
+
+### test with 'real' data, on a locally running pub
+
+First start the `planetary-pub` in a terminal:
+```bash
+NODE_ENV=staging-local node --max-old-space-size=512 index.js
+```
+
+then start this app
+```bash
+npm run serve
+```
+
 ## lint
 
 ```
