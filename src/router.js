@@ -5,6 +5,7 @@ const Feed = require('./view/feed')
 var { PUB_URL } = require('./CONSTANTS')
 const xtend = require('xtend')
 const SingleMessage = require('./view/single-message')
+const isThread = require('./view/post/is-thread')
 
 if (process.env.NODE_ENV === 'test') {
     PUB_URL = 'http://localhost:8888'
@@ -121,22 +122,17 @@ function Router (state) {
     })
 
 
-    // here -- need to be sure we have fetched all profiles of the replies
+    // here -- need to be sure we have fetched all profiles of the *replies*
     // to user's messages
-    // also -- be suer to fetch the user profile
     router.addRoute('/@*', ({ splats }) => {
         var userId = splats.join('')
         userId = '@' + userId
         var _userId = userId.replace('-dot-', '.')
 
-        console.log('___user id', _userId)
-
         const countsUrl = (PUB_URL + '/counts-by-id/' +
             encodeURIComponent(_userId))
         const profileUrl = (PUB_URL + '/profile-by-id/' +
             encodeURIComponent(_userId))
-
-        console.log('profile url', profileUrl)
 
         function getFeed () {
             return Promise.all([
@@ -163,9 +159,6 @@ function Router (state) {
                 fetch(profileUrl)
                     .then(res => {
                         console.log('profile res', res)
-                        if (!res.ok) {
-                            res.text().then(t => console.log('tttttt', t))
-                        }
                         return res.ok ? res.json() : res.text()
                     })
             ])
@@ -186,8 +179,6 @@ function Router (state) {
                         { counts: counts }
                     )
 
-                    console.log('new data', newData)
-
                     state.profiles.set(xtend(profilesData || {}, newData))
 
                     state.feed.set({
@@ -196,6 +187,42 @@ function Router (state) {
                         data: feed,
                         // hashtag: params.tagName
                     })
+
+                    // also fetch the profiles of replies
+                    var replyAuthors = feed.map(msg => {
+                        return isThread(msg) ? msg : null
+                    })
+                        .filter(Boolean)
+                        // now there is an array of arrays
+                        .flat()
+                        // array of IDs
+                        .map(msg => msg.value.author)
+                    
+                    // need to dedup with the existing state().profiles
+                    var deduped = replyAuthors
+                        .map(auth => state.profiles()[auth] ? null : auth)
+                        .filter(Boolean)
+
+                    fetch(PUB_URL + '/get-profiles', {
+                        method: 'POST',
+                        mode: 'cors',
+                        body: JSON.stringify({ ids: deduped })
+                    })
+                        .then(res => {
+                            if (!res.ok) {
+                                return res.text().then(t => {
+                                    conosle.log('oh no', t)
+                                })
+                            }
+                            return res.json()
+                        })
+                        .then(res => {
+                            var byId = res.reduce((acc, profile) => {
+                                acc[profile.id] = profile
+                                return acc
+                            }, {})
+                            state.profiles.set(xtend(state.profiles(), byId))
+                        })
                 })
         }
 

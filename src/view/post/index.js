@@ -7,13 +7,10 @@ import cidToUrl from 'remark-image-cid-to-url/browser'
 import remarkParse from 'remark-parse'
 var ref = require('ssb-ref')
 // var linkifyRegex = require('@planetary-ssb/remark-linkify-regex')
-var Blob = require('./blob')
+var Blob = require('../blob')
 var PostMenu = require('./post-menu')
-var { PUB_URL } = require('../CONSTANTS')
-
-function isThread (post) {
-    return Array.isArray(post)
-}
+var { PUB_URL } = require('../../CONSTANTS')
+const isThread = require('./is-thread')
 
 // const linkifyHashtags = linkifyRegex(/#[\w-]+/g, node => {
 //     return '/tag/' + node.substring(1)
@@ -177,11 +174,8 @@ function Post (props) {
 
 function Reply (props) {
     var { msgs, profiles } = props
-    // console.log('reply msgs', msgs, profiles)
     // const threadStart = msgs.slice(0,1)
     const replies = msgs.slice(1)
-
-    console.log('reply props', props)
 
     // TODO -- parse the reply as markdown
     return html`<ul class="post_comments">
