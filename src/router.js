@@ -121,15 +121,22 @@ function Router (state) {
     })
 
 
+    // here -- need to be sure we have fetched all profiles of the replies
+    // to user's messages
+    // also -- be suer to fetch the user profile
     router.addRoute('/@*', ({ splats }) => {
         var userId = splats.join('')
         userId = '@' + userId
         var _userId = userId.replace('-dot-', '.')
 
+        console.log('___user id', _userId)
+
         const countsUrl = (PUB_URL + '/counts-by-id/' +
             encodeURIComponent(_userId))
         const profileUrl = (PUB_URL + '/profile-by-id/' +
             encodeURIComponent(_userId))
+
+        console.log('profile url', profileUrl)
 
         function getFeed () {
             return Promise.all([
@@ -154,7 +161,13 @@ function Router (state) {
                     }),
 
                 fetch(profileUrl)
-                    .then(res => res.ok ? res.json() : res.text())
+                    .then(res => {
+                        console.log('profile res', res)
+                        if (!res.ok) {
+                            res.text().then(t => console.log('tttttt', t))
+                        }
+                        return res.ok ? res.json() : res.text()
+                    })
             ])
         }
 
@@ -172,6 +185,8 @@ function Router (state) {
                         profile,
                         { counts: counts }
                     )
+
+                    console.log('new data', newData)
 
                     state.profiles.set(xtend(profilesData || {}, newData))
 

@@ -52,8 +52,6 @@ function Post (props) {
 
     var { profiles, username, onCopy, copied } = props
 
-    console.log('props in post', props)
-
     var profile = (profiles || {})[post.value.author]
     var authorName = (profile || {}).name || username
     // use the id if they don't have a name
@@ -177,10 +175,13 @@ function Post (props) {
             //     to leave a comment
             // </a>
 
-function Reply ({ msgs, profiles }) {
+function Reply (props) {
+    var { msgs, profiles } = props
     // console.log('reply msgs', msgs, profiles)
     // const threadStart = msgs.slice(0,1)
     const replies = msgs.slice(1)
+
+    console.log('reply props', props)
 
     // TODO -- parse the reply as markdown
     return html`<ul class="post_comments">
