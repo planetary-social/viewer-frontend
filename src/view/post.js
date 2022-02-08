@@ -52,8 +52,12 @@ function Post (props) {
 
     var { profiles, username, onCopy, copied } = props
 
+    console.log('props in post', props)
+
     var profile = (profiles || {})[post.value.author]
     var authorName = (profile || {}).name || username
+    // use the id if they don't have a name
+    authorName = authorName || post.value.author
 
     function openOptions (ev) {
         ev.preventDefault()

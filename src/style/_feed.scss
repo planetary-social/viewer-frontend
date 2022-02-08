@@ -120,6 +120,9 @@ ul.feed {
                 }
 
                 .post_author_name {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 20rem;
                     display: flex;
                     flex-direction: row;
                     align-items: center;
@@ -130,6 +133,8 @@ ul.feed {
                     a {
                         margin-right: 0.5rem;
                         text-decoration: none;
+                        display: block;
+
                         &:hover {
                             text-decoration: underline;
                         }
