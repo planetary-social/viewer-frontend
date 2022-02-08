@@ -7,13 +7,10 @@ import cidToUrl from 'remark-image-cid-to-url/browser'
 import remarkParse from 'remark-parse'
 var ref = require('ssb-ref')
 // var linkifyRegex = require('@planetary-ssb/remark-linkify-regex')
-var Blob = require('./blob')
+var Blob = require('../blob')
 var PostMenu = require('./post-menu')
-var { PUB_URL } = require('../CONSTANTS')
-
-function isThread (post) {
-    return Array.isArray(post)
-}
+var { PUB_URL } = require('../../CONSTANTS')
+const isThread = require('./is-thread')
 
 // const linkifyHashtags = linkifyRegex(/#[\w-]+/g, node => {
 //     return '/tag/' + node.substring(1)
@@ -51,8 +48,6 @@ function Post (props) {
     var [options, setOptions] = useState(false)
 
     var { profiles, username, onCopy, copied } = props
-
-    console.log('props in post', props)
 
     var profile = (profiles || {})[post.value.author]
     var authorName = (profile || {}).name || username
@@ -177,8 +172,8 @@ function Post (props) {
             //     to leave a comment
             // </a>
 
-function Reply ({ msgs, profiles }) {
-    // console.log('reply msgs', msgs, profiles)
+function Reply (props) {
+    var { msgs, profiles } = props
     // const threadStart = msgs.slice(0,1)
     const replies = msgs.slice(1)
 
