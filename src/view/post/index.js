@@ -185,7 +185,9 @@ function Reply (props) {
 
             return html`<li class="post_comment">
                 <header class="comment_author">
-                    ${(profiles[reply.value.author] || {}).name}
+                    <a href="/${reply.value.author.replace('.', '-dot-')}">
+                        ${(profiles[reply.value.author] || {}).name}
+                    </a>
                 </header>
 
                 <main class="comment_body">
