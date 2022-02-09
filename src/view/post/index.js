@@ -177,9 +177,12 @@ function Reply (props) {
     // const threadStart = msgs.slice(0,1)
     const replies = msgs.slice(1)
 
-    // TODO -- parse the reply as markdown
     return html`<ul class="post_comments">
         ${replies.map(reply => {
+
+            var { mentions } = reply.value.content
+            var mentionedBlobs = (mentions || []).map(blob => blob.link)
+
             return html`<li class="post_comment">
                 <header class="comment_author">
                     ${(profiles[reply.value.author] || {}).name}
@@ -187,7 +190,21 @@ function Reply (props) {
 
                 <main class="comment_body">
                     <p class="comment_text">
-                        ${reply.value.content.text}
+                        <${Markdown} markdown=${
+                            remark()
+                                // .use(linkifyHashtags)
+                                .use(cidToUrl(blobId => {
+                                    if (mentionedBlobs.includes(blobId)) {
+                                        return null
+                                    }
+
+                                    return (PUB_URL + '/blob/' +
+                                        encodeURIComponent(blobId))
+                                }))
+                                .use(remarkParse, { commonmark: true })
+                                .processSync(reply.value.content.text).contents
+                            }
+                        />
                     </p>
                 </main>
             </li>`
@@ -198,20 +215,4 @@ function Reply (props) {
 
 module.exports = Post
 
-
-// <li class="post_comment">
-//     <header class="comment_author">
-//         <a href="#" class="comment_author_name pro_user">Maven</a>
-//     </header>
-
-//     <main class="comment_body">
-//         <p class="comment_text">
-//             Hey! That's me by the
-//             <a href="#" class="text_link">DJ booth</a> :P Can't
-//             believe we had such a fun night dancing our minds to the
-//             best industrial techno in Europe 🎆
-//         </p>
-//     </main>
-
-//     <footer class="comment_timestamp">Tuesday at 5:16pm</footer>
-// </li>
+// ${reply.value.content.text}
