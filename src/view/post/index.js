@@ -216,5 +216,3 @@ function Reply (props) {
 }
 
 module.exports = Post
-
-// ${reply.value.content.text}
