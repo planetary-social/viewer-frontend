@@ -39,7 +39,6 @@ function Post (props) {
 
     // here we convert between arrays and posts
     const post = isThread(_post) ? _post[0] : _post
-    console.log('post', post)
     if (!post) return null
 
     var { mentions } = post.value.content

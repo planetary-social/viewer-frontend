@@ -14,7 +14,7 @@ function SingleMessage (props) {
         <${HeadPart} />
 
         <ul class="single-message">
-            <${Post} post=${msg} />
+            <${Post} ...${props} post=${msg} />
         </ul>
     `
 }

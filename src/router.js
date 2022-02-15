@@ -6,6 +6,9 @@ var { PUB_URL } = require('./CONSTANTS')
 const xtend = require('xtend')
 const SingleMessage = require('./view/single-message')
 const isThread = require('./view/post/is-thread')
+const _ = {
+    find: require('lodash.find')
+}
 
 if (process.env.NODE_ENV === 'test') {
     PUB_URL = 'http://localhost:8888'
@@ -87,20 +90,18 @@ function Router (state) {
 
 
     // this one doesn't work
-    router.addRoute('/%*', ({ splats }) => {
-        // var { msgId } = params
-        var msgId = '%' + splats.join('')
-        console.log('msg id', msgId)
-        return { view: SingleMessage }
-    })
+    // router.addRoute('/%*', ({ splats }) => {
+    //     // var { msgId } = params
+    //     var msgId = '%' + splats.join('')
+    //     console.log('msg id', msgId)
+    //     return { view: SingleMessage }
+    // })
 
 
     router.addRoute('/msg/*', ({ splats }) => {
         var msgId = splats.join('')
-        console.log('msgId 1', msgId)
 
         const msgUrl = (PUB_URL + '/msg/' + encodeURIComponent(msgId))
-        console.log('msg url', msgUrl)
 
         if (msgId !== (state.message() || {}).id) {
             fetch(msgUrl)
@@ -108,11 +109,31 @@ function Router (state) {
                     return res.ok ? res.json() : res.text()
                 })
                 .then(res => {
-                    // console.log('got msg', res)
                     state.message.set({
                         id: msgId,
                         msgs: res.messages
                     })
+
+                    var msg = _.find(res.messages, { key: msgId })
+
+                    if (!state.profiles[msg.value.author]) {
+                        return fetch(PUB_URL + '/get-profiles', {
+                            method: 'POST',
+                            mode: 'cors',
+                            body: JSON.stringify({ ids: [msg.value.author] })
+                        })
+                            .then(res => res.json())
+                    }
+
+                    return Promise.resolve(null)
+                })
+                .then(profiles => {
+                    if (!profiles) return
+                    console.log('profiles', profiles)
+                    const profile = profiles[0]
+                    var newProfiles = {}
+                    newProfiles[profile.id] = profile
+                    state.profiles.set(xtend(state.profiles(), newProfiles))
                 })
                 .catch(err => {
                     console.log('errrrr', err)
