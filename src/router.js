@@ -6,9 +6,9 @@ var { PUB_URL } = require('./CONSTANTS')
 const xtend = require('xtend')
 const SingleMessage = require('./view/single-message')
 const isThread = require('./view/post/is-thread')
-const _ = {
-    find: require('lodash.find')
-}
+// const _ = {
+//     find: require('lodash.find')
+// }
 
 if (process.env.NODE_ENV === 'test') {
     PUB_URL = 'http://localhost:8888'
@@ -20,12 +20,39 @@ function Placeholder () {
     return html`<div>placeholding</div>`
 }
 
+
 function Router (state) {
     var router = _router()
 
-    var fetching = false
+    function getProfilesFromMsgs (msgs) {
+        var getThese = msgs
+            .map(msg => msg.value.author)
+            // check if we already have it
+            .filter(author => {
+                return !((state.profiles() || {})[author])
+            })
+            // dedup
+            .filter((id, i, arr) => arr.indexOf(id) === i)
+
+        return fetch(PUB_URL + '/get-profiles', {
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify({ ids: getThese })
+        })
+            .then(res => res.json())
+            .then(res => {
+                var byId = res.reduce((acc, val, i) => {
+                    acc[getThese[i]] = val
+                    return acc
+                }, {})
+                return byId
+            })
+    }
+
 
     router.addRoute('/', () => {
+        var fetching = false
+
         function fetchDefault () {
             var posts
             fetching = true
@@ -114,25 +141,11 @@ function Router (state) {
                         msgs: res.messages
                     })
 
-                    var msg = _.find(res.messages, { key: msgId })
-
-                    if (!state.profiles[msg.value.author]) {
-                        return fetch(PUB_URL + '/get-profiles', {
-                            method: 'POST',
-                            mode: 'cors',
-                            body: JSON.stringify({ ids: [msg.value.author] })
-                        })
-                            .then(res => res.json())
-                    }
-
-                    return Promise.resolve(null)
+                    return getProfilesFromMsgs(res.messages)
                 })
-                .then(profiles => {
-                    if (!profiles) return
-                    console.log('profiles', profiles)
-                    const profile = profiles[0]
-                    var newProfiles = {}
-                    newProfiles[profile.id] = profile
+                .then(newProfiles => {
+                    if (!newProfiles) return
+                    console.log('profiles', newProfiles)
                     state.profiles.set(xtend(state.profiles(), newProfiles))
                 })
                 .catch(err => {

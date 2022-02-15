@@ -6,15 +6,17 @@ const Post = require('./post')
 var HeadPart = require('./head-part')
 
 function SingleMessage (props) {
-    console.log('props in single message', props)
     const msgs = (props.message || {}).msgs
-    const msg = _.find(msgs, { key: (props.message || {}).id })
+    // const msg = _.find(msgs, { key: (props.message || {}).id })
+
+    if (!msgs) return null
+    if (!props.profiles) return null
 
     return html`
         <${HeadPart} />
 
         <ul class="single-message">
-            <${Post} ...${props} post=${msg} />
+            <${Post} ...${props} post=${msgs} />
         </ul>
     `
 }
