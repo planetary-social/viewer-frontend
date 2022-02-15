@@ -38,8 +38,10 @@ function Post (props) {
     const _post = props.post
 
     // here we convert between arrays and posts
-
     const post = isThread(_post) ? _post[0] : _post
+    console.log('post', post)
+    if (!post) return null
+
     var { mentions } = post.value.content
     var hasImages = !!((mentions || []).filter(m => {
         return ref.isBlob(m.link)
