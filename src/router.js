@@ -31,7 +31,8 @@ function Router (state) {
                 .then(res => res.json())
                 // get the profiles for everyone in the response
                 .then(res => {
-                    posts = res.map(thread => {
+                    console.log('res', res)
+                    posts = (res || []).map(thread => {
                         return thread.messages.length === 1 ?
                             thread.messages[0] :
                             thread.messages
@@ -126,8 +127,7 @@ function Router (state) {
     // to user's messages
     router.addRoute('/@*', ({ splats }) => {
         var userId = splats.join('')
-        userId = '@' + userId
-        var _userId = userId.replace('-dot-', '.')
+        var _userId = '@' + userId
 
         const countsUrl = (PUB_URL + '/counts-by-id/' +
             encodeURIComponent(_userId))

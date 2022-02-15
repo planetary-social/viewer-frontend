@@ -11,7 +11,7 @@ function PostMenu ({ msg, onCloseModal }) {
         if (key === 'link') {
             var { host, protocol } = window.location
             var msgLink = protocol + '//' + host + '/msg/' +
-                (encodeURIComponent(msg.key).replace('.', '-dot-'))
+                (encodeURIComponent(msg.key))
             navigator.clipboard.writeText(msgLink)
                 .catch(err => console.log('err', err))
 
@@ -21,7 +21,7 @@ function PostMenu ({ msg, onCloseModal }) {
         if (key === 'authorLink') {
             var { host, protocol } = window.location
             var authorLink = protocol + '//' + host + '/' +
-                (msg.value.author.replace('.', '-dot-'))
+                (msg.value.author)
             navigator.clipboard.writeText(authorLink)
                 .catch(err => console.log('err', err))
 
