@@ -85,10 +85,32 @@ function Router (state) {
         return { view: Home }
     })
 
-    router.addRoute('/msg/%:msgId', ({ params }) => {
-        var { msgId } = params
-        var msgId = '%' + msgId.replace('-dot-', '.')
-        console.log('msgId', msgId)
+    router.addRoute('/%*', ({ splats }) => {
+        // var { msgId } = params
+        var msgId = splats.join('')
+        msgId = '%' + msgId
+        console.log('msg id', msgId)
+        return { view: SingleMessage }
+    })
+
+    router.addRoute('/msg/*', ({ splats }) => {
+        var msgId = splats.join('')
+        console.log('msgId 1', msgId)
+
+        const msgUrl = (PUB_URL + '/msg/' + encodeURIComponent(msgId))
+        console.log('msg url', msgUrl)
+
+        fetch(msgUrl)
+            .then(res => {
+                return res.ok ? res.json() : res.text()
+            })
+            .then(res => {
+                console.log('got msg', res)
+            })
+            .catch(err => {
+                console.log('errrrr', err)
+            })
+
         return { view: SingleMessage }
     })
 
