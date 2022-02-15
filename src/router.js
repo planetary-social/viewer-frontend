@@ -127,8 +127,7 @@ function Router (state) {
     // to user's messages
     router.addRoute('/@*', ({ splats }) => {
         var userId = splats.join('')
-        userId = '@' + userId
-        var _userId = userId.replace('-dot-', '.')
+        var _userId = '@' + userId
 
         const countsUrl = (PUB_URL + '/counts-by-id/' +
             encodeURIComponent(_userId))
