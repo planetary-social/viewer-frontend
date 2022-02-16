@@ -18,7 +18,11 @@ const isThread = require('./is-thread')
 
 const linkifySsbSigilFeeds = linkifyRegex(ref.feedIdRegex, node => {
     return '/' + node
-});
+})
+
+const linkifySsbSigilMsgs = linkifyRegex(ref.msgIdRegex, node => {
+    return '/msg/' + encodeURIComponent(node)
+})
 
 
 function CopyButton (props) {
@@ -140,6 +144,7 @@ function Post (props) {
                 remark()
                     // .use(linkifyHashtags)
                     .use(linkifySsbSigilFeeds)
+                    .use(linkifySsbSigilMsgs)
                     .use(cidToUrl(blobId => {
                         if (mentionedBlobs.includes(blobId)) {
                             return null
@@ -208,6 +213,7 @@ function Reply (props) {
                             remark()
                                 // .use(linkifyHashtags)
                                 .use(linkifySsbSigilFeeds)
+                                .use(linkifySsbSigilMsgs)
                                 .use(cidToUrl(blobId => {
                                     if (mentionedBlobs.includes(blobId)) {
                                         return null
