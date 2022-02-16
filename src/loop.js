@@ -36,6 +36,7 @@ function State () {
             username: observ(null),
             data: observ(null),
         }),
+        message: observ(null),
         hashtag: struct({
             tag: observ(null),
             feed: observ(null)

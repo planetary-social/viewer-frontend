@@ -38,8 +38,9 @@ function Post (props) {
     const _post = props.post
 
     // here we convert between arrays and posts
-
     const post = isThread(_post) ? _post[0] : _post
+    if (!post) return null
+
     var { mentions } = post.value.content
     var hasImages = !!((mentions || []).filter(m => {
         return ref.isBlob(m.link)
@@ -174,18 +175,25 @@ function Post (props) {
 
 function Reply (props) {
     var { msgs, profiles } = props
-    // const threadStart = msgs.slice(0,1)
     const replies = msgs.slice(1)
+    const post = msgs[0]
+
+    var profile = (profiles || {})[post.value.author]
+    var authorName = (profile || {}).name 
+    // use the id if they don't have a name
+    authorName = authorName || post.value.author
+
+    // var authorName = authorName || post.value.author
 
     return html`<ul class="post_comments">
         ${replies.map(reply => {
-
             var { mentions } = reply.value.content
             var mentionedBlobs = (mentions || []).map(blob => blob.link)
 
             return html`<li class="post_comment">
                 <header class="comment_author">
-                    <a href="/${reply.value.author.replace('.', '-dot-')}">
+                    <a href="/${reply.value.author}">
+
                         ${(profiles[reply.value.author] || {}).name}
                     </a>
                 </header>

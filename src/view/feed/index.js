@@ -1,7 +1,4 @@
 import { html } from 'htm/preact'
-var _ = {
-    find: require('lodash.find')
-}
 var { PUB_URL } = require('../../CONSTANTS')
 if (process.env.NODE_ENV === 'test') {
     PUB_URL = 'http://0.0.0.0:8888'
