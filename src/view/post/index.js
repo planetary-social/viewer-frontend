@@ -6,7 +6,7 @@ const remark = require('remark')
 import cidToUrl from 'remark-image-cid-to-url/browser'
 import remarkParse from 'remark-parse'
 var ref = require('ssb-ref')
-// var linkifyRegex = require('@planetary-ssb/remark-linkify-regex')
+var linkifyRegex = require('@planetary-ssb/remark-linkify-regex')
 var Blob = require('../blob')
 var PostMenu = require('./post-menu')
 var { PUB_URL } = require('../../CONSTANTS')
@@ -15,6 +15,11 @@ const isThread = require('./is-thread')
 // const linkifyHashtags = linkifyRegex(/#[\w-]+/g, node => {
 //     return '/tag/' + node.substring(1)
 // })
+
+const linkifySsbSigilFeeds = linkifyRegex(ref.feedIdRegex, node => {
+    return '/' + node
+});
+
 
 function CopyButton (props) {
     const { value, copied, onCopy } = props
@@ -134,6 +139,7 @@ function Post (props) {
             html`<${Markdown} markdown=${
                 remark()
                     // .use(linkifyHashtags)
+                    .use(linkifySsbSigilFeeds)
                     .use(cidToUrl(blobId => {
                         if (mentionedBlobs.includes(blobId)) {
                             return null
@@ -183,8 +189,6 @@ function Reply (props) {
     // use the id if they don't have a name
     authorName = authorName || post.value.author
 
-    // var authorName = authorName || post.value.author
-
     return html`<ul class="post_comments">
         ${replies.map(reply => {
             var { mentions } = reply.value.content
@@ -203,6 +207,7 @@ function Reply (props) {
                         <${Markdown} markdown=${
                             remark()
                                 // .use(linkifyHashtags)
+                                .use(linkifySsbSigilFeeds)
                                 .use(cidToUrl(blobId => {
                                     if (mentionedBlobs.includes(blobId)) {
                                         return null

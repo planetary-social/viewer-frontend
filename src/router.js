@@ -61,7 +61,7 @@ function Router (state) {
                 .then(res => res.json())
                 // get the profiles for everyone in the response
                 .then(res => {
-                    console.log('res', res)
+                    // console.log('res', res)
                     posts = (res || []).map(thread => {
                         return thread.messages.length === 1 ?
                             thread.messages[0] :
