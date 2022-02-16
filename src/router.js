@@ -6,6 +6,9 @@ var { PUB_URL } = require('./CONSTANTS')
 const xtend = require('xtend')
 const SingleMessage = require('./view/single-message')
 const isThread = require('./view/post/is-thread')
+// const _ = {
+//     find: require('lodash.find')
+// }
 
 if (process.env.NODE_ENV === 'test') {
     PUB_URL = 'http://localhost:8888'
@@ -17,12 +20,39 @@ function Placeholder () {
     return html`<div>placeholding</div>`
 }
 
+
 function Router (state) {
     var router = _router()
 
-    var fetching = false
+    function getProfilesFromMsgs (msgs) {
+        var getThese = msgs
+            .map(msg => msg.value.author)
+            // check if we already have it
+            .filter(author => {
+                return !((state.profiles() || {})[author])
+            })
+            // dedup
+            .filter((id, i, arr) => arr.indexOf(id) === i)
+
+        return fetch(PUB_URL + '/get-profiles', {
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify({ ids: getThese })
+        })
+            .then(res => res.json())
+            .then(res => {
+                var byId = res.reduce((acc, val, i) => {
+                    acc[getThese[i]] = val
+                    return acc
+                }, {})
+                return byId
+            })
+    }
+
 
     router.addRoute('/', () => {
+        var fetching = false
+
         function fetchDefault () {
             var posts
             fetching = true
@@ -31,7 +61,7 @@ function Router (state) {
                 .then(res => res.json())
                 // get the profiles for everyone in the response
                 .then(res => {
-                    console.log('res', res)
+                    // console.log('res', res)
                     posts = (res || []).map(thread => {
                         return thread.messages.length === 1 ?
                             thread.messages[0] :
@@ -85,10 +115,44 @@ function Router (state) {
         return { view: Home }
     })
 
-    router.addRoute('/msg/%:msgId', ({ params }) => {
-        var { msgId } = params
-        var msgId = '%' + msgId.replace('-dot-', '.')
-        console.log('msgId', msgId)
+
+    // this one doesn't work
+    // router.addRoute('/%*', ({ splats }) => {
+    //     // var { msgId } = params
+    //     var msgId = '%' + splats.join('')
+    //     console.log('msg id', msgId)
+    //     return { view: SingleMessage }
+    // })
+
+
+    router.addRoute('/msg/*', ({ splats }) => {
+        var msgId = splats.join('')
+
+        const msgUrl = (PUB_URL + '/msg/' + encodeURIComponent(msgId))
+
+        if (msgId !== (state.message() || {}).id) {
+            fetch(msgUrl)
+                .then(res => {
+                    return res.ok ? res.json() : res.text()
+                })
+                .then(res => {
+                    state.message.set({
+                        id: msgId,
+                        msgs: res.messages
+                    })
+
+                    return getProfilesFromMsgs(res.messages)
+                })
+                .then(newProfiles => {
+                    if (!newProfiles) return
+                    console.log('profiles', newProfiles)
+                    state.profiles.set(xtend(state.profiles(), newProfiles))
+                })
+                .catch(err => {
+                    console.log('errrrr', err)
+                })
+        }
+
         return { view: SingleMessage }
     })
 

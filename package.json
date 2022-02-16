@@ -13,7 +13,7 @@
     "build-js": "browserify -p esmify -t envify -t uglifyify --debug src/index.js > public/bundle.js",
     "lint": "eslint .",
     "preversion": "npm run lint",
-    "serve": "env $(cat .env | grep -v \"#\" | xargs) budo src/index.js:bundle.js --cors --pushstate [ --disallow \"\\.ed25519\" ] --dir=public --live --open -- -t envify -p esmify --debug",
+    "serve": "env $(cat .env | grep -v \"#\" | xargs) budo src/index.js:bundle.js --cors --pushstate [ --disallow \"\\.ed25519|\\.sha256\" ] --dir=public --live --open -- -t envify -p esmify --debug",
     "test": "browserify -p esmify test/*.js | tape-run | tap-spec"
   },
   "repository": {
@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/planetary-social/viewer-frontend#readme",
   "devDependencies": {
-    "@planetary-ssb/pub": "^0.2.43",
+    "@planetary-ssb/pub": "^0.2.45",
     "browserify": "^17.0.0",
     "budo": "^11.6.4",
     "concurrently": "^6.4.0",
