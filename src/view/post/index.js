@@ -199,6 +199,8 @@ function Reply (props) {
             var { mentions } = reply.value.content
             var mentionedBlobs = (mentions || []).map(blob => blob.link)
 
+            console.log('metnioned blobs', mentionedBlobs)
+
             return html`<li class="post_comment">
                 <header class="comment_author">
                     <a href="/${reply.value.author}">
