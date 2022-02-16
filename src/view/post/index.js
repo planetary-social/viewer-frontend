@@ -196,15 +196,12 @@ function Reply (props) {
 
     return html`<ul class="post_comments">
         ${replies.map(reply => {
-            var { mentions } = reply.value.content
-            var mentionedBlobs = (mentions || []).map(blob => blob.link)
-
-            console.log('metnioned blobs', mentionedBlobs)
+            // var { mentions } = reply.value.content
+            // var mentionedBlobs = (mentions || []).map(blob => blob.link)
 
             return html`<li class="post_comment">
                 <header class="comment_author">
                     <a href="/${reply.value.author}">
-
                         ${(profiles[reply.value.author] || {}).name}
                     </a>
                 </header>
@@ -217,9 +214,11 @@ function Reply (props) {
                                 .use(linkifySsbSigilFeeds)
                                 .use(linkifySsbSigilMsgs)
                                 .use(cidToUrl(blobId => {
-                                    if (mentionedBlobs.includes(blobId)) {
-                                        return null
-                                    }
+                                    // console.log('blob id', blobId)
+                                    // if (mentionedBlobs.includes(blobId)) {
+                                    //     console.log('*includes*', blobId)
+                                    //     // return null
+                                    // }
 
                                     return (PUB_URL + '/blob/' +
                                         encodeURIComponent(blobId))
