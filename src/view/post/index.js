@@ -7,6 +7,7 @@ import cidToUrl from 'remark-image-cid-to-url/browser'
 import remarkParse from 'remark-parse'
 var ref = require('ssb-ref')
 var linkifyRegex = require('@planetary-ssb/remark-linkify-regex')
+import { generateFromString } from 'generate-avatar'
 var Blob = require('../blob')
 var PostMenu = require('./post-menu')
 var { PUB_URL } = require('../../CONSTANTS')
@@ -86,7 +87,14 @@ function Post (props) {
         <header class="post_head">
             <div class="post_signature">
                 <a href="#" class="post_author has_stories">
-                    <${Blob} blob=${({ link: ((profile || {}).image) })} />
+                    ${profile && profile.image ?
+                        html`<${Blob}
+                            blob=${({ link: ((profile || {}).image) })}
+                        />` :
+                        (html`<img src="${'data:image/svg+xml;utf8,' +
+                            generateFromString(post.value.author)}" />`
+                        )
+                    }
                 </a>
 
                 <div class="post-signature-wrap">
