@@ -8,7 +8,6 @@ var Sidebar = require('./sidebar')
 
 function SingleMessage (props) {
     const msgs = (props.message || {}).msgs
-    // const msg = _.find(msgs, { key: (props.message || {}).id })
 
     if (!msgs) return null
     if (!props.profiles) return null
