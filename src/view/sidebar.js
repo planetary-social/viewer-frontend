@@ -13,7 +13,7 @@ function Sidebar () {
             <a href="https://apps.apple.com/us/app/planetary-social/id1481617318"
                 class="cool-btn"
             >
-                Create your account
+                Download the IOS app
             </a>
         </div>
     </div>`
