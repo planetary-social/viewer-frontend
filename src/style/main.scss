@@ -36,4 +36,12 @@ body {
     button {
         cursor: pointer;
     }
+
+    .err-message {
+        font-size: 10vw;
+        margin: 1rem;
+        > div {
+            font-size: initial;
+        }
+    }
 }
