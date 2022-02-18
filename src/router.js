@@ -133,10 +133,19 @@ function Router (state) {
         if (msgId !== (state.message() || {}).id) {
             fetch(msgUrl)
                 .then(res => {
-                    return res.ok ? res.json() : res.text()
+                    return res.ok ?
+                        res.json() :
+                        res.text()
                 })
                 .then(res => {
+                    // is error?
+                    if (typeof res === 'string') {
+                        state.message.set({ err: JSON.parse(res), id: msgId })
+                        return Promise.resolve(null)
+                    }
+
                     state.message.set({
+                        err: null,
                         id: msgId,
                         msgs: res.messages
                     })
