@@ -4,10 +4,10 @@ const _ = {
 }
 const Post = require('./post')
 var HeadPart = require('./head-part')
+var Sidebar = require('./sidebar')
 
 function SingleMessage (props) {
     const msgs = (props.message || {}).msgs
-    // const msg = _.find(msgs, { key: (props.message || {}).id })
 
     if (!msgs) return null
     if (!props.profiles) return null
@@ -15,9 +15,13 @@ function SingleMessage (props) {
     return html`
         <${HeadPart} />
 
-        <ul class="single-message">
-            <${Post} ...${props} post=${msgs} />
-        </ul>
+        <div class="feed-wrapper">
+            <ul class="single-message">
+                <${Post} ...${props} post=${msgs} />
+            </ul>
+
+            <${Sidebar} ...${props} />
+        </div>
     `
 }
 
