@@ -2,6 +2,7 @@ import { html } from 'htm/preact'
 import { render } from 'preact'
 var Router = require('./router')
 var Loop = require('./loop')
+var ErrMsg = require('./view/err-msg')
 
 var { bus, state, loop } = Loop()
 var emit = bus.emit.bind(bus)
@@ -12,8 +13,11 @@ state(function onChange (newState) {
 
     if (!match) {
         console.log('not match')
-        // @TODO -- should show 404
-        return null
+        return render(html`<${ErrMsg} err=${({
+            statusCode: 404,
+            error: 'Not Found',
+            message: 'That path does not exist'
+        })} />`, document.getElementById('content'))
     }
 
     var { params } = match
