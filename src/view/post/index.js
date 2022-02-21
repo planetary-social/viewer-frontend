@@ -202,31 +202,43 @@ function Reply (props) {
     // use the id if they don't have a name
     authorName = authorName || post.value.author
 
-    console.log('profiles', profiles)
-
     return html`<ul class="post_comments">
         ${replies.map(reply => {
-
             const replyProfile = (profiles[reply.value.author] || {})
-            console.log('reply author', reply.value.author)
 
             return html`<li class="post_comment">
                 <header class="comment_author">
 
-                    ${replyProfile && replyProfile.image ?
-                        html`<${Blob}
-                            blob=${({
-                                link: replyProfile.image
-                            })}
-                        />` :
-                        (html`<img src="${'data:image/svg+xml;utf8,' +
-                            generateFromString(reply?.value?.author?.id || '')}" />`
-                        )
-                    }
+                    <div class="post_signature">
+                        ${replyProfile && replyProfile.image ?
+                            html`<${Blob}
+                                blob=${({
+                                    link: replyProfile.image
+                                })}
+                            />` :
+                            (html`<img src="${'data:image/svg+xml;utf8,' +
+                                generateFromString(reply?.value?.author?.id || '')}" />`
+                            )
+                        }
 
-                    <a href="/${reply.value.author}">
-                        ${(profiles[reply.value.author] || {}).name}
-                    </a>
+                        <div class="post-signature-wrap">
+                            <a href="/${reply.value.author}">
+                                ${(profiles[reply.value.author] || {}).name}
+                            </a>
+
+
+                            <div class="post_meta">
+                                <span class="post_timestamp">
+                                    ${moment(reply.value.timestamp)
+                                        .format('dddd, MMMM Do YYYY, h:mm:ss a')
+                                    }
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+
                 </header>
 
                 <main class="comment_body">
