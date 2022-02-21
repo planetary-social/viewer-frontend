@@ -273,6 +273,19 @@ ul.feed {
                     .comment_author_name {
                         text-decoration: none;
                     }
+                    
+                    img {
+                        width: 35px;
+                        height: 35px;
+                        border-radius: 35px;
+                        margin-right: 0.7rem;
+                        // display: block;
+                        // width: 100%;
+                        // height: 100%;
+                        // background-color: white;
+                        border-radius: 35px;
+                        object-fit: cover;
+                    }
                 }
 
                 .comment_text {

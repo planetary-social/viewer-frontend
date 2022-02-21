@@ -92,7 +92,7 @@ function Post (props) {
                             blob=${({ link: ((profile || {}).image) })}
                         />` :
                         (html`<img src="${'data:image/svg+xml;utf8,' +
-                            generateFromString(post.value.author)}" />`
+                            generateFromString(post?.value?.author?.id || '')}" />`
                         )
                     }
                 </a>
@@ -202,13 +202,28 @@ function Reply (props) {
     // use the id if they don't have a name
     authorName = authorName || post.value.author
 
+    console.log('profiles', profiles)
+
     return html`<ul class="post_comments">
         ${replies.map(reply => {
-            // var { mentions } = reply.value.content
-            // var mentionedBlobs = (mentions || []).map(blob => blob.link)
+
+            const replyProfile = (profiles[reply.value.author] || {})
+            console.log('reply author', reply.value.author)
 
             return html`<li class="post_comment">
                 <header class="comment_author">
+
+                    ${replyProfile && replyProfile.image ?
+                        html`<${Blob}
+                            blob=${({
+                                link: replyProfile.image
+                            })}
+                        />` :
+                        (html`<img src="${'data:image/svg+xml;utf8,' +
+                            generateFromString(reply?.value?.author?.id || '')}" />`
+                        )
+                    }
+
                     <a href="/${reply.value.author}">
                         ${(profiles[reply.value.author] || {}).name}
                     </a>
