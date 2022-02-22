@@ -14,6 +14,7 @@ ul.feed {
 
 .post {
     @extend %block;
+    min-height: 15rem;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -251,6 +252,13 @@ ul.feed {
             padding: 0;
 
             .post_comment {
+                &:last-child {
+                    // this is for wonkiness with the modal/contextual menu
+                    // getting hidden in the last reply
+                    min-height: 15rem;
+                }
+
+                position: relative;
                 list-style: none;
                 background: #342b47;
                 box-shadow:
