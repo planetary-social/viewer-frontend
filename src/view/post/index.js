@@ -195,12 +195,6 @@ function Post (props) {
 function Replies (props) {
     var { msgs, profiles } = props
     const replies = msgs.slice(1)
-    const post = msgs[0]
-
-    var profile = (profiles || {})[post.value.author]
-    var authorName = (profile || {}).name 
-    // use the id if they don't have a name
-    authorName = authorName || post.value.author
 
     return html`<ul class="post_comments">
         ${replies.map(reply => {
@@ -269,6 +263,7 @@ function Reply (props) {
 
             </div>
 
+            <button class="post_options" onclick=${openOptions}></button>
         </header>
 
         <main class="comment_body">
