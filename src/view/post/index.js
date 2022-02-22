@@ -92,7 +92,7 @@ function Post (props) {
                             blob=${({ link: ((profile || {}).image) })}
                         />` :
                         (html`<img src="${'data:image/svg+xml;utf8,' +
-                            generateFromString(post?.value?.author?.id || '')}" />`
+                            generateFromString(post.value.author.id || '')}" />`
                         )
                     }
                 </a>
@@ -248,7 +248,7 @@ function Reply (props) {
                         })}
                     />` :
                     (html`<img src="${'data:image/svg+xml;utf8,' +
-                        generateFromString(reply?.value?.author?.id || '')}" />`
+                        generateFromString(reply.value.author.id || '')}" />`
                     )
                 }
 
