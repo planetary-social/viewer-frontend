@@ -1,11 +1,15 @@
 .modal-options {
     position: absolute;
-    top: 2.5rem;
+    top: 2rem;
     right: 1.9rem;
     background: transparent;
     text-align: center;
     // display: flex;
     justify-content: center;
+
+    // position: sticky;
+    // max-width: 20rem;
+    // margin: 0 0 0 auto;
 
     .options-close {
         position: absolute;

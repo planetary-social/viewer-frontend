@@ -92,7 +92,7 @@ function Post (props) {
                             blob=${({ link: ((profile || {}).image) })}
                         />` :
                         (html`<img src="${'data:image/svg+xml;utf8,' +
-                            generateFromString(post.value.author)}" />`
+                            generateFromString(post.value.author.id || '')}" />`
                         )
                     }
                 </a>
@@ -178,7 +178,7 @@ function Post (props) {
             </div>
 
             ${isThread(_post) ?
-                html`<${Reply} msgs=${_post} profiles=${profiles} />` :
+                html`<${Replies} msgs=${_post} profiles=${profiles} />` :
                 null
             }
         </footer>
@@ -192,55 +192,105 @@ function Post (props) {
             //     to leave a comment
             // </a>
 
-function Reply (props) {
+function Replies (props) {
     var { msgs, profiles } = props
     const replies = msgs.slice(1)
-    const post = msgs[0]
-
-    var profile = (profiles || {})[post.value.author]
-    var authorName = (profile || {}).name 
-    // use the id if they don't have a name
-    authorName = authorName || post.value.author
 
     return html`<ul class="post_comments">
         ${replies.map(reply => {
-            // var { mentions } = reply.value.content
-            // var mentionedBlobs = (mentions || []).map(blob => blob.link)
-
-            return html`<li class="post_comment">
-                <header class="comment_author">
-                    <a href="/${reply.value.author}">
-                        ${(profiles[reply.value.author] || {}).name}
-                    </a>
-                </header>
-
-                <main class="comment_body">
-                    <p class="comment_text">
-                        <${Markdown} markdown=${
-                            remark()
-                                // .use(linkifyHashtags)
-                                .use(linkifySsbSigilFeeds)
-                                .use(linkifySsbSigilMsgs)
-                                .use(cidToUrl(blobId => {
-                                    // console.log('blob id', blobId)
-                                    // if (mentionedBlobs.includes(blobId)) {
-                                    //     console.log('*includes*', blobId)
-                                    //     // return null
-                                    // }
-
-                                    return (PUB_URL + '/blob/' +
-                                        encodeURIComponent(blobId))
-                                }))
-                                .use(remarkParse, { commonmark: true })
-                                .processSync(reply.value.content.text).contents
-                            }
-                        />
-                    </p>
-                </main>
-            </li>`
+            return html`<${Reply} reply=${reply} profiles=${profiles} />`
         })}
 
     </ul>`
+}
+
+function Reply (props) {
+    const { reply, profiles } = props
+    const replyProfile = (profiles[reply.value.author] || {})
+
+    var [options, setOptions] = useState(false)
+
+    var profile = (profiles || {})[reply.value.author]
+    var authorName = (profile || {}).name || username
+    // use the id if they don't have a name
+    authorName = authorName || reply.value.author
+
+    function openOptions (ev) {
+        ev.preventDefault()
+        setOptions(true)
+    }
+
+    function closeModal (ev) {
+        if (ev) ev.preventDefault()
+        if (options) setOptions(false)
+    }
+
+    // <!-- <button class="post_options" onclick=${openOptions}></button> -->
+
+    return html`<li class="post_comment">
+        ${options ?
+            html`<${PostMenu} onCloseModal=${closeModal} msg=${reply} />` :
+            null
+        }
+
+        <header class="comment_author">
+            <div class="post_signature">
+                ${replyProfile && replyProfile.image ?
+                    html`<${Blob}
+                        blob=${({
+                            link: replyProfile.image
+                        })}
+                    />` :
+                    (html`<img src="${'data:image/svg+xml;utf8,' +
+                        generateFromString(reply.value.author.id || '')}" />`
+                    )
+                }
+
+                <div class="post-signature-wrap">
+                    <a href="/${reply.value.author}">
+                        ${(profiles[reply.value.author] || {}).name}
+                    </a>
+
+
+                    <div class="post_meta">
+                        <span class="post_timestamp">
+                            ${moment(reply.value.timestamp)
+                                .format('dddd, MMMM Do YYYY, h:mm:ss a')
+                            }
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="post_options" onclick=${openOptions}></button>
+        </header>
+
+        <main class="comment_body">
+            <p class="comment_text">
+                <${Markdown} markdown=${
+                    remark()
+                        // .use(linkifyHashtags)
+                        .use(linkifySsbSigilFeeds)
+                        .use(linkifySsbSigilMsgs)
+                        .use(cidToUrl(blobId => {
+                            // console.log('blob id', blobId)
+                            // if (mentionedBlobs.includes(blobId)) {
+                            //     console.log('*includes*', blobId)
+                            //     // return null
+                            // }
+
+                            return (PUB_URL + '/blob/' +
+                                encodeURIComponent(blobId))
+                        }))
+                        .use(remarkParse, { commonmark: true })
+                        .processSync(reply.value.content.text).contents
+                    }
+                />
+            </p>
+        </main>
+    </li>`
+
 }
 
 module.exports = Post
