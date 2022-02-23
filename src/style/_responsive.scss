@@ -99,6 +99,10 @@
             align-self: unset;
             margin-top: 0.5rem;
 
+            ul.feed {
+                min-width: unset;
+            }
+
             .feed-content {
                 padding: 1rem 1rem 0;
                 margin: 0;
