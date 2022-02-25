@@ -92,7 +92,7 @@ function Post (props) {
                             blob=${({ link: ((profile || {}).image) })}
                         />` :
                         (html`<img src="${'data:image/svg+xml;utf8,' +
-                            generateFromString(post.value.author.id || '')}" />`
+                            generateFromString(post.value.author || '')}" />`
                         )
                     }
                 </a>
@@ -211,7 +211,7 @@ function Reply (props) {
     var [options, setOptions] = useState(false)
 
     var profile = (profiles || {})[reply.value.author]
-    var authorName = (profile || {}).name || username
+    var authorName = (profile || {}).name
     // use the id if they don't have a name
     authorName = authorName || reply.value.author
 
@@ -242,7 +242,7 @@ function Reply (props) {
                         })}
                     />` :
                     (html`<img src="${'data:image/svg+xml;utf8,' +
-                        generateFromString(reply.value.author.id || '')}" />`
+                        generateFromString(reply.value.author || '')}" />`
                     )
                 }
 
@@ -274,12 +274,6 @@ function Reply (props) {
                         .use(linkifySsbSigilFeeds)
                         .use(linkifySsbSigilMsgs)
                         .use(cidToUrl(blobId => {
-                            // console.log('blob id', blobId)
-                            // if (mentionedBlobs.includes(blobId)) {
-                            //     console.log('*includes*', blobId)
-                            //     // return null
-                            // }
-
                             return (PUB_URL + '/blob/' +
                                 encodeURIComponent(blobId))
                         }))

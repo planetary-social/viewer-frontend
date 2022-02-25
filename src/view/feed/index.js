@@ -1,4 +1,6 @@
 import { html } from 'htm/preact'
+import { generateFromString } from 'generate-avatar'
+var Blob = require('../blob')
 var { PUB_URL } = require('../../CONSTANTS')
 if (process.env.NODE_ENV === 'test') {
     PUB_URL = 'http://0.0.0.0:8888'
@@ -34,14 +36,17 @@ function FeedHeader (props) {
     if (!profile) return null
 
     return html`<div class="feed-header">
-        <div class="feed-header-banner">
-        </div>
+        <div class="feed-header-banner"></div>
         <div class="feed-header-content">
             <div class="user-info">
                 <div class="avatar">
-                    <img src="${PUB_URL + '/blob/' +
-                        encodeURIComponent(profile.image)}"
-                    />
+                    <img src="${profile.image ?
+                        html`<${Blob}
+                            blob=${({ link: profile.image })}
+                        />` :
+                        ('data:image/svg+xml;utf8,' +
+                            generateFromString(profile.id))
+                    }" />
                 </div>
                 <div class="user-info-card">
                     <h2>${username}</h2>
