@@ -86,7 +86,7 @@ function Post (props) {
 
         <header class="post_head">
             <div class="post_signature">
-                <a href="#" class="post_author has_stories">
+                <a href="/${post.value.author}" class="post_author has_stories">
                     ${profile && profile.image ?
                         html`<${Blob}
                             blob=${({ link: ((profile || {}).image) })}
@@ -235,16 +235,18 @@ function Reply (props) {
 
         <header class="comment_author">
             <div class="post_signature">
-                ${replyProfile && replyProfile.image ?
-                    html`<${Blob}
-                        blob=${({
-                            link: replyProfile.image
-                        })}
-                    />` :
-                    (html`<img src="${'data:image/svg+xml;utf8,' +
-                        generateFromString(reply.value.author || '')}" />`
-                    )
-                }
+                <a href="/${reply.value.author}">
+                    ${replyProfile && replyProfile.image ?
+                        html`<${Blob}
+                            blob=${({
+                                link: replyProfile.image
+                            })}
+                        />` :
+                        (html`<img src="${'data:image/svg+xml;utf8,' +
+                            generateFromString(reply.value.author || '')}" />`
+                        )
+                    }
+                </a>
 
                 <div class="post-signature-wrap">
                     <a href="/${reply.value.author}">
