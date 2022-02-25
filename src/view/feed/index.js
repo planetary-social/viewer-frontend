@@ -35,18 +35,19 @@ function FeedHeader (props) {
 
     if (!profile) return null
 
+    console.log('profile.image', profile.image)
+
     return html`<div class="feed-header">
         <div class="feed-header-banner"></div>
         <div class="feed-header-content">
             <div class="user-info">
                 <div class="avatar">
-                    <img src="${profile.image ?
-                        html`<${Blob}
-                            blob=${({ link: profile.image })}
-                        />` :
+                    <img src="${(profile.image ?
+                        (PUB_URL + '/blob/' +
+                            encodeURIComponent(profile.image)) :
                         ('data:image/svg+xml;utf8,' +
                             generateFromString(profile.id))
-                    }" />
+                    )}" />
                 </div>
                 <div class="user-info-card">
                     <h2>${username}</h2>
