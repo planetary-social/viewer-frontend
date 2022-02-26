@@ -245,6 +245,9 @@ function Router (state) {
                     const username = profile.name
                     const userId = _userId
                     const profilesData = state().profiles
+
+                    console.log('**feed**', feed)
+
                     var newData = {}
                     newData[userId] = xtend(
                         ((profilesData || {})[userId]) || {},
