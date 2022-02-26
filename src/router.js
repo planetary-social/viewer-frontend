@@ -133,6 +133,7 @@ function Router (state) {
         if (msgId !== (state.message() || {}).id) {
             fetch(msgUrl)
                 .then(res => {
+                    console.log('response', res)
                     return res.ok ?
                         res.json() :
                         res.text()
