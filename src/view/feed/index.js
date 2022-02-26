@@ -35,8 +35,6 @@ function FeedHeader (props) {
 
     if (!profile) return null
 
-    console.log('profile.image', profile.image)
-
     return html`<div class="feed-header">
         <div class="feed-header-banner"></div>
         <div class="feed-header-content">

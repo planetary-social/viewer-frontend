@@ -200,7 +200,6 @@ function Replies (props) {
         ${replies.map(reply => {
             return html`<${Reply} reply=${reply} profiles=${profiles} />`
         })}
-
     </ul>`
 }
 
