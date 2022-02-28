@@ -7,9 +7,9 @@ function MsgList (props) {
 
     var [copied, setCopied] = useState(null)
 
-    function copyListener (userId) {
-        setCopied(userId)
-        navigator.clipboard.writeText(userId)
+    function copyListener (text) {
+        setCopied(text)
+        navigator.clipboard.writeText(text)
     }
 
     return html`<ul class="feed feed-content">

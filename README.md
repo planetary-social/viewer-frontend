@@ -26,7 +26,7 @@ npm start
 
 ### test with 'real' data, on a locally running pub
 
-First start the `planetary-pub` in a terminal:
+First start the `planetary-pub` in a terminal. From the planetary pub directory:
 ```bash
 NODE_ENV=staging-local node --max-old-space-size=512 index.js
 ```

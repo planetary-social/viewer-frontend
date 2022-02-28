@@ -160,6 +160,9 @@ function Router (state) {
                 })
                 .catch(err => {
                     console.log('errrrr', err)
+                    state.message.set({
+                        err: err
+                    })
                 })
         }
 
