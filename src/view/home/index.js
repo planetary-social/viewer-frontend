@@ -24,6 +24,11 @@ function HomeView (props) {
             />
             <${Sidebar} />
         </div>
+
+        <div class="pagination">
+            <a href="/">${'<- prev'}</a>
+            <a href="/">${'next ->'}</a>
+        </div>
     `
 }
 

@@ -1,0 +1,19 @@
+@use './variables' as v;
+
+.pagination {
+    margin-left: 4vw;
+    max-width: 660px;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+    margin-top: -1rem;
+
+    a {
+        color: v.$pText;
+        text-decoration: none;
+        &:hover {
+            color: white;
+            text-decoration: underline;
+        }
+    }
+}

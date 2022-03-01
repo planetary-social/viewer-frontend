@@ -9,6 +9,7 @@
 @use './modal';
 @use './z-index';
 @use './single-msg';
+@use './pagination';
 
 html {
     box-sizing: border-box;
@@ -29,7 +30,7 @@ body {
         font-family: 'Space Grotesk', sans-serif;
     }
 
-    a {
+    a.post_author_name {
         color: white;
     }
 
