@@ -63,6 +63,10 @@ ul.feed {
     .post_timestamp {
         font-weight: normal;
         color: #6C6085;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
     }
 
     &.is-thread {

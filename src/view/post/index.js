@@ -120,11 +120,11 @@ function Post (props) {
                     </span>
 
                     <div class="post_meta">
-                        <span class="post_timestamp">
+                        <a href="/msg/${encodeURIComponent(post.key)}" class="post_timestamp">
                             ${moment(post.value.timestamp)
                                 .format('dddd, MMMM Do YYYY, h:mm:ss a')
                             }
-                        </span>
+                        </a>
                     </div>
                 </div>
             </div>
