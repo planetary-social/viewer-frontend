@@ -21,6 +21,11 @@ function MsgList (props) {
                 />`
             })
         }
+
+        <li class="pagination">
+            <a href="/">${'<- prev'}</a>
+            <a href="/">${'next ->'}</a>
+        </li>
     </ul>`
 }
 

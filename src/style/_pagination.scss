@@ -1,12 +1,12 @@
 @use './variables' as v;
 
 .pagination {
-    margin-left: 4vw;
     max-width: 660px;
+    min-width: 660px;
     display: flex;
     justify-content: space-around;
+    margin: 0 auto;
     margin-bottom: 2rem;
-    margin-top: -1rem;
 
     a {
         color: v.$pText;
