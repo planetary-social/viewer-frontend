@@ -1,3 +1,5 @@
+@use './variables' as v;
+
 .markup {
     align-self: stretch;
     padding: 1.5rem;
@@ -30,7 +32,7 @@
         margin: 0;
         margin-bottom: 1em;
         text-align: left;
-        color: #c0bdc5;
+        color: v.$pText;
 
         img {
             margin: 1.5rem 0;
