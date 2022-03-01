@@ -254,11 +254,13 @@ function Reply (props) {
 
 
                     <div class="post_meta">
-                        <span class="post_timestamp">
+                        <a href="/msg/${encodeURIComponent(reply.key)}"
+                            class="post_timestamp"
+                        >
                             ${moment(reply.value.timestamp)
                                 .format('dddd, MMMM Do YYYY, h:mm:ss a')
                             }
-                        </span>
+                        </a>
                     </div>
                 </div>
 
