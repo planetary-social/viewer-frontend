@@ -248,7 +248,7 @@ function Reply (props) {
                 </a>
 
                 <div class="post-signature-wrap">
-                    <a href="/${reply.value.author}">
+                    <a class="post_author_name" href="/${reply.value.author}">
                         ${(profiles[reply.value.author] || {}).name}
                     </a>
 
