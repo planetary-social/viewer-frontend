@@ -22,6 +22,7 @@ function Placeholder () {
 }
 
 
+
 function Router (state) {
     var router = _router()
 
@@ -49,9 +50,6 @@ function Router (state) {
                 return byId
             })
     }
-
-
-
 
 
     var fetching = false
@@ -108,9 +106,6 @@ function Router (state) {
 
 
 
-
-
-
     router.addRoute('/?:query', ({ params }) => {
         var { query } = params
         console.log('query', query)
@@ -118,7 +113,7 @@ function Router (state) {
         console.log('q', q)
 
         if (!state.default().data && !fetching) {
-            fetchDefault()
+            fetchDefault(q.page)
                 .then(({ profiles, posts }) => {
                     state.profiles.set(
                         xtend((state.profiles() || {}), profiles)
@@ -131,9 +126,6 @@ function Router (state) {
         return { view: Home }
     })
     
-
-
-
 
     router.addRoute('/', () => {
         if (!state.default().data && !fetching) {
