@@ -11,6 +11,17 @@
     a {
         color: v.$pText;
         text-decoration: none;
+
+        &.disabled {
+            color: v.$muted;
+            cursor: not-allowed;
+            
+            &:hover {
+                color: v.$muted;
+                text-decoration: none;
+            }
+        }
+
         &:hover {
             color: white;
             text-decoration: underline;

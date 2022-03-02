@@ -1,6 +1,7 @@
 import { html } from 'htm/preact'
 import { useState } from 'preact/hooks'
 const Post = require('./post')
+const qs = require('query-string')
 
 function MsgList (props) {
     var { msgs, profiles, username } = props
@@ -10,6 +11,16 @@ function MsgList (props) {
     function copyListener (text) {
         setCopied(text)
         navigator.clipboard.writeText(text)
+    }
+
+    const params = qs.parse(window.location.search)
+    const { page } = params
+    var prev = page ? (parseInt(page) - 1) : false
+    console.log('**prev**', prev)
+
+    function disabledClick (ev) {
+        ev.preventDefault()
+        console.log('disabled click')
     }
 
     return html`<ul class="feed feed-content">
@@ -23,7 +34,14 @@ function MsgList (props) {
         }
 
         <li class="pagination">
-            <a href="/">${'<- prev'}</a>
+            <a
+                class="${prev ? '' : 'disabled'}"
+                href="${prev ? '/?page=' + prev : ''}"
+                onclick=${prev ? null : disabledClick}
+            >
+                ${'<- prev'}
+            </a>
+
             <a href="/">${'next ->'}</a>
         </li>
     </ul>`
