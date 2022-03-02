@@ -55,6 +55,7 @@
     "observ-struct": "^6.0.0",
     "preact": "^10.6.2",
     "preact-markdown": "^2.0.0",
+    "query-string": "^7.1.1",
     "remark": "~9.0.0",
     "remark-image-cid-to-url": "^0.0.8",
     "remark-parse": "^10.0.1",

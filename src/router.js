@@ -9,6 +9,7 @@ const isThread = require('./view/post/is-thread')
 // const _ = {
 //     find: require('lodash.find')
 // }
+const qs = require('query-string')
 
 if (process.env.NODE_ENV === 'test') {
     PUB_URL = 'http://localhost:8888'
@@ -48,6 +49,20 @@ function Router (state) {
                 return byId
             })
     }
+
+
+
+    router.addRoute('/?:query', ({ params }) => {
+        var { query } = params
+        console.log('query', query)
+        const q = qs.parse(query)
+        console.log('q', q)
+
+        return { view: Home }
+    })
+    
+
+
 
 
     router.addRoute('/', () => {
