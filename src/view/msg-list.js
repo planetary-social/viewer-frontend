@@ -16,6 +16,7 @@ function MsgList (props) {
     const params = qs.parse(window.location.search)
     const { page } = params
     var prev = page ? (parseInt(page) - 1) : false
+    var hasPrev = (typeof prev === 'number' && prev >= 0)
     console.log('**prev**', prev)
 
     function disabledClick (ev) {
@@ -35,14 +36,18 @@ function MsgList (props) {
 
         <li class="pagination">
             <a
-                class="${prev ? '' : 'disabled'}"
-                href="${prev ? '/?page=' + prev : ''}"
-                onclick=${prev ? null : disabledClick}
+                class="${hasPrev ? '' : 'disabled'}"
+                href="${prev ? ('/?page=' + prev) : '/'}"
+                onclick=${hasPrev ? null : disabledClick}
             >
                 ${'<- prev'}
             </a>
 
-            <a href="/">${'next ->'}</a>
+            <a
+                href="${'/?page=' + page + 1}"
+            >
+                ${'next ->'}
+            </a>
         </li>
     </ul>`
 }
