@@ -52,11 +52,81 @@ function Router (state) {
 
 
 
+
+
+    var fetching = false
+
+    function fetchDefault (page) {
+        var posts
+        fetching = true
+
+        // return fetch(PUB_URL + '/default')
+        return fetch(PUB_URL + '/default' + (page ? `?page=${page}` : ''))
+            .then(res => res.json())
+            // get the profiles for everyone in the response
+            .then(res => {
+                // console.log('res', res)
+                posts = (res || []).map(thread => {
+                    return thread.messages.length === 1 ?
+                        thread.messages[0] :
+                        thread.messages
+                })
+
+                // need a deduplicated list of user-IDs
+                var getThese = res
+                    // .map(msgs => msgs.length > 1 ? msgs : msgs[0])
+                    .reduce((acc, thread) => {
+                        return acc.concat(thread.messages)
+                    }, [])
+                    .map(msg => msg.value.author)
+                    // check if we already have it
+                    .filter(author => {
+                        return !((state.profiles() || {})[author])
+                    })
+                    // dedup
+                    .filter((id, i, arr) => arr.indexOf(id) === i)
+
+                return fetch(PUB_URL + '/get-profiles', {
+                    method: 'POST',
+                    mode: 'cors',
+                    body: JSON.stringify({ ids: getThese })
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        var byId = res.reduce((acc, val, i) => {
+                            acc[getThese[i]] = val
+                            return acc
+                        }, {})
+                        return byId
+                    })
+            })
+            .then(profiles => {
+                fetching = false
+                return { profiles, posts }
+            })
+    }
+
+
+
+
+
+
     router.addRoute('/?:query', ({ params }) => {
         var { query } = params
         console.log('query', query)
         const q = qs.parse(query)
         console.log('q', q)
+
+        if (!state.default().data && !fetching) {
+            fetchDefault()
+                .then(({ profiles, posts }) => {
+                    state.profiles.set(
+                        xtend((state.profiles() || {}), profiles)
+                    )
+                    state.default.data.set(posts)
+                })
+        }
+
 
         return { view: Home }
     })
@@ -66,57 +136,6 @@ function Router (state) {
 
 
     router.addRoute('/', () => {
-        var fetching = false
-
-        function fetchDefault () {
-            var posts
-            fetching = true
-
-            return fetch(PUB_URL + '/default')
-                .then(res => res.json())
-                // get the profiles for everyone in the response
-                .then(res => {
-                    // console.log('res', res)
-                    posts = (res || []).map(thread => {
-                        return thread.messages.length === 1 ?
-                            thread.messages[0] :
-                            thread.messages
-                    })
-
-                    // need a deduplicated list of user-IDs
-                    var getThese = res
-                        // .map(msgs => msgs.length > 1 ? msgs : msgs[0])
-                        .reduce((acc, thread) => {
-                            return acc.concat(thread.messages)
-                        }, [])
-                        .map(msg => msg.value.author)
-                        // check if we already have it
-                        .filter(author => {
-                            return !((state.profiles() || {})[author])
-                        })
-                        // dedup
-                        .filter((id, i, arr) => arr.indexOf(id) === i)
-
-                    return fetch(PUB_URL + '/get-profiles', {
-                        method: 'POST',
-                        mode: 'cors',
-                        body: JSON.stringify({ ids: getThese })
-                    })
-                        .then(res => res.json())
-                        .then(res => {
-                            var byId = res.reduce((acc, val, i) => {
-                                acc[getThese[i]] = val
-                                return acc
-                            }, {})
-                            return byId
-                        })
-                })
-                .then(profiles => {
-                    fetching = false
-                    return { profiles, posts }
-                })
-        }
-
         if (!state.default().data && !fetching) {
             fetchDefault()
                 .then(({ profiles, posts }) => {
