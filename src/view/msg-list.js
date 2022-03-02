@@ -17,11 +17,10 @@ function MsgList (props) {
     const { page } = params
     var prev = page ? (parseInt(page) - 1) : false
     var hasPrev = (typeof prev === 'number' && prev >= 0)
-    console.log('**prev**', prev)
+    var next = (parseInt(page) + 1) || 1
 
     function disabledClick (ev) {
         ev.preventDefault()
-        console.log('disabled click')
     }
 
     return html`<ul class="feed feed-content">
@@ -43,9 +42,7 @@ function MsgList (props) {
                 ${'<- prev'}
             </a>
 
-            <a
-                href="${'/?page=' + page + 1}"
-            >
+            <a href="${'/?page=' + next}">
                 ${'next ->'}
             </a>
         </li>
