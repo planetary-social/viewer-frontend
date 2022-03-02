@@ -112,6 +112,11 @@ function Router (state) {
         const q = qs.parse(query)
         console.log('q', q)
 
+        // need to look at this page, see if it is fetched yet
+        // could do it as an array
+        // state.default[0].data
+        // state.default[1].data
+
         if (!state.default().data && !fetching) {
             fetchDefault(q.page)
                 .then(({ profiles, posts }) => {
