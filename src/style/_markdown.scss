@@ -8,6 +8,15 @@
         font-weight: 400;
     }
 
+    a {
+        text-decoration: none;
+        color: v.$highlight;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
     h1 {font-size: 1.7rem;}
 
     h2 {font-size: 1.5rem;}
@@ -29,6 +38,7 @@
             width: 100%;
             display: block;
         }
+<<<<<<< Updated upstream
 
         a {
             text-decoration: none;
@@ -38,6 +48,8 @@
                 text-decoration: underline;
             }
         }
+=======
+>>>>>>> Stashed changes
     }
 
     pre {
