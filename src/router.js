@@ -200,7 +200,6 @@ function Router (state) {
 
         return { view: Feed }
     })
-    
 
     // get the profile route if we're given a URL encoded profile
     router.addRoute('/%40*', ({ splats }) => {
@@ -235,21 +234,16 @@ function Router (state) {
         return { view: Feed }
     })
 
-
-
-    router.addRoute('/\?:query', ({ params }) => {
-        return defaultPathQuery({ params })
-    })
-
     router.addRoute('/', () => {
         return defaultPathQuery({ params: {} })
     })
 
+    // get a url encoded message by ID
+    router.addRoute('/%25*', ({ splats }) => {
+        var encodedMsgId = '%25' + splats.join('')
 
-    router.addRoute('/msg/*', ({ splats }) => {
-        var msgId = splats.join('')
-
-        const msgUrl = (PUB_URL + '/msg/' + encodeURIComponent(msgId))
+        const msgUrl = (PUB_URL + '/msg/' + (encodedMsgId))
+        const msgId = decodeURIComponent(encodedMsgId)
 
         if (msgId !== (state.message() || {}).id) {
             fetch(msgUrl)
@@ -289,6 +283,14 @@ function Router (state) {
 
         return { view: SingleMessage }
     })
+
+
+
+
+    router.addRoute('/\?:query', ({ params }) => {
+        return defaultPathQuery({ params })
+    })
+
 
     router.addRoute('/tag/:tagName', ({ params }) => {
         var { tagName } = params

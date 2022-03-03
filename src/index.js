@@ -11,6 +11,9 @@ var router = Router(state)
 state(function onChange (newState) {
     var match = router.match(newState.routePath)
 
+    console.log('match', match)
+    console.log('calling', match.action(match))
+
     if (!match || !match.action) {
         console.log('not match')
         return render(html`<${ErrMsg} err=${({
