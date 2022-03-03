@@ -10,7 +10,7 @@ function PostMenu ({ msg, onCloseModal }) {
         ev.preventDefault()
         if (key === 'link') {
             var { host, protocol } = window.location
-            var msgLink = protocol + '//' + host + '/msg/' +
+            var msgLink = protocol + '//' + host + '/' +
                 (encodeURIComponent(msg.key))
             navigator.clipboard.writeText(msgLink)
                 .catch(err => console.log('err', err))
