@@ -202,7 +202,7 @@ function Router (state) {
     })
     
 
-    // try to get the profile route if we're given a URL encoded profile
+    // get the profile route if we're given a URL encoded profile
     router.addRoute('/%40*', ({ splats }) => {
         var encodedUserId = '%40' + splats.join('')
         var userId = decodeURIComponent(encodedUserId)
@@ -319,14 +319,6 @@ function Router (state) {
 
         return { view: Placeholder, getContent: getTagContent }
     })
-
-    // router.addRoute('%*', ({ splats }) => {
-    //     var encodedUserId = splats.join('')
-
-    // })
-
-
-
 
     router.addRoute('/feed/:username', ({ params }) => {
         var { username } = params
