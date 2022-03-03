@@ -11,6 +11,8 @@ var router = Router(state)
 state(function onChange (newState) {
     var match = router.match(newState.routePath)
 
+    // console.log('match', match)
+
     if (!match) {
         console.log('not match')
         return render(html`<${ErrMsg} err=${({
@@ -22,6 +24,8 @@ state(function onChange (newState) {
 
     var { params } = match
     var { view } = match.action(match)
+
+    // console.log('view', view)
 
     // re-render the app whenever the state changes
     render(html`<${loop} state=${newState}>

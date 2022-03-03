@@ -30,8 +30,13 @@ function State () {
         routePath: observ(null),
         profiles: observ(null),
         default: struct({
+            page: observ(0),
             data: observ(null)
         }),
+        // default: observ([{ data: null }]),
+        // default: struct({
+        //     data: observ(null)
+        // }),
         feed: struct({
             username: observ(null),
             data: observ(null),

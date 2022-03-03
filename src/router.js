@@ -6,10 +6,8 @@ var { PUB_URL } = require('./CONSTANTS')
 const xtend = require('xtend')
 const SingleMessage = require('./view/single-message')
 const isThread = require('./view/post/is-thread')
-// const _ = {
-//     find: require('lodash.find')
-// }
 const qs = require('query-string')
+const struct = require('observ-struct')
 
 if (process.env.NODE_ENV === 'test') {
     PUB_URL = 'http://localhost:8888'
@@ -105,45 +103,39 @@ function Router (state) {
     }
 
 
-
-    router.addRoute('/?:query', ({ params }) => {
-        var { query } = params
-        console.log('query', query)
+    function defaultPathQuery ({ params }) {
+        var query = params.query || '?page=0'
         const q = qs.parse(query)
-        console.log('q', q)
 
-        // need to look at this page, see if it is fetched yet
-        // could do it as an array
-        // state.default[0].data
-        // state.default[1].data
+        if (!q.page) return 
 
-        if (!state.default().data && !fetching) {
-            fetchDefault(q.page)
+        const i = parseInt(q.page || 0)
+        const pageOk = state.default.page() === i
+
+        if ((!state.default.data() || !pageOk) && !fetching) {
+            fetchDefault(i)
                 .then(({ profiles, posts }) => {
                     state.profiles.set(
                         xtend((state.profiles() || {}), profiles)
                     )
-                    state.default.data.set(posts)
+
+                    state.default.set({
+                        page: i,
+                        data: posts
+                    })
                 })
         }
 
-
         return { view: Home }
+    }
+
+    router.addRoute('/?:query', ({ params }) => {
+        return defaultPathQuery({ params })
     })
     
 
     router.addRoute('/', () => {
-        if (!state.default().data && !fetching) {
-            fetchDefault()
-                .then(({ profiles, posts }) => {
-                    state.profiles.set(
-                        xtend((state.profiles() || {}), profiles)
-                    )
-                    state.default.data.set(posts)
-                })
-        }
-
-        return { view: Home }
+        return defaultPathQuery({ params: {} })
     })
 
 
