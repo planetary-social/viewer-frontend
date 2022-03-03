@@ -22,7 +22,7 @@ const linkifySsbSigilFeeds = linkifyRegex(ref.feedIdRegex, node => {
 })
 
 const linkifySsbSigilMsgs = linkifyRegex(ref.msgIdRegex, node => {
-    return '/msg/' + encodeURIComponent(node)
+    return '/' + encodeURIComponent(node)
 })
 
 
@@ -120,7 +120,7 @@ function Post (props) {
                     </span>
 
                     <div class="post_meta">
-                        <a href="/msg/${encodeURIComponent(post.key)}" class="post_timestamp">
+                        <a href="/${encodeURIComponent(post.key)}" class="post_timestamp">
                             ${moment(post.value.timestamp)
                                 .format('dddd, MMMM Do YYYY, h:mm:ss a')
                             }
@@ -254,7 +254,7 @@ function Reply (props) {
 
 
                     <div class="post_meta">
-                        <a href="/msg/${encodeURIComponent(reply.key)}"
+                        <a href="/${encodeURIComponent(reply.key)}"
                             class="post_timestamp"
                         >
                             ${moment(reply.value.timestamp)
