@@ -7,7 +7,7 @@ const xtend = require('xtend')
 const SingleMessage = require('./view/single-message')
 const isThread = require('./view/post/is-thread')
 const qs = require('query-string')
-const struct = require('observ-struct')
+// const struct = require('observ-struct')
 
 if (process.env.NODE_ENV === 'test') {
     PUB_URL = 'http://localhost:8888'
@@ -135,8 +135,6 @@ function Router (state) {
         var userId = splats.join('')
         var _userId = '@' + userId
 
-        console.log('in here')
-
         var shouldFetch = (_userId != state().feed.id)
 
         if (shouldFetch) {
@@ -202,6 +200,42 @@ function Router (state) {
 
         return { view: Feed }
     })
+    
+
+    // try to get the profile route if we're given a URL encoded profile
+    router.addRoute('/%40*', ({ splats }) => {
+        var encodedUserId = '%40' + splats.join('')
+        var userId = decodeURIComponent(encodedUserId)
+
+        var shouldFetch = (userId != state().feed.id)
+
+        if (!shouldFetch) return { view: Feed }
+
+
+        getProfileRoute(encodedUserId)
+            .then(([feed, counts, profile]) => {
+                const profilesData = state().profiles
+                var newData = {}
+                newData[userId] = xtend(
+                    ((profilesData || {})[userId]) || {},
+                    profile,
+                    { counts: counts }
+                )
+                state.profiles.set(xtend(profilesData || {}, newData))
+                const username = profile.name
+
+                state.feed.set({
+                    username: username,
+                    id: userId,
+                    data: feed,
+                    // hashtag: params.tagName
+                })
+            })
+
+        return { view: Feed }
+    })
+
+
 
     router.addRoute('/\?:query', ({ params }) => {
         return defaultPathQuery({ params })
@@ -210,15 +244,6 @@ function Router (state) {
     router.addRoute('/', () => {
         return defaultPathQuery({ params: {} })
     })
-
-
-    // this one doesn't work
-    // router.addRoute('/%*', ({ splats }) => {
-    //     // var { msgId } = params
-    //     var msgId = '%' + splats.join('')
-    //     console.log('msg id', msgId)
-    //     return { view: SingleMessage }
-    // })
 
 
     router.addRoute('/msg/*', ({ splats }) => {
@@ -391,7 +416,6 @@ function getProfileRoute (encodedUserId) {
 
         fetch(profileUrl)
             .then(res => {
-                console.log('profile res', res)
                 return res.ok ? res.json() : res.text()
             })
         ])
