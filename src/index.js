@@ -11,9 +11,7 @@ var router = Router(state)
 state(function onChange (newState) {
     var match = router.match(newState.routePath)
 
-    // console.log('match', match)
-
-    if (!match) {
+    if (!match || !match.action) {
         console.log('not match')
         return render(html`<${ErrMsg} err=${({
             statusCode: 404,
@@ -23,9 +21,14 @@ state(function onChange (newState) {
     }
 
     var { params } = match
-    var { view } = match.action(match)
-
-    // console.log('view', view)
+    var view = (match.action(match) || {}).view
+    if (!view) {
+        return render(html`<${ErrMsg} err=${({
+            statusCode: 404,
+            error: 'Not Found',
+            message: 'That path does not exist'
+        })} />`, document.getElementById('content'))
+    }
 
     // re-render the app whenever the state changes
     render(html`<${loop} state=${newState}>

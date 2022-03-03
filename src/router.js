@@ -129,10 +129,83 @@ function Router (state) {
         return { view: Home }
     }
 
-    router.addRoute('/?:query', ({ params }) => {
+    // here -- need to be sure we have fetched all profiles of the *replies*
+    // to user's messages
+    router.addRoute('/@*', ({ splats }) => {
+        var userId = splats.join('')
+        var _userId = '@' + userId
+
+        console.log('in here')
+
+        var shouldFetch = (_userId != state().feed.id)
+
+        if (shouldFetch) {
+            getProfileRoute(encodeURIComponent(_userId))
+                .then(([feed, counts, profile]) => {
+                    const username = profile.name
+                    const userId = _userId
+                    const profilesData = state().profiles
+
+                    var newData = {}
+                    newData[userId] = xtend(
+                        ((profilesData || {})[userId]) || {},
+                        profile,
+                        { counts: counts }
+                    )
+
+                    state.profiles.set(xtend(profilesData || {}, newData))
+
+                    state.feed.set({
+                        username: username,
+                        id: _userId,
+                        data: feed,
+                        // hashtag: params.tagName
+                    })
+
+                    // also fetch the profiles of replies
+                    var replyAuthors = feed.map(msg => {
+                        return isThread(msg) ? msg : null
+                    })
+                        .filter(Boolean)
+                        // now there is an array of arrays
+                        .flat()
+                        // array of IDs
+                        .map(msg => msg.value.author)
+                    
+                    // need to dedup with the existing state().profiles
+                    var deduped = replyAuthors
+                        .map(auth => state.profiles()[auth] ? null : auth)
+                        .filter(Boolean)
+
+                    fetch(PUB_URL + '/get-profiles', {
+                        method: 'POST',
+                        mode: 'cors',
+                        body: JSON.stringify({ ids: deduped })
+                    })
+                        .then(res => {
+                            if (!res.ok) {
+                                return res.text().then(t => {
+                                    conosle.log('oh no', t)
+                                })
+                            }
+                            return res.json()
+                        })
+                        .then(res => {
+                            var byId = res.reduce((acc, profile) => {
+                                acc[profile.id] = profile
+                                return acc
+                            }, {})
+                            state.profiles.set(xtend(state.profiles(), byId))
+                        })
+                })
+        }
+
+        return { view: Feed }
+    })
+
+    router.addRoute('/\?:query', ({ params }) => {
         return defaultPathQuery({ params })
     })
-    
 
     router.addRoute('/', () => {
         return defaultPathQuery({ params: {} })
@@ -222,116 +295,12 @@ function Router (state) {
         return { view: Placeholder, getContent: getTagContent }
     })
 
+    // router.addRoute('%*', ({ splats }) => {
+    //     var encodedUserId = splats.join('')
 
-    // here -- need to be sure we have fetched all profiles of the *replies*
-    // to user's messages
-    router.addRoute('/@*', ({ splats }) => {
-        var userId = splats.join('')
-        var _userId = '@' + userId
-
-        const countsUrl = (PUB_URL + '/counts-by-id/' +
-            encodeURIComponent(_userId))
-        const profileUrl = (PUB_URL + '/profile-by-id/' +
-            encodeURIComponent(_userId))
-
-        function getFeed () {
-            return Promise.all([
-                fetch(PUB_URL + '/feed-by-id/' + encodeURIComponent(_userId))
-                    .then(res => {
-                        if (!res.ok) {
-                            console.log('response not ok')
-                            return res.text().then(text => {
-                                console.log('not ok text', text)
-                                return text
-                            })
-                        }
-
-                        return res.json()
-                    }),
-
-                // TODO -- should check if we have this already, only
-                // fetch if we don't
-                fetch(countsUrl)
-                    .then(res => {
-                        return res.ok ? res.json() : res.text()
-                    }),
-
-                fetch(profileUrl)
-                    .then(res => {
-                        console.log('profile res', res)
-                        return res.ok ? res.json() : res.text()
-                    })
-            ])
-        }
-
-        var shouldFetch = (_userId != state().feed.id)
-
-        if (shouldFetch) {
-            getFeed()
-                .then(([feed, counts, profile]) => {
-                    const username = profile.name
-                    const userId = _userId
-                    const profilesData = state().profiles
-
-                    console.log('**feed**', feed)
-
-                    var newData = {}
-                    newData[userId] = xtend(
-                        ((profilesData || {})[userId]) || {},
-                        profile,
-                        { counts: counts }
-                    )
-
-                    state.profiles.set(xtend(profilesData || {}, newData))
-
-                    state.feed.set({
-                        username: username,
-                        id: _userId,
-                        data: feed,
-                        // hashtag: params.tagName
-                    })
-
-                    // also fetch the profiles of replies
-                    var replyAuthors = feed.map(msg => {
-                        return isThread(msg) ? msg : null
-                    })
-                        .filter(Boolean)
-                        // now there is an array of arrays
-                        .flat()
-                        // array of IDs
-                        .map(msg => msg.value.author)
-                    
-                    // need to dedup with the existing state().profiles
-                    var deduped = replyAuthors
-                        .map(auth => state.profiles()[auth] ? null : auth)
-                        .filter(Boolean)
-
-                    fetch(PUB_URL + '/get-profiles', {
-                        method: 'POST',
-                        mode: 'cors',
-                        body: JSON.stringify({ ids: deduped })
-                    })
-                        .then(res => {
-                            if (!res.ok) {
-                                return res.text().then(t => {
-                                    conosle.log('oh no', t)
-                                })
-                            }
-                            return res.json()
-                        })
-                        .then(res => {
-                            var byId = res.reduce((acc, profile) => {
-                                acc[profile.id] = profile
-                                return acc
-                            }, {})
-                            state.profiles.set(xtend(state.profiles(), byId))
-                        })
-                })
-        }
+    // })
 
 
-        return { view: Feed }
-    })
 
 
     router.addRoute('/feed/:username', ({ params }) => {
@@ -392,3 +361,38 @@ function Router (state) {
 }
 
 module.exports = Router
+
+
+function getProfileRoute (encodedUserId) {
+    const countsUrl = (PUB_URL + '/counts-by-id/' + encodedUserId)
+    const profileUrl = (PUB_URL + '/profile-by-id/' + encodedUserId)
+    const feedUrl = (PUB_URL + '/feed-by-id/' + encodedUserId)
+
+    return Promise.all([
+        fetch(feedUrl)
+            .then(res => {
+                if (!res.ok) {
+                    console.log('response not ok')
+                    return res.text().then(text => {
+                        console.log('not ok text', text)
+                        return text
+                    })
+                }
+
+                return res.json()
+            }),
+
+        // TODO -- should check if we have this already, only
+        // fetch if we don't
+        fetch(countsUrl)
+            .then(res => {
+                return res.ok ? res.json() : res.text()
+            }),
+
+        fetch(profileUrl)
+            .then(res => {
+                console.log('profile res', res)
+                return res.ok ? res.json() : res.text()
+            })
+        ])
+}
