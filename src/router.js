@@ -210,7 +210,6 @@ function Router (state) {
 
         if (!shouldFetch) return { view: Feed }
 
-
         getProfileRoute(encodedUserId)
             .then(([feed, counts, profile]) => {
                 const profilesData = state().profiles
@@ -238,7 +237,7 @@ function Router (state) {
         return defaultPathQuery({ params: {} })
     })
 
-    // get a url encoded message by ID
+    // get a url-encoded message by ID
     router.addRoute('/%25*', ({ splats }) => {
         var encodedMsgId = '%25' + splats.join('')
 
