@@ -1,6 +1,6 @@
 import { html } from 'htm/preact'
 import { generateFromString } from 'generate-avatar'
-var Blob = require('../blob')
+// var Blob = require('../blob')
 var { PUB_URL } = require('../../CONSTANTS')
 if (process.env.NODE_ENV === 'test') {
     PUB_URL = 'http://0.0.0.0:8888'
