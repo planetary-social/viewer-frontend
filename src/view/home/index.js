@@ -2,8 +2,12 @@ import { html } from 'htm/preact'
 var HeadPart = require('../head-part')
 var MsgList = require('../msg-list')
 var Sidebar = require('../sidebar')
+const qs = require('query-string')
 
 function HomeView (props) {
+    // find the index for the page
+    const q = qs.parse(window.location.search)
+    const i = parseInt(q.page) || 0
     if (!props.default.data) return null
 
     return html`

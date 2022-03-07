@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/planetary-social/viewer-frontend#readme",
   "devDependencies": {
-    "@planetary-ssb/pub": "^0.2.52",
+    "@planetary-ssb/pub": "^0.2.53",
     "browserify": "^17.0.0",
     "budo": "^11.6.4",
     "concurrently": "^6.4.0",
@@ -55,6 +55,7 @@
     "observ-struct": "^6.0.0",
     "preact": "^10.6.2",
     "preact-markdown": "^2.0.0",
+    "query-string": "^7.1.1",
     "remark": "~9.0.0",
     "remark-image-cid-to-url": "^0.0.8",
     "remark-parse": "^10.0.1",
