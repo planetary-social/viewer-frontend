@@ -239,9 +239,11 @@ function Router (state) {
 
     // get a url-encoded message by ID
     router.addRoute('/%25*', ({ splats }) => {
-        var encodedMsgId = '%25' + splats.join('')
+        // i think the browser automatically decodes the URI
+        // or somewhere in the stack it is decoded before here
+        var encodedMsgId = '%25' + encodeURIComponent(splats.join(''))
 
-        const msgUrl = (PUB_URL + '/msg/' + (encodedMsgId))
+        const msgUrl = (PUB_URL + '/msg/' + encodedMsgId)
         const msgId = decodeURIComponent(encodedMsgId)
 
         if (msgId !== (state.message() || {}).id) {
@@ -252,7 +254,7 @@ function Router (state) {
                         res.text()
                 })
                 .then(res => {
-                    console.log('response', res)
+                    console.log('**response**', res)
                     // is error?
                     if (typeof res === 'string') {
                         state.message.set({ err: JSON.parse(res), id: msgId })
