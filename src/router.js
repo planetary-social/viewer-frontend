@@ -247,12 +247,12 @@ function Router (state) {
         if (msgId !== (state.message() || {}).id) {
             fetch(msgUrl)
                 .then(res => {
-                    console.log('response', res)
                     return res.ok ?
                         res.json() :
                         res.text()
                 })
                 .then(res => {
+                    console.log('response', res)
                     // is error?
                     if (typeof res === 'string') {
                         state.message.set({ err: JSON.parse(res), id: msgId })
