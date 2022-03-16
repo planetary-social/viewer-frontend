@@ -29,9 +29,13 @@ state(function onChange (newState) {
             message: 'That path does not exist'
         })} />`, document.getElementById('content'))
     }
-
+    
+    window.scrollTo({ top: 0 });
+    
     // re-render the app whenever the state changes
     render(html`<${loop} state=${newState}>
         <${view} ...${params} ...${newState} emit=${emit} />
     <//>`, document.getElementById('content'))
+
+
 })
