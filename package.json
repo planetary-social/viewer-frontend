@@ -14,7 +14,7 @@
     "lint": "eslint .",
     "preversion": "npm run lint",
     "serve": "env $(cat .env | grep -v \"#\" | xargs) budo src/index.js:bundle.js --cors --pushstate [ --disallow \"\\.ed25519|\\.sha256\" ] --dir=public --live --open -- -t envify -p esmify --debug",
-    "test": "browserify -p esmify test/*.js | tape-run | tap-spec"
+    "test": "browserify -p esmify test/*.js | tape-run | tap-arc"
   },
   "repository": {
     "type": "git",
@@ -26,22 +26,6 @@
     "url": "https://github.com/planetary-social/viewer-frontend/issues"
   },
   "homepage": "https://github.com/planetary-social/viewer-frontend#readme",
-  "devDependencies": {
-    "@planetary-ssb/pub": "^0.2.54",
-    "browserify": "^17.0.0",
-    "budo": "^11.6.4",
-    "concurrently": "^6.4.0",
-    "envify": "^4.1.0",
-    "eslint": "^8.4.1",
-    "eslint-config-planetary-ssb": "^1.0.2",
-    "esmify": "^2.1.1",
-    "preact-render-to-string": "^5.1.19",
-    "sass": "^1.44.0",
-    "tap-spec": "^5.0.0",
-    "tape": "^5.5.0",
-    "tape-run": "^9.0.0",
-    "uglifyify": "^5.0.2"
-  },
   "dependencies": {
     "@nichoth/events": "^1.1.2",
     "@planetary-ssb/remark-linkify-regex": "^0.0.0",
@@ -53,18 +37,34 @@
     "normalize.css": "^8.0.1",
     "observ": "^0.2.0",
     "observ-struct": "^6.0.0",
-    "preact": "^10.6.2",
+    "preact": "^10.11.0",
     "preact-markdown": "^2.0.0",
     "query-string": "^7.1.1",
     "remark": "~9.0.0",
-    "remark-image-cid-to-url": "^0.0.8",
+    "remark-image-cid-to-url": "^0.0.9",
     "remark-parse": "^10.0.1",
-    "route-event": "^3.1.0",
+    "route-event": "^3.2.1",
     "ruta3": "^2.0.1",
     "ssb-markdown": "^6.0.7",
     "ssb-ref": "^2.16.0",
     "ssb-serve-blobs": ">=2.1.0",
     "unified": "^10.1.1",
     "xtend": "^4.0.2"
+  },
+  "devDependencies": {
+    "@planetary-ssb/pub": "^0.2.54",
+    "browserify": "^17.0.0",
+    "budo": "^11.8.4",
+    "concurrently": "^6.4.0",
+    "envify": "^4.1.0",
+    "eslint": "^8.23.1",
+    "eslint-config-planetary-ssb": "^1.0.2",
+    "esmify": "^2.1.1",
+    "preact-render-to-string": "^5.2.4",
+    "sass": "^1.54.9",
+    "tap-arc": "^0.3.5",
+    "tape": "^5.6.0",
+    "tape-run": "^9.0.0",
+    "uglifyify": "^5.0.2"
   }
 }
