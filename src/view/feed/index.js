@@ -2,9 +2,7 @@ import { html } from 'htm/preact'
 import { generateFromString } from 'generate-avatar'
 // var Blob = require('../blob')
 var { PUB_URL } = require('../../CONSTANTS')
-if (process.env.NODE_ENV === 'test') {
-    PUB_URL = 'http://0.0.0.0:8888'
-}
+
 var HeadPart = require('../head-part')
 var MsgList = require('../msg-list')
 var Sidebar = require('../sidebar')
