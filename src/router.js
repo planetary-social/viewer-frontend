@@ -9,10 +9,6 @@ const isThread = require('./view/post/is-thread')
 const qs = require('query-string')
 // const struct = require('observ-struct')
 
-if (process.env.NODE_ENV === 'test') {
-    PUB_URL = 'http://localhost:8888'
-}
-
 console.log('**node env**', process.env.NODE_ENV)
 
 function Placeholder () {
@@ -183,7 +179,7 @@ function Router (state) {
                         .then(res => {
                             if (!res.ok) {
                                 return res.text().then(t => {
-                                    conosle.log('oh no', t)
+                                    console.log('oh no', t)
                                 })
                             }
                             return res.json()
@@ -413,5 +409,5 @@ function getProfileRoute (encodedUserId) {
             .then(res => {
                 return res.ok ? res.json() : res.text()
             })
-        ])
+    ])
 }
